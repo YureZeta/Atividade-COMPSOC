@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forca Educativa — Viés Algorítmico</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#edf2ff;background:#0d1326}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#273d70,#0d1326 65%);padding:24px 12px}.wrap{max-width:820px;margin:auto}.top{text-align:center}h1{font-size:clamp(1.7rem,5vw,2.7rem);margin:10px 0}p{line-height:1.55}.sub{color:#c4d2ee}.panel{background:#182541;border:1px solid #3d5279;border-radius:22px;padding:22px;margin:20px 0;box-shadow:0 14px 36px #0004}.stats{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;font-weight:700}.tag{background:#263b60;border-radius:40px;padding:8px 13px}.hint{background:#25375b;padding:14px;border-radius:12px;margin:20px 0}.game{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center}svg{width:100%;max-height:220px}.part{visibility:hidden;stroke:#ffb86b;stroke-width:5;fill:none;stroke-linecap:round}.word{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:24px 0}.letter{border-bottom:3px solid #91b6ff;min-width:23px;height:39px;text-align:center;font-size:1.5rem;font-weight:800}.space{border:0;min-width:13px}.keyboard{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}.key{width:43px;height:43px;border:1px solid #688bc1;border-radius:10px;background:#29456f;color:white;font-weight:800;cursor:pointer;font-size:1rem}.key:hover:not(:disabled){background:#426da6}.key:disabled{opacity:.42;cursor:default}.key.good{background:#23745e}.key.bad{background:#8e3449}.message{min-height:48px;text-align:center;font-weight:750;font-size:1.1rem}.explanation{display:none;background:#1f3c52;border-left:4px solid #61d9ad;padding:15px;border-radius:10px;margin:12px 0}.actions{text-align:center}.primary{background:#6fe1b3;color:#0c2430;border:0;border-radius:12px;padding:12px 24px;font-size:1rem;font-weight:800;cursor:pointer}.primary:disabled{opacity:.45;cursor:default}.primary:hover:not(:disabled){background:#a4f5d3}.foot{text-align:center;color:#a8b9d5;font-size:.88rem;margin:25px 0}@media(max-width:560px){.game{grid-template-columns:1fr}.drawing{max-width:160px;margin:auto}.panel{padding:15px}.key{width:37px;height:40px}.letter{min-width:19px;font-size:1.25rem}}
+</style>
+</head>
+<body><main class="wrap"><header class="top"><div>🧠 EDUCAÇÃO DIGITAL</div><h1>Forca do Viés Algorítmico</h1><p class="sub">Descubra palavras importantes para entender como a tecnologia pode reproduzir preconceitos.</p></header>
+<section class="panel"><div class="stats"><span class="tag" id="round">Rodada 1</span><span class="tag" id="errors">Erros: 0/5</span><span class="tag" id="score">Pontos: 0</span></div><div class="hint"><strong>💡 Dica:</strong> <span id="hint"></span></div><div class="game"><svg class="drawing" viewBox="0 0 180 210" role="img" aria-label="Desenho da forca"><g stroke="#9eb7dd" stroke-width="5" fill="none" stroke-linecap="round"><path d="M20 198 H150 M55 198 V16 H117 V37"/></g><g class="part"><circle cx="117" cy="56" r="19"/></g><g class="part"><path d="M117 75 V125"/></g><g class="part"><path d="M117 88 L89 110"/></g><g class="part"><path d="M117 88 L145 110"/></g><g class="part"><path d="M117 125 L94 163 M117 125 L140 163"/></g></svg><div><div id="word" class="word" aria-label="Palavra a descobrir"></div><div id="message" class="message" aria-live="polite">Escolha uma letra para começar!</div></div></div><div id="keyboard" class="keyboard" aria-label="Teclado de letras"></div><div id="explanation" class="explanation"></div><div class="actions" style="margin-top:20px"><button class="primary" id="next">Próxima palavra →</button></div></section><p class="foot">100 palavras diferentes • 5 erros encerram o jogo • Funciona offline • Use o teclado físico ou toque nas letras</p></main>
+<script>
+const questions=[
+{word:'ALGORITMO',hint:'Conjunto de instruções que um sistema segue para resolver um problema ou tomar decisões.',explanation:'Algoritmos podem influenciar recomendações, seleções e classificações. Seus resultados dependem das regras e dos dados usados.'},
+{word:'VIES',hint:'Tendência sistemática que pode favorecer alguns grupos e prejudicar outros.',explanation:'O viés algorítmico pode surgir de dados históricos, escolhas de projeto ou formas de avaliação. A palavra “viés” tem acento, mas aqui jogamos sem acentos.'},
+{word:'RACISMO',hint:'Discriminação racial que também pode ser reproduzida por sistemas automatizados.',explanation:'Um sistema de reconhecimento facial, por exemplo, pode apresentar taxas de erro diferentes entre grupos raciais.'},
+{word:'DADOS',hint:'Informações usadas para treinar e avaliar modelos de inteligência artificial.',explanation:'Dados pouco representativos ou marcados por desigualdades históricas podem contribuir para resultados injustos.'},
+{word:'EQUIDADE',hint:'Princípio de justiça que considera diferenças de condições e necessidades.',explanation:'Buscar equidade na tecnologia significa investigar impactos desiguais e reduzir barreiras e discriminações.'},
+{word:'INCLUSAO',hint:'Prática de garantir que diferentes pessoas possam participar e se beneficiar da tecnologia.',explanation:'Projetos inclusivos consideram acessibilidade e diferentes realidades sociais desde o início.'},
+{word:'TRANSPARENCIA',hint:'Qualidade de um sistema que permite compreender suas decisões e critérios.',explanation:'Transparência ajuda pessoas a questionar decisões automatizadas e a identificar possíveis injustiças.'},
+{word:'DISCRIMINACAO',hint:'Tratamento injusto de pessoas com base em características ou pertencimento a grupos.',explanation:'A discriminação algorítmica ocorre quando sistemas produzem ou reforçam desvantagens injustas para determinados grupos.'},
+{word:'DIVERSIDADE',hint:'Presença de diferentes perspectivas, experiências e grupos sociais.',explanation:'Equipes e conjuntos de dados diversos podem ajudar a identificar pontos cegos, embora isso não elimine automaticamente o viés.'},
+{word:'AUDITORIA',hint:'Processo de examinar e testar um sistema para identificar problemas e riscos.',explanation:'Auditorias podem comparar resultados entre grupos e verificar se sistemas estão funcionando de maneira justa.'},
+{word:'PRIVACIDADE',hint:'Direito de controlar e proteger informações pessoais.',explanation:'A coleta de dados para sistemas de IA deve respeitar a privacidade e evitar usos discriminatórios.'},
+{word:'REPRESENTATIVIDADE',hint:'Característica de dados ou equipes que refletem adequadamente a variedade de pessoas afetadas.',explanation:'A falta de representatividade pode fazer com que modelos funcionem pior para certos grupos.'},
+{"word": "ACESSIBILIDADE", "hint": "Condição que permite que pessoas com deficiência utilizem tecnologias.", "explanation": "Sistemas acessíveis consideram diferentes necessidades de interação."},
+{"word": "JUSTICA", "hint": "Princípio de tratar pessoas de maneira justa.", "explanation": "Avaliar justiça exige observar quem é beneficiado ou prejudicado."},
+{"word": "ETICA", "hint": "Reflexão sobre o que é correto e responsável.", "explanation": "A ética ajuda a orientar escolhas no desenvolvimento de IA."},
+{"word": "RESPONSABILIDADE", "hint": "Dever de responder pelas consequências de decisões.", "explanation": "Empresas e instituições devem responder pelos efeitos de seus sistemas."},
+{"word": "EXPLICABILIDADE", "hint": "Capacidade de apresentar razões compreensíveis para resultados.", "explanation": "Explicações podem ajudar a contestar decisões automatizadas."},
+{"word": "INTERPRETABILIDADE", "hint": "Facilidade de compreender o funcionamento de um modelo.", "explanation": "Modelos interpretáveis podem facilitar investigações de erros."},
+{"word": "AUTOMACAO", "hint": "Uso de sistemas para realizar tarefas com pouca intervenção humana.", "explanation": "Automatizar decisões não elimina a responsabilidade humana."},
+{"word": "APRENDIZADO", "hint": "Processo pelo qual um modelo identifica padrões em exemplos.", "explanation": "Modelos podem aprender padrões discriminatórios presentes nos dados."},
+{"word": "TREINAMENTO", "hint": "Etapa em que um modelo aprende com exemplos.", "explanation": "Dados e escolhas de treinamento afetam resultados."},
+{"word": "AMOSTRAGEM", "hint": "Seleção de exemplos para formar um conjunto de dados.", "explanation": "Amostras desequilibradas podem excluir experiências importantes."},
+{"word": "ROTULAGEM", "hint": "Atribuição de categorias aos dados.", "explanation": "Rótulos imprecisos podem transmitir preconceitos ao modelo."},
+{"word": "CLASSIFICACAO", "hint": "Ato de separar elementos em categorias.", "explanation": "Classificadores podem cometer erros diferentes entre grupos."},
+{"word": "PREVISAO", "hint": "Estimativa feita a partir de padrões anteriores.", "explanation": "Previsões não são certezas e podem reproduzir desigualdades."},
+{"word": "RECOMENDACAO", "hint": "Sugestão automática de conteúdo ou produto.", "explanation": "Recomendações influenciam o que as pessoas veem."},
+{"word": "PERSONALIZACAO", "hint": "Adaptação de resultados ao perfil de alguém.", "explanation": "Personalizar pode criar experiências úteis ou reforçar estereótipos."},
+{"word": "PERFILAMENTO", "hint": "Criação de perfis a partir de dados sobre pessoas.", "explanation": "Perfis podem levar a tratamentos injustos."},
+{"word": "VIGILANCIA", "hint": "Monitoramento de comportamentos e atividades.", "explanation": "Vigilância excessiva pode afetar direitos e liberdades."},
+{"word": "RECONHECIMENTO", "hint": "Identificação de padrões em imagens ou sinais.", "explanation": "Sistemas de reconhecimento precisam ser testados entre diferentes grupos."},
+{"word": "BIOMETRIA", "hint": "Uso de características físicas ou comportamentais para identificação.", "explanation": "Dados biométricos exigem proteção especial."},
+{"word": "IDENTIDADE", "hint": "Conjunto de características que identificam alguém.", "explanation": "Inferir identidades automaticamente pode causar danos."},
+{"word": "ESTEREOTIPO", "hint": "Ideia simplificada sobre um grupo de pessoas.", "explanation": "Estereótipos podem aparecer em dados e respostas de IA."},
+{"word": "PRECONCEITO", "hint": "Julgamento antecipado sobre pessoas ou grupos.", "explanation": "Tecnologias podem reproduzir preconceitos humanos."},
+{"word": "DESIGUALDADE", "hint": "Diferença injusta de oportunidades ou condições.", "explanation": "Dados históricos podem refletir desigualdades sociais."},
+{"word": "EXCLUSAO", "hint": "Afastamento de pessoas de serviços ou oportunidades.", "explanation": "Sistemas mal projetados podem ampliar a exclusão."},
+{"word": "SEGREGACAO", "hint": "Separação de grupos sociais em espaços ou oportunidades.", "explanation": "Decisões automatizadas podem reforçar segregações."},
+{"word": "MARGINALIZACAO", "hint": "Processo de deixar grupos à margem da sociedade.", "explanation": "Tecnologias devem considerar pessoas historicamente marginalizadas."},
+{"word": "OPRESSAO", "hint": "Relação de poder que limita direitos e oportunidades.", "explanation": "Sistemas podem reforçar estruturas de opressão."},
+{"word": "INTERSECCIONALIDADE", "hint": "Análise de como diferentes formas de desigualdade se cruzam.", "explanation": "Uma pessoa pode sofrer impactos combinados de vários vieses."},
+{"word": "GENERO", "hint": "Categoria social ligada a identidades e papéis.", "explanation": "Sistemas podem apresentar diferenças injustas entre gêneros."},
+{"word": "IDADE", "hint": "Tempo de vida de uma pessoa.", "explanation": "Ferramentas automatizadas não devem discriminar por idade."},
+{"word": "DEFICIENCIA", "hint": "Condição que pode envolver barreiras de acesso.", "explanation": "A falta de acessibilidade exclui pessoas com deficiência."},
+{"word": "TERRITORIO", "hint": "Espaço geográfico vivido por uma comunidade.", "explanation": "Localização pode funcionar como indicador indireto de desigualdade."},
+{"word": "RENDA", "hint": "Recursos financeiros recebidos por alguém.", "explanation": "Usar renda sem cuidado pode reforçar exclusões."},
+{"word": "CLASSE", "hint": "Posição social ou econômica de um grupo.", "explanation": "Diferenças de classe influenciam acesso à tecnologia."},
+{"word": "EDUCACAO", "hint": "Processo de aprendizagem e formação.", "explanation": "Tecnologia educacional deve atender estudantes diversos."},
+{"word": "SAUDE", "hint": "Área relacionada ao bem-estar e ao cuidado.", "explanation": "Modelos na saúde precisam ser avaliados quanto a erros desiguais."},
+{"word": "EMPREGO", "hint": "Ocupação profissional remunerada.", "explanation": "Filtros automáticos de currículos podem gerar discriminação."},
+{"word": "CREDITO", "hint": "Possibilidade de obter recursos financeiros emprestados.", "explanation": "Pontuações de crédito podem prejudicar grupos injustamente."},
+{"word": "MORADIA", "hint": "Lugar onde alguém vive.", "explanation": "Sistemas de seleção habitacional precisam evitar discriminação."},
+{"word": "SEGURANCA", "hint": "Condição de proteção contra riscos.", "explanation": "Segurança tecnológica inclui prevenir danos sociais."},
+{"word": "CIDADANIA", "hint": "Conjunto de direitos e deveres na sociedade.", "explanation": "A cidadania digital exige acesso e proteção de direitos."},
+{"word": "DIREITOS", "hint": "Garantias fundamentais das pessoas.", "explanation": "Decisões algorítmicas devem respeitar direitos."},
+{"word": "DIGNIDADE", "hint": "Valor inerente a toda pessoa.", "explanation": "Pessoas não devem ser reduzidas a pontuações automáticas."},
+{"word": "AUTONOMIA", "hint": "Capacidade de tomar decisões próprias.", "explanation": "Usuários devem ter escolhas informadas sobre sistemas."},
+{"word": "CONSENTIMENTO", "hint": "Autorização livre e informada para determinado uso.", "explanation": "O tratamento de dados requer bases legais apropriadas."},
+{"word": "PROTECAO", "hint": "Ação de evitar danos e preservar direitos.", "explanation": "Proteger dados reduz riscos de abusos."},
+{"word": "GOVERNANCA", "hint": "Regras e processos para dirigir e fiscalizar sistemas.", "explanation": "Boa governança define responsáveis e controles."},
+{"word": "REGULACAO", "hint": "Criação de regras para orientar atividades.", "explanation": "Normas podem estabelecer limites para usos arriscados de IA."},
+{"word": "LEGISLACAO", "hint": "Conjunto de leis aplicáveis a um assunto.", "explanation": "Leis de proteção de dados impõem obrigações."},
+{"word": "FISCALIZACAO", "hint": "Acompanhamento do cumprimento de regras.", "explanation": "Fiscalização pode identificar práticas discriminatórias."},
+{"word": "PRESTACAO", "hint": "Ato de apresentar informações sobre ações realizadas.", "explanation": "Prestar contas ajuda a responsabilizar organizações."},
+{"word": "CONTESTACAO", "hint": "Ato de questionar uma decisão.", "explanation": "Pessoas devem poder questionar resultados injustos."},
+{"word": "RECURSO", "hint": "Pedido de revisão de uma decisão.", "explanation": "Canais de recurso ajudam a corrigir erros automatizados."},
+{"word": "REVISAO", "hint": "Nova análise de um resultado ou processo.", "explanation": "Revisões humanas podem detectar falhas."},
+{"word": "SUPERVISAO", "hint": "Acompanhamento humano de uma atividade.", "explanation": "Supervisão adequada é importante em decisões sensíveis."},
+{"word": "MONITORAMENTO", "hint": "Observação contínua do desempenho de um sistema.", "explanation": "Monitorar resultados ajuda a detectar vieses após a implantação."},
+{"word": "AVALIACAO", "hint": "Exame da qualidade e dos efeitos de algo.", "explanation": "Avaliações devem considerar diferentes grupos afetados."},
+{"word": "VALIDACAO", "hint": "Verificação de que um sistema atende ao objetivo.", "explanation": "Validar com dados variados reduz riscos de generalização indevida."},
+{"word": "TESTAGEM", "hint": "Realização de testes para encontrar falhas.", "explanation": "Testes comparativos podem revelar diferenças de desempenho."},
+{"word": "METRICA", "hint": "Medida usada para avaliar resultados.", "explanation": "Uma única métrica pode esconder injustiças."},
+{"word": "PRECISAO", "hint": "Proporção de resultados corretos em determinada medida.", "explanation": "Precisão geral alta não garante equidade entre grupos."},
+{"word": "ERRO", "hint": "Resultado incorreto produzido por um sistema.", "explanation": "Erros podem ter consequências diferentes para cada pessoa."},
+{"word": "FALSO", "hint": "Algo que não corresponde à realidade.", "explanation": "Um resultado falso pode afetar uma decisão automatizada."},
+{"word": "POSITIVO", "hint": "Categoria afirmativa em um classificador.", "explanation": "Falsos positivos podem gerar consequências injustas."},
+{"word": "NEGATIVO", "hint": "Categoria de ausência em um classificador.", "explanation": "Falsos negativos também podem excluir pessoas."},
+{"word": "LIMIAR", "hint": "Valor usado como ponto de corte para decisões.", "explanation": "Alterar limiares pode mudar os erros entre grupos."},
+{"word": "PADRAO", "hint": "Regularidade identificada em informações.", "explanation": "Nem todo padrão estatístico deve orientar uma decisão."},
+{"word": "CORRELACAO", "hint": "Relação estatística entre duas variáveis.", "explanation": "Correlação não prova causa e pode refletir desigualdades."},
+{"word": "CAUSALIDADE", "hint": "Relação em que um fator provoca outro.", "explanation": "Investigar causas evita interpretações enganosas dos dados."},
+{"word": "CONTEXTO", "hint": "Circunstâncias que ajudam a interpretar uma situação.", "explanation": "Dados fora de contexto podem levar a decisões injustas."},
+{"word": "HISTORICO", "hint": "Conjunto de acontecimentos passados.", "explanation": "Registros históricos podem conter discriminações antigas."},
+{"word": "COLETA", "hint": "Processo de reunir informações.", "explanation": "A forma de coletar dados influencia quem fica representado."},
+{"word": "QUALIDADE", "hint": "Grau em que algo atende a critérios esperados.", "explanation": "Dados de baixa qualidade podem piorar desigualdades."},
+{"word": "LACUNA", "hint": "Ausência de informação importante.", "explanation": "Lacunas nos dados podem tornar certos grupos invisíveis."},
+{"word": "SUBREPRESENTACAO", "hint": "Presença insuficiente de um grupo em um conjunto.", "explanation": "Grupos sub-representados podem ter mais erros em modelos."},
+{"word": "SOBRERREPRESENTACAO", "hint": "Presença excessiva de um grupo em comparação com outros.", "explanation": "Desequilíbrios na amostra podem distorcer o aprendizado."},
+{"word": "BALANCEAMENTO", "hint": "Ajuste para reduzir desequilíbrios em dados.", "explanation": "Balancear dados é uma estratégia, não solução universal."},
+{"word": "GENERALIZACAO", "hint": "Capacidade de funcionar em exemplos novos.", "explanation": "Um modelo pode falhar ao atender populações diferentes."},
+{"word": "DESLOCAMENTO", "hint": "Mudança entre dados de treinamento e de uso.", "explanation": "Mudanças de contexto podem piorar o desempenho."},
+{"word": "PROXY", "hint": "Variável usada como substituta de outra.", "explanation": "Uma variável indireta pode revelar características sensíveis."},
+{"word": "OPACIDADE", "hint": "Dificuldade de entender como uma decisão foi produzida.", "explanation": "Opacidade dificulta a identificação de vieses."},
+{"word": "CAIXAPRETA", "hint": "Expressão para um sistema cujo funcionamento é pouco compreensível.", "explanation": "Modelos de caixa-preta exigem cuidados adicionais de avaliação."},
+{"word": "DOCUMENTACAO", "hint": "Registro de informações sobre um projeto ou sistema.", "explanation": "Documentar dados e limitações facilita auditorias."},
+{"word": "RASTREABILIDADE", "hint": "Capacidade de acompanhar a origem de dados e decisões.", "explanation": "Rastreabilidade facilita investigar problemas."},
+{"word": "PARTICIPACAO", "hint": "Envolvimento de pessoas em decisões coletivas.", "explanation": "Ouvir comunidades afetadas melhora o desenvolvimento tecnológico."},
+{"word": "COMUNIDADE", "hint": "Grupo de pessoas com interesses ou vivências comuns.", "explanation": "Comunidades afetadas devem participar das decisões."},
+{"word": "ESCUTA", "hint": "Atenção às experiências e necessidades de outras pessoas.", "explanation": "Escutar usuários ajuda a perceber danos não previstos."},
+{"word": "REPARACAO", "hint": "Ação para corrigir ou compensar um dano.", "explanation": "Identificar discriminação deve levar a medidas de reparação."}
+];
+let deck=[],current,errors=0,points=0,round=0,guessed=new Set(),ended=false,gameOver=false;
+const $=id=>document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function newRound(){if(gameOver){gameOver=false;points=0;round=0;deck=[]}if(!deck.length)deck=shuffle(questions);current=deck.pop();round++;errors=0;guessed=new Set();ended=false;$('explanation').style.display='none';$('explanation').textContent='';$('message').textContent='Escolha uma letra para começar!';$('next').textContent='Próxima palavra →';$('next').disabled=true;$('hint').textContent=current.hint;document.querySelectorAll('.part').forEach(p=>p.style.visibility='hidden');$('keyboard').innerHTML='';for(const c of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'){const b=document.createElement('button');b.className='key';b.textContent=c;b.setAttribute('aria-label','Letra '+c);b.onclick=()=>guess(c);$('keyboard').appendChild(b)}render()}
+function render(){const box=$('word');box.innerHTML='';for(const c of current.word){const el=document.createElement('span');el.className='letter'+(c===' '?' space':'');el.textContent=guessed.has(c)||ended&&errors===5?c===' '?' ':c:' ';box.appendChild(el)}$('errors').textContent=`Erros: ${errors}/5`;$('score').textContent=`Pontos: ${points}`;$('round').textContent=`Rodada ${round}`}
+function guess(c){if(ended||gameOver||guessed.has(c))return;guessed.add(c);const good=current.word.includes(c);const button=[...document.querySelectorAll('.key')].find(b=>b.textContent===c);if(button){button.disabled=true;button.classList.add(good?'good':'bad')}if(!good){errors++;document.querySelectorAll('.part')[errors-1].style.visibility='visible'}const won=[...current.word].every(x=>x===' '||guessed.has(x));if(won||errors>=5){ended=true;if(won){points+=10;$('message').textContent='🎉 Você acertou! +10 pontos'}else{gameOver=true;$('message').textContent='💀 Fim de jogo! A palavra era '+current.word+'. Pontuação final: '+points}document.querySelectorAll('.key').forEach(b=>b.disabled=true);$('explanation').textContent='📘 Você sabia? '+current.explanation;$('explanation').style.display='block';$('next').textContent=gameOver?'Jogar novamente ↻':'Próxima palavra →';$('next').disabled=false}else{$('message').textContent=good?'Boa! Essa letra está na palavra.':'Essa letra não aparece. Tente outra!'}render()}
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.altKey||e.metaKey)return;const c=e.key.toUpperCase();if(/^[A-Z]$/.test(c))guess(c)});$('next').onclick=()=>{if(!ended&&!gameOver)return;newRound()};newRound();
+</script></body></html>
