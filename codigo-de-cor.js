@@ -10,6 +10,19 @@
     try{ localStorage.setItem("cdc-theme", next); }catch(e){}
   });
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce && "IntersectionObserver" in window){
+    var revealObserver = new IntersectionObserver(function(entries, observer){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:0.06});
+    document.querySelectorAll("#percurso > section.stage").forEach(function(section){
+      section.classList.add("will-reveal");
+      revealObserver.observe(section);
+    });
+  }
   function fmt(n){ return n.toFixed(1).replace(".", ","); }
 
   // hero
@@ -30,8 +43,15 @@
     list.forEach(function(f){ f.classList.remove("scanned"); });
     faces.classList.remove("scanning");
     if(reduce){ list.forEach(function(f){ f.classList.add("scanned"); }); return; }
-    void faces.offsetWidth; faces.classList.add("scanning");
-    list.forEach(function(f, i){ setTimeout(function(){ f.classList.add("scanned"); }, 300 + i * 160); });
+    var scanDuration = parseFloat(getComputedStyle(faces).getPropertyValue("--scan-duration")) * 1000;
+    var facesTop = faces.getBoundingClientRect().top, facesHeight = faces.offsetHeight;
+    list.forEach(function(f){
+      var box = f.querySelector(".box"), boxBottom = box.getBoundingClientRect().bottom;
+      var scanDelay = Math.max(0, Math.min(1, (boxBottom - facesTop) / facesHeight)) * scanDuration + 50;
+      box.style.setProperty("--detect-delay", scanDelay + "ms");
+    });
+    void faces.offsetWidth;
+    faces.classList.add("scanning");
   }
   runScan();
   document.getElementById("replay").addEventListener("click", runScan);
@@ -46,9 +66,23 @@
   });
 
   var fut = document.getElementById("future"), fb = document.getElementById("futureBtn");
+  var futureHideTimer;
+  fut.addEventListener("animationend", function(e){
+    if(e.animationName === "future-fade-out" && e.target === fut.querySelector(".big")){
+      clearTimeout(futureHideTimer);
+      futureHideTimer = null;
+      fut.classList.remove("is-hiding");
+    }
+  });
   fb.addEventListener("click", function(){
     var shown = fut.dataset.shown === "true";
     fut.dataset.shown = shown ? "false" : "true";
+    fut.classList.toggle("is-hiding", shown);
+    clearTimeout(futureHideTimer);
+    futureHideTimer = shown ? setTimeout(function(){
+      fut.classList.remove("is-hiding");
+      futureHideTimer = null;
+    }, 400) : null;
     fb.textContent = shown ? "Mostrar o que o sistema aprende" : "Esconder";
   });
 
@@ -69,7 +103,10 @@
   function showStage(i){
     pipe.querySelectorAll("button").forEach(function(b, j){ b.setAttribute("aria-selected", j === i ? "true" : "false"); });
     panel.setAttribute("aria-labelledby", "ps" + i);
+    panel.classList.remove("is-changing");
     panel.innerHTML = '<h3>' + stages[i][0] + '</h3><p>' + stages[i][2] + '</p>';
+    void panel.offsetWidth;
+    panel.classList.add("is-changing");
   }
   pipe.addEventListener("click", function(e){ var b = e.target.closest("button"); if(!b) return; showStage([].indexOf.call(pipe.querySelectorAll("button"), b)); });
   showStage(0);
@@ -95,11 +132,20 @@
   mix.addEventListener("input", updSim); updSim();
 
   // filtros
-  var fbtns = document.querySelectorAll("[data-filter]");
+  var fbtns = document.querySelectorAll("[data-filter]"), timeline = document.getElementById("timeline"), filterAnimationTimer;
   fbtns.forEach(function(b){ b.addEventListener("click", function(){
     fbtns.forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
     var f = b.dataset.filter;
-    document.querySelectorAll("#timeline li").forEach(function(li){ li.hidden = !(f === "all" || li.dataset.where === f); });
+    var visibleIndex = 0;
+    [].forEach.call(timeline.children, function(li){
+      li.hidden = !(f === "all" || li.dataset.where === f);
+      if(!li.hidden) li.style.setProperty("--carousel-index", visibleIndex++);
+    });
+    timeline.classList.remove("is-filtering");
+    void timeline.offsetWidth;
+    timeline.classList.add("is-filtering");
+    clearTimeout(filterAnimationTimer);
+    filterAnimationTimer = setTimeout(function(){ timeline.classList.remove("is-filtering"); }, 1600);
   });});
 
   // objeto x sujeito
@@ -113,8 +159,11 @@
   setView("obj");
 
   // bússola
-  var comp = document.getElementById("compass");
-  document.getElementById("flipBtn").addEventListener("click", function(){ comp.classList.toggle("flip"); });
+  var comp = document.getElementById("compass"), southCopy = document.getElementById("southCopy");
+  document.getElementById("flipBtn").addEventListener("click", function(){
+    comp.classList.toggle("flip");
+    southCopy.classList.toggle("is-upright");
+  });
 
   // máscara
   var maskOn = false, mBtn = document.getElementById("maskBtn"), mShape = document.getElementById("maskShape"), mBox = document.getElementById("maskBox"), mNote = document.getElementById("maskNote");
@@ -154,10 +203,13 @@
   var al = document.getElementById("alerts"), html = "";
   for(var i = 0; i < 104; i++){ html += '<i class="' + (i === 37 || i === 81 ? "t" : "f") + '"></i>'; }
   al.innerHTML = html;
-  document.getElementById("alertsBtn").addEventListener("click", function(){
-    al.classList.add("on");
-    document.getElementById("alertsNote").textContent = "De 104 alertas, 102 apontaram pessoas inocentes. Só 2 identificações estavam corretas: mais de 98% de erro. No País de Gales, a taxa de alertas errados foi de 91%.";
-    this.disabled = true;
+  var alertsBtn = document.getElementById("alertsBtn"), alertsNote = document.getElementById("alertsNote");
+  alertsBtn.addEventListener("click", function(){
+    var revealed = this.getAttribute("aria-expanded") === "true";
+    al.classList.toggle("on", !revealed);
+    this.setAttribute("aria-expanded", revealed ? "false" : "true");
+    this.textContent = revealed ? "Revelar o resultado" : "Ocultar a verdade";
+    alertsNote.textContent = revealed ? "" : "De 104 alertas, 102 apontaram pessoas inocentes. Só 2 identificações estavam corretas: mais de 98% de erro. No País de Gales, a taxa de alertas errados foi de 91%.";
   });
 
   // ciclo CTS
@@ -254,11 +306,13 @@
   // progresso
   var ids = ["espelho","neutralidade","maquina","casos","resistencia","agora"];
   var links = document.querySelectorAll(".steps a");
+  var highestStepReached = -1;
   function onScroll(){
     var y = window.scrollY + window.innerHeight * 0.35, cur = -1;
     ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
     if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
-    links.forEach(function(a, i){ a.classList.toggle("on", i <= cur); if(i === cur) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
+    highestStepReached = Math.max(highestStepReached, cur);
+    links.forEach(function(a, i){ a.classList.toggle("on", i <= highestStepReached); if(i === cur) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
   }
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
 
