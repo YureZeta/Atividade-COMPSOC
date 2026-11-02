@@ -419,7 +419,8 @@
     ];
     var N = 12, wsLetters, wsPlaced, wsFound, wsStart = null, wsDrag = false, wsLast = null, wsColorIx = 0;
     var FCOL = [["var(--t2)","#2a1a10"],["var(--t3)","#1c1008"],["var(--t4)","#fff"],["var(--t5)","#fff"],["var(--t6)","#fff"]];
-    var DIRS = [[0,1],[1,0],[1,1],[-1,1]];
+    var DIRS = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+    var DIAGONALS = [[1,1],[1,-1],[-1,1],[-1,-1]];
     var wsGrid = document.getElementById("wsGrid"), wsList = document.getElementById("wsList");
     function wsBuild(){
       for(var attempt = 0; attempt < 200; attempt++){
@@ -428,7 +429,7 @@
         for(var k = 0; k < order.length && ok; k++){
           var w = order[k][0], done = false;
           for(var tries = 0; tries < 300 && !done; tries++){
-            var directions = k === 0 ? DIRS.slice(2) : DIRS;
+            var directions = k === 0 ? DIAGONALS : DIRS;
             var d = directions[Math.floor(Math.random() * directions.length)];
             var minR = d[0] < 0 ? w.length - 1 : 0, maxR = d[0] > 0 ? N - w.length : N - 1;
             var minC = d[1] < 0 ? w.length - 1 : 0, maxC = d[1] > 0 ? N - w.length : N - 1;
