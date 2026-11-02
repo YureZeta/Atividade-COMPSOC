@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labirinto dos Algoritmos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="labirinto.css">
+</head>
+<body>
+<main>
+<header><h1>Labirinto dos Algoritmos</h1><p>Explore, responda e abra caminho para uma tecnologia mais justa.</p></header>
+<section class="layout">
+<div class="panel">
+  <div class="hud">
+    <div>Fase: <strong id="level">1/3</strong></div>
+    <div>Pontos: <strong id="score">0</strong></div>
+    <div>Desafios: <strong id="progressText">0/5</strong></div>
+  </div>
+  <div class="canvas-wrap"><canvas id="game" width="672" height="480" aria-label="Labirinto 2D"></canvas></div>
+  <div class="progress"><div id="progressBar"></div></div>
+  <div class="mobile-pad" aria-label="Controles direcionais">
+    <button data-dir="up" aria-label="Cima">▲</button><button data-dir="left" aria-label="Esquerda">◀</button><button data-dir="down" aria-label="Baixo">▼</button><button data-dir="right" aria-label="Direita">▶</button>
+  </div>
+  <div class="controls"><button class="secondary" id="newGame">↻ Novo jogo</button><button id="nextPhase" style="display:none">Próxima fase →</button></div>
+  <p class="hint">Setas ou WASD para andar. Segure a tecla para continuar andando.</p>
+</div>
+<aside class="side">
+  <h2>Como jogar</h2>
+  <div><ul><li>Encontre os cinco símbolos <b style="color:var(--gold)">?</b> espalhados pelo mapa.</li><li>Responda às perguntas para coletar cada desafio.</li><li>Cada resposta errada tira 50 pontos; a pontuação nunca fica abaixo de zero.</li><li>Quando todos forem resolvidos, a saída será liberada.</li><li>São três fases com labirintos e perguntas sorteados.</li></ul></div>
+  <div><h2>Legenda</h2><div class="legend">
+    <span class="swatch" style="background:var(--maze-wall)"></span><span>Parede</span>
+    <span class="swatch" style="background:var(--maze-floor)"></span><span>Corredor</span>
+    <span class="swatch" style="background:var(--gold)"></span><span>Pergunta</span>
+    <span class="swatch" style="background:var(--machine)"></span><span>Jogador</span>
+    <span class="swatch" style="background:var(--purple)"></span><span>Saída</span>
+  </div></div>
+  <div class="sources"><h2>Fontes das perguntas</h2><ul class="source-list">
+    <li>BAROCAS, S.; HARDT, M.; NARAYANAN, A. <i>Fairness and Machine Learning</i>. <a href="https://fairmlbook.org/" target="_blank" rel="noopener">Livro aberto</a>.</li>
+    <li>BUOLAMWINI, J.; GEBRU, T. <i>Gender Shades</i>. PMLR, 2018. <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Artigo</a>.</li>
+    <li>ANGWIN, J. et al. <i>Machine Bias</i>. ProPublica, 2016. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">Reportagem</a>.</li>
+    <li>OBERMEYER, Z. et al. Dissecting racial bias in an algorithm used to manage the health of populations. <i>Science</i>, 2019. <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">Resumo</a>.</li>
+    <li>NOBLE, S. U. <i>Algorithms of Oppression</i>. NYU Press, 2018. <a href="https://nyupress.org/9781479837243/algorithms-of-oppression/" target="_blank" rel="noopener">Livro</a>.</li>
+    <li>BENJAMIN, R. <i>Race After Technology: Abolitionist Tools for the New Jim Code</i>. Polity, 2019.</li>
+    <li>COULDRY, N.; MEJIAS, U. A. <i>The Costs of Connection: How Data Is Colonizing Human Life and Appropriating It for Capitalism</i>. Stanford University Press, 2019.</li>
+    <li>O'NEIL, C. <i>Weapons of Math Destruction</i>. Crown, 2016.</li>
+    <li>ZUBOFF, S. <i>The Age of Surveillance Capitalism</i>. PublicAffairs, 2019.</li>
+    <li>UNIÃO EUROPEIA. Regulamento (UE) 2024/1689 (AI Act). <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">EUR-Lex</a>.</li>
+    <li>BRASIL. Senado Federal. Projeto de Lei 2.338/2023. <a href="https://www25.senado.leg.br/web/atividade/materias/-/materia/157233" target="_blank" rel="noopener">Tramitação</a>.</li>
+  </ul></div>
+</aside>
+</section>
+</main>
+
+<div class="modal" id="questionModal" role="dialog" aria-modal="true" aria-labelledby="qTitle">
+<div class="dialog">
+  <div class="tag" id="qTag">Desafio</div><h2 id="qTitle">Pergunta</h2><p id="qText"></p>
+  <div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="actions"><button id="closeQuestion" style="display:none">Continuar</button></div>
+</div></div>
+<div class="modal" id="messageModal" role="dialog" aria-modal="true">
+<div class="dialog"><div class="tag">Fase concluída</div><h2 id="messageTitle">Muito bem!</h2><p id="messageText"></p><div class="actions"><button id="messageButton">Continuar</button></div></div>
+</div>
+<script src="labirinto.js"></script>
+</body>
+</html>
