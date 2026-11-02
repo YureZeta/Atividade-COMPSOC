@@ -3,11 +3,26 @@
   var root = document.documentElement;
   // Aplica a preferência salva antes de configurar as interações da página.
   try{ var saved = localStorage.getItem("cdc-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
+  var mazeFrame = document.getElementById("mazeFrame");
+  function syncMazeTheme(){
+    if(!mazeFrame || !mazeFrame.contentWindow) return;
+    var theme = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    mazeFrame.contentWindow.postMessage({type:"cdc-theme", theme:theme}, "*");
+  }
+  if(mazeFrame){
+    mazeFrame.addEventListener("load", syncMazeTheme);
+    window.addEventListener("message", function(e){
+      if(e.source !== mazeFrame.contentWindow || !e.data || e.data.type !== "labirinto-height") return;
+      var height = Number(e.data.height);
+      if(Number.isFinite(height) && height >= 400 && height <= 2500) mazeFrame.style.height = Math.ceil(height + 2) + "px";
+    });
+  }
   document.getElementById("themeBtn").addEventListener("click", function(){
     var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     var next = cur === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try{ localStorage.setItem("cdc-theme", next); }catch(e){}
+    syncMazeTheme();
   });
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   function fmt(n){ return n.toFixed(1).replace(".", ","); }

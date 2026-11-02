@@ -452,11 +452,12 @@
 <section class="stage games" id="minijogos" hidden>
   <div class="wrap">
     <h2>Minijogos</h2>
-    <p class="lead">Três jogos para fixar o vocabulário do percurso. Cada palavra encontrada traz uma explicação curta sobre racismo e viés algorítmico.</p>
+    <p class="lead">Quatro jogos para fixar o vocabulário do percurso. Encontre palavras, responda a perguntas e reflita sobre racismo e viés algorítmico.</p>
     <div class="tabs" role="tablist" aria-label="Escolha um jogo">
       <button role="tab" type="button" aria-selected="true" aria-controls="g-forca" id="gt-forca">Forca</button>
       <button role="tab" type="button" aria-selected="false" aria-controls="g-caca" id="gt-caca">Caça-palavras</button>
       <button role="tab" type="button" aria-selected="false" aria-controls="g-cruz" id="gt-cruz">Palavras cruzadas</button>
+      <button role="tab" type="button" aria-selected="false" aria-controls="g-labirinto" id="gt-labirinto">Labirinto</button>
     </div>
 
     <div class="gpanel" role="tabpanel" id="g-forca" aria-labelledby="gt-forca">
@@ -515,6 +516,12 @@
         <div><h4>Verticais</h4><ol id="cwV"></ol></div>
       </div>
     </div>
+
+    <div class="gpanel" role="tabpanel" id="g-labirinto" aria-labelledby="gt-labirinto" hidden>
+      <h3>Labirinto dos Algoritmos</h3>
+      <p>Explore os corredores, responda às perguntas e abra caminho para uma tecnologia mais justa. Cada resposta errada custa 50 pontos.</p>
+      <iframe class="lab-iframe" id="mazeFrame" src="labirinto.html" title="Minijogo Labirinto dos Algoritmos" loading="lazy"></iframe>
+    </div>
   </div>
 </section>
 
@@ -543,11 +550,25 @@
       <li>O’NEIL, C. <i>Algoritmos de destruição em massa</i>. Santo André: Rua do Sabão, 2020.</li>
       <li>ALMEIDA, S. <i>Racismo estrutural</i>. São Paulo: Pólen, 2019.</li>
     </ul>
+    <h3>Fontes das perguntas do labirinto</h3>
+    <ul class="refs">
+      <li>BAROCAS, S.; HARDT, M.; NARAYANAN, A. <i>Fairness and Machine Learning</i>. <a href="https://fairmlbook.org/" target="_blank" rel="noopener">Livro aberto</a>.</li>
+      <li>BUOLAMWINI, J.; GEBRU, T. Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. <i>Proceedings of Machine Learning Research</i>, v. 81, 2018. <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Artigo</a>.</li>
+      <li>ANGWIN, J. et al. Machine Bias. <i>ProPublica</i>, 2016. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">Reportagem</a>.</li>
+      <li>OBERMEYER, Z. et al. Dissecting racial bias in an algorithm used to manage the health of populations. <i>Science</i>, v. 366, 2019. <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">Resumo</a>.</li>
+      <li>NOBLE, S. U. <i>Algorithms of Oppression</i>. NYU Press, 2018. <a href="https://nyupress.org/9781479837243/algorithms-of-oppression/" target="_blank" rel="noopener">Livro</a>.</li>
+      <li>BENJAMIN, R. <i>Race After Technology: Abolitionist Tools for the New Jim Code</i>. Polity, 2019.</li>
+      <li>COULDRY, N.; MEJIAS, U. A. <i>The Costs of Connection: How Data Is Colonizing Human Life and Appropriating It for Capitalism</i>. Stanford University Press, 2019.</li>
+      <li>O'NEIL, C. <i>Weapons of Math Destruction</i>. Crown, 2016.</li>
+      <li>ZUBOFF, S. <i>The Age of Surveillance Capitalism</i>. PublicAffairs, 2019.</li>
+      <li>UNIÃO EUROPEIA. Regulamento (UE) 2024/1689 (AI Act). <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">EUR-Lex</a>.</li>
+      <li>BRASIL. Senado Federal. Projeto de Lei 2.338/2023. <a href="https://www25.senado.leg.br/web/atividade/materias/-/materia/157233" target="_blank" rel="noopener">Tramitação</a>.</li>
+    </ul>
     <h3>Audiovisual</h3>
     <ul class="refs">
       <li><i>Coded Bias</i>. Direção: Shalini Kantayya. EUA, 2020. Documentário.</li>
     </ul>
-    <p class="credits">Trabalho multimodal da disciplina MATA68 – Computador, Ética e Sociedade, Instituto de Computação da UFBA, semestre 2026.1. Grupo 6: Benjami Francisco Mendes Nanque, Francisco Yure Cruz Borges, Marcus Paulo Sousa dos Santos
+    <p class="credits">Trabalho multimodal da disciplina MATA68 – Computador, Ética e Sociedade, Instituto de Computação da UFBA, semestre 2026.2. Grupo 6: Benjami Francisco Mendes Nanque, Francisco Yure Cruz Borges, Marcus Paulo Sousa dos Santos
 , Matheus Ferreira de Oliveira Vieira, Saulo Soares dos Santos, Vinícius dos Santos Freitas Aires.</p>
   </div>
 </footer>
