@@ -428,8 +428,13 @@
         for(var k = 0; k < order.length && ok; k++){
           var w = order[k][0], done = false;
           for(var tries = 0; tries < 300 && !done; tries++){
-            var d = DIRS[Math.floor(Math.random() * DIRS.length)];
-            var r = Math.floor(Math.random() * N), c = Math.floor(Math.random() * N);
+            var directions = k === 0 ? DIRS.slice(2) : DIRS;
+            var d = directions[Math.floor(Math.random() * directions.length)];
+            var minR = d[0] < 0 ? w.length - 1 : 0, maxR = d[0] > 0 ? N - w.length : N - 1;
+            var minC = d[1] < 0 ? w.length - 1 : 0, maxC = d[1] > 0 ? N - w.length : N - 1;
+            if(minR > maxR || minC > maxC) continue;
+            var r = minR + Math.floor(Math.random() * (maxR - minR + 1));
+            var c = minC + Math.floor(Math.random() * (maxC - minC + 1));
             var er = r + d[0] * (w.length - 1), ec = c + d[1] * (w.length - 1);
             if(er < 0 || er >= N || ec < 0 || ec >= N) continue;
             var fits = true;
