@@ -318,6 +318,12 @@
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
+  window.addEventListener("message", function(event){
+    var mazeFrame = document.querySelector(".maze-frame");
+    if(!mazeFrame || event.source !== mazeFrame.contentWindow || !event.data || event.data.type !== "labirinto-height") return;
+    var height = event.data.height;
+    if(typeof height === "number" && isFinite(height) && height > 0) mazeFrame.style.height = Math.ceil(height) + "px";
+  });
   function route(){
     var h = location.hash.slice(1), g = h === "minijogos";
     percEl.hidden = g; gamesEl.hidden = !g;

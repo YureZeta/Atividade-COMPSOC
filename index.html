@@ -452,11 +452,12 @@
 <section class="stage games" id="minijogos" hidden>
   <div class="wrap">
     <h2>Minijogos</h2>
-    <p class="lead">Três jogos para fixar o vocabulário do percurso. Cada palavra encontrada traz uma explicação curta sobre racismo e viés algorítmico.</p>
+    <p class="lead">Quatro jogos para explorar questões de racismo e viés algorítmico. Nos jogos de palavras, cada descoberta traz uma explicação; no labirinto, cada desafio abre caminho para uma tecnologia mais justa.</p>
     <div class="tabs" role="tablist" aria-label="Escolha um jogo">
       <button role="tab" type="button" aria-selected="true" aria-controls="g-forca" id="gt-forca">Forca</button>
       <button role="tab" type="button" aria-selected="false" aria-controls="g-caca" id="gt-caca">Caça-palavras</button>
       <button role="tab" type="button" aria-selected="false" aria-controls="g-cruz" id="gt-cruz">Palavras cruzadas</button>
+      <button role="tab" type="button" aria-selected="false" aria-controls="g-labirinto" id="gt-labirinto">Labirinto</button>
     </div>
 
     <div class="gpanel" role="tabpanel" id="g-forca" aria-labelledby="gt-forca">
@@ -514,6 +515,12 @@
         <div><h4>Horizontais</h4><ol id="cwH"></ol></div>
         <div><h4>Verticais</h4><ol id="cwV"></ol></div>
       </div>
+    </div>
+
+    <div class="gpanel" role="tabpanel" id="g-labirinto" aria-labelledby="gt-labirinto" hidden>
+      <h3>Labirinto dos Algoritmos</h3>
+      <p class="small">Explore três fases, responda aos desafios e encontre a saída. Use as setas ou WASD; em dispositivos móveis, toque nos controles direcionais.</p>
+      <iframe class="maze-frame" src="labirinto.html" title="Labirinto dos Algoritmos" loading="lazy"></iframe>
     </div>
   </div>
 </section>
