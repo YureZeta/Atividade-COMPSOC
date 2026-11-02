@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Código de Cor: um percurso pelo racismo algorítmico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F2F7; --paper-2:#E6E4EE; --ink:#1C1830; --muted:#5A5470;
+  --machine:#2747FF; --machine-soft:#DDE2FF; --alert:#C81E36; --alert-soft:#FBE1E5;
+  --t1:#F6E7DA; --t2:#E5C3A1; --t3:#C6915F; --t4:#9A6339; --t5:#6A4024; --t6:#3A2216;
+  --line:#CFCBDC;
+  --display:"Archivo", "Arial Narrow", Arial, sans-serif;
+  --body:"Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15131E; --paper-2:#211E2D; --ink:#ECEAF3; --muted:#A8A2BC;
+    --machine:#8494FF; --machine-soft:#262C52; --alert:#FF6B7D; --alert-soft:#3D1C24;
+    --line:#383348; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15131E; --paper-2:#211E2D; --ink:#ECEAF3; --muted:#A8A2BC;
+  --machine:#8494FF; --machine-soft:#262C52; --alert:#FF6B7D; --alert-soft:#3D1C24;
+  --line:#383348; color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px); scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:1.0625rem; line-height:1.6; -webkit-text-size-adjust:100%}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--paper)}
+img,svg{max-width:100%}
+a{color:var(--machine); text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--machine); outline-offset:3px; border-radius:4px}
+.wrap{width:min(100% - 2.5rem, 46rem); margin-inline:auto}
+.wide{width:min(100% - 2.5rem, 70rem); margin-inline:auto}
+h1,h2,h3{font-family:var(--display); line-height:1.05; margin:0 0 .6em; letter-spacing:-.01em}
+h2{font-size:clamp(2rem, 6vw, 3.4rem); font-variation-settings:"wdth" 118; font-weight:800}
+h3{font-size:1.3rem; font-variation-settings:"wdth" 100; font-weight:700}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem; color:var(--muted)}
+.skip{position:absolute; left:-999px; top:0; background:var(--ink); color:var(--paper); padding:.6rem 1rem; z-index:50}
+.skip:focus{left:1rem; top:calc(env(safe-area-inset-top,0px) + .5rem)}
+
+/* barra superior */
+.bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+.bar-in{display:flex; align-items:center; gap:1rem; height:56px}
+.brand{font-family:var(--display); font-weight:800; font-variation-settings:"wdth" 120; text-decoration:none; color:var(--ink); white-space:nowrap}
+.steps{display:flex; gap:4px; flex:1; list-style:none; margin:0; padding:0}
+.steps a{display:block; height:6px; border-radius:3px; background:var(--line); position:relative}
+.steps li{flex:1}
+.steps a.on{background:var(--machine)}
+.steps a span{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+.steps a::after{content:""; position:absolute; inset:-14px 0}
+.icon-btn{font:inherit; font-size:.9rem; background:none; border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:.35rem .8rem; cursor:pointer; white-space:nowrap}
+.icon-btn:hover{border-color:var(--ink)}
+
+/* hero */
+.hero{padding:3.5rem 0 4rem}
+.hero h1{font-size:clamp(2.6rem, 9vw, 6rem); font-variation-settings:"wdth" 125; font-weight:900; max-width:14ch; margin-bottom:.4em}
+.hero .lead{max-width:38rem}
+.faces{display:grid; grid-template-columns:repeat(4, 1fr); gap:clamp(.5rem, 2vw, 1.5rem); margin:2.5rem 0 1rem; position:relative}
+@media (min-width:760px){.faces{grid-template-columns:repeat(6, 1fr)}}
+.face{position:relative; aspect-ratio:5/6}
+.face svg{width:100%; height:100%; display:block}
+.box{position:absolute; left:18%; top:6%; width:64%; height:62%; border:2px solid var(--machine); border-radius:3px; opacity:0; transform:scale(1.15); transition:opacity .35s, transform .35s}
+.box.weak{border-style:dashed; border-color:var(--alert)}
+.box.none{border:none}
+.tag{position:absolute; left:-2px; bottom:100%; margin-bottom:3px; font-family:var(--display); font-variation-settings:"wdth" 70; font-weight:600; font-size:.78rem; line-height:1.2; padding:1px 5px; background:var(--machine); color:#fff; white-space:nowrap; border-radius:2px}
+.weak .tag{background:var(--alert)}
+.none .tag{background:none; color:var(--alert); left:50%; transform:translateX(-50%); bottom:auto; top:40%; font-weight:800; font-size:.85rem; text-align:center; white-space:normal; width:110%}
+.scanned .box{opacity:1; transform:scale(1)}
+.scanline{position:absolute; left:0; right:0; height:2px; background:var(--machine); box-shadow:0 0 12px var(--machine); top:0; opacity:0; pointer-events:none}
+.scanning .scanline{animation:scan 2.4s ease-in-out forwards}
+@keyframes scan{0%{top:0; opacity:1}90%{opacity:1}100%{top:100%; opacity:0}}
+.caption{font-size:.9rem; color:var(--muted); max-width:40rem}
+.btn{display:inline-block; font:inherit; font-weight:700; background:var(--ink); color:var(--paper); border:none; border-radius:999px; padding:.85rem 1.5rem; text-decoration:none; cursor:pointer}
+.btn:hover{background:var(--machine); color:#fff}
+.btn-ghost{background:none; color:var(--ink); border:2px solid var(--ink)}
+.btn-ghost:hover{border-color:var(--machine); background:none; color:var(--machine)}
+
+/* seções */
+section.stage{padding:4.5rem 0; border-top:1px solid var(--line)}
+.num{display:block; font-family:var(--display); font-variation-settings:"wdth" 125; font-weight:900; font-size:1rem; color:var(--machine); margin-bottom:.6rem}
+.machine-voice{font-family:var(--display); font-variation-settings:"wdth" 80; font-weight:600; color:var(--machine); border-left:3px solid var(--machine); padding:.2rem 0 .2rem .9rem; margin:1.5rem 0}
+blockquote.thesis{margin:2rem 0; padding:1.5rem 1.5rem 1.5rem 1.4rem; background:var(--paper-2); border-radius:6px; font-size:1.2rem; line-height:1.5}
+blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
+.term{font:inherit; color:inherit; background:none; border:none; padding:0; border-bottom:2px dotted var(--machine); cursor:help}
+
+/* cenários */
+.scenario{border:1px solid var(--line); border-radius:8px; padding:1.4rem; margin:1.25rem 0; background:var(--paper)}
+.scenario h3{margin-bottom:.4em}
+.choices{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.8rem}
+.choice{font:inherit; font-size:.98rem; background:var(--paper-2); color:var(--ink); border:2px solid transparent; border-radius:999px; padding:.55rem 1.1rem; cursor:pointer}
+.choice:hover{border-color:var(--line)}
+.choice[aria-pressed="true"]{border-color:var(--machine); background:var(--machine-soft)}
+.reveal{margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--line)}
+.reveal[hidden]{display:none}
+.reveal .react{font-weight:700}
+
+/* passado/futuro */
+.ledger{display:grid; gap:1rem; margin:1.5rem 0}
+@media (min-width:640px){.ledger{grid-template-columns:1fr auto 1fr; align-items:center}}
+.ledger .cell{background:var(--paper-2); border-radius:6px; padding:1.1rem}
+.ledger .big{font-family:var(--display); font-variation-settings:"wdth" 125; font-weight:900; font-size:2.6rem; line-height:1}
+.ledger .arrow{font-family:var(--display); font-size:1.6rem; text-align:center; color:var(--muted)}
+.ledger .future{border:2px dashed var(--alert); background:none}
+.ledger .future[data-shown="false"] .big, .ledger .future[data-shown="false"] p{visibility:hidden}
+
+/* pipeline */
+.pipe{display:flex; gap:.5rem; overflow-x:auto; padding:.3rem .1rem 1rem; margin:1.5rem 0 0; list-style:none}
+.pipe button{font:inherit; text-align:left; min-width:9.5rem; background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:8px; padding:.8rem; cursor:pointer; height:100%}
+.pipe button b{display:block; font-family:var(--display); font-variation-settings:"wdth" 110; font-size:1.05rem}
+.pipe button small{color:var(--muted)}
+.pipe button[aria-selected="true"]{border-color:var(--machine); background:var(--machine-soft)}
+.pipe-panel{background:var(--paper-2); border-radius:8px; padding:1.4rem; min-height:11rem}
+.pipe-panel h3{color:var(--machine)}
+
+/* simulador */
+.sim{margin-top:3rem; border:2px solid var(--ink); border-radius:10px; padding:1.5rem}
+.sim label{font-weight:700; display:block; margin-bottom:.5rem}
+.sim input[type=range]{width:100%; accent-color:var(--machine); height:2rem}
+.share{display:flex; height:28px; border-radius:4px; overflow:hidden; margin:.6rem 0 1.4rem}
+.share div{display:flex; align-items:center; padding-inline:.5rem; font-size:.82rem; font-weight:700; white-space:nowrap; overflow:hidden}
+.share .d{background:var(--t5); color:#fff}
+.share .l{background:var(--t2); color:#2a1a10; flex:1; justify-content:flex-end}
+.bars{display:grid; gap:.9rem}
+.barrow{display:grid; grid-template-columns:8.5rem 1fr 4rem; gap:.7rem; align-items:center}
+.track{height:22px; background:var(--paper-2); border-radius:4px; overflow:hidden}
+.fill{height:100%; background:var(--machine); border-radius:4px; transition:width .25s}
+.fill.hot{background:var(--alert)}
+.val{font-family:var(--display); font-variation-settings:"wdth" 90; font-weight:800; font-size:1.1rem; text-align:right}
+.sim-note{margin-top:1.2rem; font-size:.98rem}
+.small{font-size:.88rem; color:var(--muted)}
+
+/* casos */
+.filters{display:flex; gap:.5rem; margin:1.5rem 0}
+.timeline{list-style:none; margin:0; padding:0; border-left:2px solid var(--line)}
+.timeline li{position:relative; padding:0 0 2rem 1.6rem}
+.timeline li::before{content:""; position:absolute; left:-8px; top:.35rem; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--machine)}
+.timeline li.br::before{border-color:var(--alert)}
+.timeline li[hidden]{display:none}
+.year{font-family:var(--display); font-variation-settings:"wdth" 125; font-weight:900; font-size:1.5rem; line-height:1}
+.place{font-size:.88rem; color:var(--muted); margin-left:.4rem}
+.timeline h3{margin:.4rem 0 .4rem}
+details{margin-top:.4rem}
+summary{cursor:pointer; color:var(--machine); font-weight:700}
+.stat{font-family:var(--display); font-variation-settings:"wdth" 125; font-weight:900; color:var(--alert); font-size:clamp(4rem, 16vw, 8.5rem); line-height:.9; margin:2.5rem 0 .4rem}
+
+/* resistência */
+.people{list-style:none; padding:0; margin:1.5rem 0}
+.people li{display:grid; grid-template-columns:10px 1fr; gap:1rem; padding:1.1rem 0; border-bottom:1px solid var(--line)}
+.people li > i{border-radius:5px}
+.people h3{margin:0 0 .2rem}
+.people p{margin:0}
+.from-lecture{display:inline-block; font-size:.8rem; font-weight:700; color:var(--machine); margin-bottom:.2rem}
+
+/* agora */
+.manifesto p{font-size:1.25rem; line-height:1.55}
+.tabs{display:flex; flex-wrap:wrap; gap:.5rem; margin:2rem 0 1rem}
+.tabs button{font:inherit; background:none; color:var(--ink); border:2px solid var(--line); border-radius:999px; padding:.5rem 1rem; cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.tabpanel ol{padding-left:1.3rem}
+.tabpanel li{margin-bottom:.6rem}
+
+/* quiz */
+.q{margin:1.5rem 0; padding-bottom:1.5rem; border-bottom:1px solid var(--line)}
+.q fieldset{border:none; padding:0; margin:0}
+.q legend{font-weight:700; font-size:1.1rem; margin-bottom:.7rem}
+.opt{display:block; width:100%; text-align:left; font:inherit; background:var(--paper); color:var(--ink); border:2px solid var(--line); border-radius:8px; padding:.7rem 1rem; margin:.45rem 0; cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--machine); background:var(--machine-soft)}
+.opt.wrong{border-color:var(--alert); background:var(--alert-soft)}
+.fb{margin-top:.6rem}
+.score{font-family:var(--display); font-variation-settings:"wdth" 120; font-weight:800; font-size:1.4rem}
+
+/* glossário */
+dialog{border:none; border-radius:12px; padding:0; width:min(100% - 2rem, 34rem); max-height:80vh; background:var(--paper); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,8,20,.55)}
+.dlg-head{display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--paper)}
+.dlg-head h2{font-size:1.5rem; margin:0}
+.dlg-body{padding:1rem 1.25rem 1.5rem}
+dl dt{font-weight:700; margin-top:1rem}
+dl dt.hl{color:var(--machine)}
+dl dd{margin:.2rem 0 0}
+.fab{position:fixed; right:1rem; bottom:calc(1rem + env(safe-area-inset-bottom,0px)); z-index:15; font:inherit; font-weight:700; background:var(--machine); color:#fff; border:none; border-radius:999px; padding:.75rem 1.2rem; cursor:pointer; box-shadow:0 6px 20px rgba(39,71,255,.35)}
+
+footer.site{border-top:1px solid var(--line); padding:3rem 0 6rem; font-size:.95rem; color:var(--muted)}
+footer.site h2{font-size:1.4rem; color:var(--ink)}
+.refs li{margin-bottom:.5rem}
+@media (prefers-reduced-motion: reduce){
+  .box,.fill{transition:none}
+  .scanning .scanline{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#espelho">Pular para o conteúdo</a>
+
+<header class="bar">
+  <div class="wide bar-in">
+    <a class="brand" href="#inicio">Código de Cor</a>
+    <ol class="steps" aria-label="Etapas do percurso">
+      <li><a href="#espelho"><span>1. Espelho, espelho meu</span></a></li>
+      <li><a href="#neutralidade"><span>2. O mito da neutralidade</span></a></li>
+      <li><a href="#maquina"><span>3. Por dentro da máquina</span></a></li>
+      <li><a href="#casos"><span>4. Onde acontece</span></a></li>
+      <li><a href="#resistencia"><span>5. Quem resiste</span></a></li>
+      <li><a href="#agora"><span>6. E agora?</span></a></li>
+    </ol>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Alternar tema claro ou escuro">Tema</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wide">
+    <h1>O algoritmo não enxerga todo mundo igual.</h1>
+    <p class="lead">Um percurso interativo sobre racismo algorítmico: o que é, como acontece, onde já aconteceu aqui na Bahia e o que dá para fazer a respeito.</p>
+    <div class="faces" id="faces" role="img" aria-label="Simulação de um sistema de reconhecimento facial analisando doze rostos de tons de pele diferentes. Os rostos de pele clara são detectados com mais de 95% de confiança. Os de pele mais escura recebem confiança baixa ou não são detectados.">
+      <div class="scanline"></div>
+    </div>
+    <p class="caption">Simulação ilustrativa, inspirada no padrão de erro medido pela pesquisa <i>Gender Shades</i> (2018) em sistemas comerciais de análise facial.</p>
+    <p style="margin-top:1.5rem"><a class="btn" href="#espelho">Começar o percurso</a> <button class="btn btn-ghost" type="button" id="replay">Ver a análise de novo</button></p>
+  </div>
+</section>
+
+<section class="stage" id="espelho">
+  <div class="wrap">
+    <span class="num">1 de 6</span>
+    <h2>Espelho, espelho meu</h2>
+    <p class="lead">Antes da teoria, três situações que talvez você já tenha vivido. Escolha uma reação em cada uma.</p>
+
+    <div class="scenario" data-scn>
+      <h3>O filtro “embelezador”</h3>
+      <p>Você testa um filtro de beleza novo. Ele afina seu nariz, clareia sua pele e deixa seu cabelo mais liso.</p>
+      <div class="choices">
+        <button class="choice" type="button" aria-pressed="false" data-react="Muita gente pensa assim, e é justamente por parecer inofensivo que passa despercebido.">É só um filtro</button>
+        <button class="choice" type="button" aria-pressed="false" data-react="Esse incômodo tem fundamento.">Isso me incomoda</button>
+      </div>
+      <div class="reveal" hidden><p class="react"></p><p>Filtros aprendem o que é “bonito” a partir de milhões de imagens e avaliações. Se essas imagens refletem um padrão de beleza branco, o algoritmo transforma esse padrão em regra e devolve para você um rosto “corrigido” na direção dele.</p></div>
+    </div>
+
+    <div class="scenario" data-scn>
+      <h3>O desbloqueio que não funciona</h3>
+      <p>Seu amigo de pele escura tenta desbloquear o celular pelo rosto num ambiente com pouca luz. Falha três vezes. O seu desbloqueia de primeira.</p>
+      <div class="choices">
+        <button class="choice" type="button" aria-pressed="false" data-react="A luz importa, mas não explica tudo.">Deve ser a luz</button>
+        <button class="choice" type="button" aria-pressed="false" data-react="Exatamente. O defeito não está no rosto dele.">O sistema não foi feito pra ele</button>
+      </div>
+      <div class="reveal" hidden><p class="react"></p><p>Em 2018, a pesquisa <i>Gender Shades</i> testou sistemas comerciais de três empresas: o erro chegou a 34,7% para mulheres de pele escura e ficou em 0,8% para homens de pele clara. Quando os dados de treino e os testes priorizam um tipo de rosto, os outros viram exceção.</p></div>
+    </div>
+
+    <div class="scenario" data-scn>
+      <h3>O alerta na estação</h3>
+      <p>Você passa por uma câmera no metrô de Salvador. O sistema emite um alerta: seu rosto “parece” o de uma pessoa procurada. Policiais te abordam.</p>
+      <div class="choices">
+        <button class="choice" type="button" aria-pressed="false" data-react="Na prática, quem é abordado precisa provar que não é quem a máquina disse.">Explico e vou embora</button>
+        <button class="choice" type="button" aria-pressed="false" data-react="E a resposta, nos dados, tem cor.">Quem é parado mais vezes?</button>
+      </div>
+      <div class="reveal" hidden><p class="react"></p><p>Em 2019, a Rede de Observatórios da Segurança acompanhou prisões feitas com reconhecimento facial em cinco estados. Nos casos com informação de raça, 90,5% das pessoas presas eram negras, e a Bahia concentrava mais da metade das prisões. Você vai ver esse caso de perto na etapa 4.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" id="neutralidade">
+  <div class="wrap">
+    <span class="num">2 de 6</span>
+    <h2>O mito da neutralidade</h2>
+    <p>Muita gente acredita que computadores são justos porque “não têm preconceito”: só fazem contas. O problema é <em>com o que</em> eles fazem as contas. Um algoritmo de aprendizado de máquina aprende padrões a partir de <button class="term" type="button" data-term="dados de treino">dados de treino</button>, e esses dados são o registro de uma sociedade que já é desigual.</p>
+    <p><button class="term" type="button" data-term="racismo algorítmico">Racismo algorítmico</button> é o nome que se dá ao modo como sistemas computacionais reproduzem, automatizam e ampliam discriminações raciais. Não depende de alguém ter programado “seja racista”. Basta o sistema aprender com o passado sem ninguém perguntar que passado é esse.</p>
+
+    <p class="machine-voice">“Eu só repito os padrões que encontrei nos dados.”</p>
+
+    <p>Veja o que acontece quando um sistema aprende com o histórico de prisões de Salvador.</p>
+    <div class="ledger">
+      <div class="cell">
+        <p class="small" style="margin:0 0 .3rem">Passado: o que os dados mostram</p>
+        <div class="big">98,8%</div>
+        <p style="margin:.4rem 0 0">das pessoas presas em flagrante em Salvador eram negras, segundo relatório da Defensoria Pública da Bahia (2019).</p>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="cell future" id="future" data-shown="false" aria-live="polite">
+        <p class="small" style="margin:0 0 .3rem">Futuro: o que o sistema aprende</p>
+        <div class="big">“suspeito”</div>
+        <p style="margin:.4rem 0 0">vira sinônimo de “negro”. O sistema aponta mais pessoas negras, que geram mais prisões, que viram novos dados de treino. O ciclo se fecha sozinho.</p>
+      </div>
+    </div>
+    <p><button class="btn btn-ghost" type="button" id="futureBtn">Mostrar o que o sistema aprende</button></p>
+
+    <blockquote class="thesis">
+      Algoritmos não inventam o racismo, mas lhe dão escala, velocidade e uma aparência de objetividade que o torna mais difícil de contestar. Por isso, a pergunta não é só “o algoritmo erra?”, e sim “para quem ele erra, quem decidiu usá-lo e quem paga pelo erro?”.
+      <footer>Tese do grupo</footer>
+    </blockquote>
+  </div>
+</section>
+
+<section class="stage" id="maquina">
+  <div class="wrap">
+    <span class="num">3 de 6</span>
+    <h2>Por dentro da máquina</h2>
+    <p>Um sistema de reconhecimento facial passa por várias etapas até chegar à câmera da estação. O viés pode entrar em qualquer uma delas. Toque em cada etapa.</p>
+  </div>
+  <div class="wrap">
+    <ol class="pipe" role="tablist" aria-label="Etapas de um sistema de IA" id="pipe"></ol>
+    <div class="pipe-panel" role="tabpanel" id="pipePanel" aria-live="polite"></div>
+
+    <div class="sim" id="sim">
+      <h3>Simulador: treine o seu próprio classificador</h3>
+      <p>Arraste para mudar a proporção de rostos de pele escura na base de treino e veja o que acontece com a taxa de erro de cada grupo.</p>
+      <label for="mix">Rostos de pele escura na base de treino: <span id="mixOut">10%</span></label>
+      <input type="range" id="mix" min="5" max="50" step="1" value="10">
+      <div class="share" aria-hidden="true"><div class="d" id="shD">10%</div><div class="l" id="shL">90%</div></div>
+      <div class="bars">
+        <div class="barrow"><span>Pele escura</span><div class="track"><div class="fill hot" id="bD"></div></div><span class="val" id="vD"></span></div>
+        <div class="barrow"><span>Pele clara</span><div class="track"><div class="fill" id="bL"></div></div><span class="val" id="vL"></span></div>
+      </div>
+      <p class="sim-note" id="simNote" aria-live="polite"></p>
+      <p class="small">Modelo ilustrativo. Os extremos foram calibrados com os valores de <i>Gender Shades</i> (34,7% e 0,8%), mas a curva entre eles é uma simplificação didática, não uma medição.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stage" id="casos">
+  <div class="wrap">
+    <span class="num">4 de 6</span>
+    <h2>Onde acontece</h2>
+    <p>Não é ficção científica nem problema só de outros países. Os pontos vermelhos são casos no Brasil.</p>
+    <p class="stat">90,5%</p>
+    <p class="lead">das pessoas presas por reconhecimento facial no Brasil em 2019 eram negras, nos casos em que havia informação de raça.</p>
+    <p class="small">Fonte: Rede de Observatórios da Segurança, monitoramento de março a outubro de 2019 na Bahia, Ceará, Paraíba, Rio de Janeiro e Santa Catarina.</p>
+
+    <div class="filters" role="group" aria-label="Filtrar casos">
+      <button class="choice" type="button" aria-pressed="true" data-filter="all">Todos</button>
+      <button class="choice" type="button" aria-pressed="false" data-filter="br">Brasil</button>
+      <button class="choice" type="button" aria-pressed="false" data-filter="world">Mundo</button>
+    </div>
+
+    <ol class="timeline" id="timeline">
+      <li data-where="world"><span class="year">2015</span><span class="place">Estados Unidos</span>
+        <h3>Google Fotos rotula pessoas negras como “gorilas”</h3>
+        <p>Um usuário denunciou que o app havia agrupado fotos dele e de uma amiga, ambos negros, com esse rótulo. A “solução” da empresa foi remover a categoria, não corrigir o modelo.</p>
+        <details><summary>Por que isso importa</summary><p>Mostra como a falta de diversidade nos dados de treino e nos testes gera erros que desumanizam, e como esconder o sintoma é mais barato do que tratar a causa.</p></details></li>
+      <li data-where="world"><span class="year">2016</span><span class="place">Estados Unidos</span>
+        <h3>COMPAS: o algoritmo que prevê “reincidência”</h3>
+        <p>A investigação <i>Machine Bias</i>, da ProPublica, mostrou que réus negros tinham quase o dobro de chance de serem classificados erroneamente como de alto risco em comparação com réus brancos.</p>
+        <details><summary>Por que isso importa</summary><p>Quando um número decide fiança e pena, o viés deixa de ser um incômodo e passa a tirar liberdade.</p></details></li>
+      <li data-where="world"><span class="year">2018</span><span class="place">Estados Unidos</span>
+        <h3>Gender Shades</h3>
+        <p>Joy Buolamwini e Timnit Gebru testaram sistemas de análise facial de grandes empresas: erro de até 34,7% para mulheres de pele escura contra 0,8% para homens de pele clara.</p>
+        <details><summary>Por que isso importa</summary><p>Transformou uma suspeita em evidência mensurável e pressionou as empresas a reverem seus produtos.</p></details></li>
+      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Feira de Santana, Bahia</span>
+        <h3>Micareta vigiada</h3>
+        <p>Em quatro dias de festa, as câmeras capturaram os rostos de mais de 1,3 milhão de pessoas e geraram 903 alertas, que resultaram em 18 mandados cumpridos. Mais de 96% dos alertas não levaram a nada.</p>
+        <details><summary>Por que isso importa</summary><p>Cada alerta falso é uma pessoa abordada sem motivo. Numa cidade de maioria negra, essas abordagens não se distribuem por acaso.</p></details></li>
+      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Rio de Janeiro</span>
+        <h3>Presa por engano no primeiro dia</h3>
+        <p>Logo na estreia do sistema em Copacabana, uma mulher foi detida após ser confundida com uma foragida. A procurada verdadeira já estava presa havia quatro anos.</p>
+        <details><summary>Por que isso importa</summary><p>O erro não foi só da câmera: foi também de um banco de dados desatualizado e de uma polícia que confiou na máquina sem checar.</p></details></li>
+      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Cinco estados</span>
+        <h3>90,5% das pessoas presas eram negras</h3>
+        <p>O levantamento da Rede de Observatórios da Segurança mostrou ainda que a Bahia, estado com a maior proporção de população negra do país, respondia por 52% das prisões feitas com a tecnologia.</p>
+        <details><summary>Por que isso importa</summary><p>Mesmo um sistema tecnicamente “preciso” amplia a desigualdade se for instalado onde a polícia já concentra suas abordagens.</p></details></li>
+      <li data-where="world"><span class="year">2020</span><span class="place">Detroit, Estados Unidos</span>
+        <h3>Robert Williams, preso por um algoritmo</h3>
+        <p>Um homem negro foi preso na frente da família, acusado de furto com base apenas num “acerto” do reconhecimento facial. Não era ele.</p>
+        <details><summary>Por que isso importa</summary><p>É um dos primeiros casos documentados de prisão injusta causada diretamente por reconhecimento facial, e virou referência no debate sobre proibir a tecnologia na polícia.</p></details></li>
+      <li data-where="world"><span class="year">2020</span><span class="place">Redes sociais</span>
+        <h3>O recorte automático que escolhia rostos brancos</h3>
+        <p>Usuários do Twitter perceberam que o recorte automático de imagens tendia a destacar rostos brancos. Um estudo da própria empresa, em 2021, confirmou o viés e a função foi abandonada.</p>
+        <details><summary>Por que isso importa</summary><p>O racismo algorítmico também decide quem aparece e quem some na sua timeline.</p></details></li>
+    </ol>
+  </div>
+</section>
+
+<section class="stage" id="resistencia">
+  <div class="wrap">
+    <span class="num">5 de 6</span>
+    <h2>Quem resiste</h2>
+    <p>Se a tecnologia é feita por pessoas, ela pode ser disputada por pessoas. Estas são algumas das que pesquisam, denunciam e constroem alternativas, várias delas discutidas nas palestras da disciplina.</p>
+    <ul class="people">
+      <li><i style="background:var(--t6)"></i><div><span class="from-lecture">Palestra da disciplina</span><h3>LINTER/UFBA</h3><p>Estudantes indígenas que levam as tecnologias digitais para a universidade e para as comunidades, usando-as para preservar memória, língua e território. A tecnologia como algo que se ocupa e se ressignifica, não só que se sofre.</p></div></li>
+      <li><i style="background:var(--t4)"></i><div><span class="from-lecture">Palestra da disciplina</span><h3>Meninas Digitais</h3><p>Programa da Sociedade Brasileira de Computação que incentiva meninas a entrarem na computação. Equipes mais diversas fazem perguntas que equipes homogêneas não fazem. <a href="https://meninas.sbc.org.br">meninas.sbc.org.br</a></p></div></li>
+      <li><i style="background:var(--t5)"></i><div><h3>Tarcízio Silva</h3><p>Pesquisador brasileiro, autor de <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i> (2022), principal referência do tema em português.</p></div></li>
+      <li><i style="background:var(--t3)"></i><div><h3>Nina da Hora</h3><p>Cientista da computação e pesquisadora brasileira que discute ética em IA e se define como hacker antirracista, aproximando o debate técnico do público jovem.</p></div></li>
+      <li><i style="background:var(--t6)"></i><div><h3>PretaLab</h3><p>Iniciativa do Olabi que mapeia e fortalece mulheres negras e indígenas na tecnologia. <a href="https://www.pretalab.com">pretalab.com</a></p></div></li>
+      <li><i style="background:var(--t5)"></i><div><h3>Joy Buolamwini e a Algorithmic Justice League</h3><p>A pesquisadora de <i>Gender Shades</i> fundou a AJL para expor vieses em IA. A história está no documentário <i>Coded Bias</i> (2020). <a href="https://www.ajl.org">ajl.org</a></p></div></li>
+      <li><i style="background:var(--t4)"></i><div><h3>Rede de Observatórios da Segurança</h3><p>Rede que monitora a violência e as políticas de segurança em vários estados, incluindo a Bahia, e produziu o levantamento sobre reconhecimento facial citado neste site.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="stage" id="agora">
+  <div class="wrap">
+    <span class="num">6 de 6</span>
+    <h2>E agora?</h2>
+    <div class="manifesto">
+      <p>Nós, do Grupo [número], defendemos que nenhuma tecnologia que decide sobre a liberdade, o corpo ou as oportunidades das pessoas deve ser usada sem transparência, auditoria independente e participação de quem será afetado por ela.</p>
+      <p>Na segurança pública, o ônus da prova está invertido: hoje, quem é apontado pela máquina precisa provar que ela errou. Enquanto não houver regras claras e evidência de que esses sistemas não aprofundam o encarceramento da população negra, defendemos a suspensão do reconhecimento facial no policiamento.</p>
+      <p>E acreditamos que a saída não é rejeitar a tecnologia, mas disputá-la: mais pessoas negras e indígenas criando, testando e decidindo sobre os sistemas que moldam a vida de todo mundo.</p>
+    </div>
+
+    <h3 style="margin-top:2.5rem">O que você pode fazer</h3>
+    <div class="tabs" role="tablist" aria-label="Ações por perfil">
+      <button role="tab" type="button" aria-selected="true" aria-controls="tp1" id="tb1">Se você usa tecnologia</button>
+      <button role="tab" type="button" aria-selected="false" aria-controls="tp2" id="tb2">Se você estuda ou desenvolve</button>
+      <button role="tab" type="button" aria-selected="false" aria-controls="tp3" id="tb3">Se você decide políticas</button>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="tp1" aria-labelledby="tb1">
+      <ol>
+        <li>Desconfie da ideia de que “a máquina não erra”. Pergunte quem fez, com que dados e para quê.</li>
+        <li>Conheça seus direitos: a LGPD garante pedir revisão de decisões tomadas só por meios automatizados.</li>
+        <li>Registre e denuncie. Prints e relatos de erros ajudam pesquisadores e jornalistas a provar padrões.</li>
+        <li>Compartilhe este percurso com alguém que ainda acha que tecnologia é neutra.</li>
+      </ol>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="tp2" aria-labelledby="tb2" hidden>
+      <ol>
+        <li>Meça o desempenho do seu modelo separado por grupo, não só a média geral. A média esconde quem fica para trás.</li>
+        <li>Documente seus dados: de onde vieram, quem está representado e quem falta.</li>
+        <li>Pergunte se o sistema deveria existir antes de perguntar como otimizá-lo.</li>
+        <li>Aproxime-se de iniciativas como PretaLab e Meninas Digitais, como participante ou como aliado.</li>
+      </ol>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="tp3" aria-labelledby="tb3" hidden>
+      <ol>
+        <li>Exija relatórios públicos de impacto e auditorias independentes antes de contratar sistemas de IA.</li>
+        <li>Publique as taxas de erro, abordagens e prisões geradas por reconhecimento facial, separadas por raça.</li>
+        <li>Garanta que nenhuma pessoa seja presa com base apenas em um alerta automatizado.</li>
+        <li>Inclua movimentos negros, pesquisadores e defensorias na decisão sobre adotar essas tecnologias.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="stage" id="quiz">
+  <div class="wrap">
+    <h2>Teste o que ficou</h2>
+    <p>Cinco perguntas rápidas sobre o percurso.</p>
+    <div id="quizBox"></div>
+    <p class="score" id="score" aria-live="polite"></p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <h2>Referências</h2>
+    <ul class="refs">
+      <li>BUOLAMWINI, J.; GEBRU, T. Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. <i>Proceedings of Machine Learning Research</i>, v. 81, 2018.</li>
+      <li>NUNES, P. Levantamento revela que 90,5% dos presos por monitoramento facial no Brasil são negros. <i>The Intercept Brasil</i>, 21 nov. 2019. <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/">Ler a reportagem</a></li>
+      <li>SILVA, T. <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i>. São Paulo: Edições Sesc, 2022.</li>
+      <li>NOBLE, S. U. <i>Algoritmos da opressão</i>. Santo André: Rua do Sabão, 2021.</li>
+      <li>BENJAMIN, R. <i>Race After Technology</i>. Cambridge: Polity, 2019.</li>
+      <li>O’NEIL, C. <i>Algoritmos de destruição em massa</i>. Santo André: Rua do Sabão, 2020.</li>
+      <li>ALMEIDA, S. <i>Racismo estrutural</i>. São Paulo: Pólen, 2019.</li>
+      <li><i>Coded Bias</i>. Direção: Shalini Kantayya. EUA, 2020. Documentário.</li>
+    </ul>
+    <p style="margin-top:2rem">Trabalho multimodal da disciplina MATA68 – Computador, Ética e Sociedade, Instituto de Computação da UFBA, semestre 2026.1. Grupo [número]: [nomes dos membros].</p>
+  </div>
+</footer>
+
+<button class="fab" type="button" id="glossBtn" aria-haspopup="dialog">Glossário</button>
+<dialog id="gloss" aria-labelledby="glossTitle">
+  <div class="dlg-head"><h2 id="glossTitle">Glossário</h2><button class="icon-btn" type="button" id="glossClose">Fechar</button></div>
+  <div class="dlg-body"><dl id="glossList"></dl></div>
+</dialog>
+
+<script>
+(function(){
+  // tema
+  var root = document.documentElement;
+  try{ var saved = localStorage.getItem("cdc-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try{ localStorage.setItem("cdc-theme", next); }catch(e){}
+  });
+
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // hero: rostos
+  var tones = ["--t1","--t2","--t3","--t4","--t5","--t6"];
+  var conf  = [99, 98, 95, 79, 52, null];
+  var order = [0,3,5,1,4,2, 4,1,2,5,0,3];
+  var faces = document.getElementById("faces");
+  order.forEach(function(t){
+    var d = document.createElement("div"); d.className = "face";
+    d.innerHTML = '<svg viewBox="0 0 100 120" aria-hidden="true"><circle cx="50" cy="44" r="25" fill="var('+tones[t]+')"/><path d="M14 120c0-24 16-40 36-40s36 16 36 40z" fill="var('+tones[t]+')"/></svg>';
+    var b = document.createElement("div");
+    var c = conf[t];
+    b.className = "box" + (c === null ? " none" : c < 90 ? " weak" : "");
+    b.innerHTML = '<span class="tag">' + (c === null ? "não detectado" : "rosto " + c + "%") + '</span>';
+    d.appendChild(b); faces.appendChild(d);
+  });
+  function runScan(){
+    var list = faces.querySelectorAll(".face");
+    list.forEach(function(f){ f.classList.remove("scanned"); });
+    faces.classList.remove("scanning");
+    if(reduce){ list.forEach(function(f){ f.classList.add("scanned"); }); return; }
+    void faces.offsetWidth; faces.classList.add("scanning");
+    list.forEach(function(f, i){ setTimeout(function(){ f.classList.add("scanned"); }, 300 + i * 160); });
+  }
+  runScan();
+  document.getElementById("replay").addEventListener("click", runScan);
+
+  // cenários
+  document.querySelectorAll("[data-scn]").forEach(function(s){
+    var btns = s.querySelectorAll(".choice"), rev = s.querySelector(".reveal");
+    btns.forEach(function(b){ b.addEventListener("click", function(){
+      btns.forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      rev.querySelector(".react").textContent = b.dataset.react;
+      rev.hidden = false;
+    });});
+  });
+
+  // passado/futuro
+  var fut = document.getElementById("future"), fb = document.getElementById("futureBtn");
+  fb.addEventListener("click", function(){
+    var shown = fut.dataset.shown === "true";
+    fut.dataset.shown = shown ? "false" : "true";
+    fb.textContent = shown ? "Mostrar o que o sistema aprende" : "Esconder";
+  });
+
+  // pipeline
+  var stages = [
+    ["Coleta","de onde vêm as fotos","Se a base de imagens tem muito mais rostos brancos, o sistema simplesmente vê poucos exemplos de pessoas negras e aprende pior sobre elas. Bases antigas e populares de rostos foram montadas majoritariamente com pessoas de pele clara."],
+    ["Rotulagem","quem diz o que é cada foto","Pessoas classificam as imagens como “perigoso”, “profissional”, “bonito”. Esses rótulos carregam os preconceitos de quem rotula, e o modelo aprende o preconceito como se fosse fato."],
+    ["Modelagem","o que se otimiza","Um modelo pode ter 95% de acerto na média e errar muito para um grupo minoritário, porque a média esconde quem fica para trás. Se ninguém mede o erro por grupo, ninguém vê o problema."],
+    ["Equipe","quem faz as perguntas","Equipes pouco diversas tendem a não perceber falhas que não as atingem. Foi uma pesquisadora negra, ao ver que o sistema não reconhecia seu rosto, que iniciou a investigação de Gender Shades."],
+    ["Uso","onde a câmera é instalada","Mesmo um sistema com erro igual para todos gera injustiça se for instalado só em bairros periféricos e estações de grande fluxo popular. A decisão de onde vigiar é política, não técnica."]
+  ];
+  var pipe = document.getElementById("pipe"), panel = document.getElementById("pipePanel");
+  stages.forEach(function(s, i){
+    var li = document.createElement("li");
+    li.innerHTML = '<button type="button" role="tab" aria-selected="' + (i===0) + '" id="ps' + i + '"><b>' + (i+1) + '. ' + s[0] + '</b><small>' + s[1] + '</small></button>';
+    pipe.appendChild(li);
+  });
+  function showStage(i){
+    pipe.querySelectorAll("button").forEach(function(b, j){ b.setAttribute("aria-selected", j === i ? "true" : "false"); });
+    panel.setAttribute("aria-labelledby", "ps" + i);
+    panel.innerHTML = '<h3>' + stages[i][0] + '</h3><p>' + stages[i][2] + '</p>';
+  }
+  pipe.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    showStage([].indexOf.call(pipe.querySelectorAll("button"), b));
+  });
+  showStage(0);
+
+  // simulador
+  var mix = document.getElementById("mix");
+  function err(share){ var gap = Math.max(0, 0.5 - share) / 0.45; return 0.8 + 33.9 * Math.pow(gap, 1.35); }
+  function fmt(n){ return n.toFixed(1).replace(".", ","); }
+  function updSim(){
+    var d = mix.value / 100, eD = err(d), eL = err(1 - d);
+    document.getElementById("mixOut").textContent = mix.value + "%";
+    document.getElementById("shD").textContent = mix.value + "%";
+    document.getElementById("shD").style.width = mix.value + "%";
+    document.getElementById("shL").textContent = (100 - mix.value) + "%";
+    document.getElementById("bD").style.width = (eD / 35 * 100) + "%";
+    document.getElementById("bL").style.width = (eL / 35 * 100) + "%";
+    document.getElementById("vD").textContent = fmt(eD) + "%";
+    document.getElementById("vL").textContent = fmt(eL) + "%";
+    var ratio = eD / eL, note;
+    if(mix.value >= 48) note = "Base equilibrada: os erros ficam parecidos. Mas atenção, isso não resolve tudo. Se a câmera continuar instalada só nos mesmos lugares, quem é vigiado continua sendo o mesmo grupo.";
+    else if(ratio > 20) note = "Com tão poucos exemplos, o sistema erra cerca de " + Math.round(ratio) + " vezes mais com rostos de pele escura. É o cenário mais próximo do que Gender Shades encontrou em produtos vendidos no mercado.";
+    else note = "O erro para rostos de pele escura ainda é " + fmt(ratio) + " vezes maior. Continue arrastando para equilibrar a base.";
+    document.getElementById("simNote").textContent = note;
+  }
+  mix.addEventListener("input", updSim); updSim();
+
+  // filtros da linha do tempo
+  var fbtns = document.querySelectorAll("[data-filter]");
+  fbtns.forEach(function(b){ b.addEventListener("click", function(){
+    fbtns.forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    var f = b.dataset.filter;
+    document.querySelectorAll("#timeline li").forEach(function(li){ li.hidden = !(f === "all" || li.dataset.where === f); });
+  });});
+
+  // abas
+  var tabs = document.querySelectorAll('.tabs [role="tab"]');
+  tabs.forEach(function(t){ t.addEventListener("click", function(){
+    tabs.forEach(function(x){
+      var on = x === t; x.setAttribute("aria-selected", on ? "true" : "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  });});
+
+  // glossário
+  var terms = {
+    "algoritmo":"Sequência de instruções que um computador segue para resolver um problema ou tomar uma decisão.",
+    "dados de treino":"Exemplos (fotos, textos, registros) usados para ensinar um sistema de IA a reconhecer padrões. O sistema só sabe o que esses dados mostram.",
+    "racismo algorítmico":"Modo como sistemas computacionais reproduzem, automatizam e ampliam discriminações raciais, mesmo sem intenção explícita de quem os criou.",
+    "viés":"Tendência sistemática de um sistema a favorecer ou prejudicar um grupo. Não é um erro aleatório: aponta sempre na mesma direção.",
+    "falso positivo":"Quando o sistema diz “sim” e a resposta certa era “não”. No reconhecimento facial, apontar uma pessoa inocente como procurada.",
+    "reconhecimento facial":"Tecnologia que mede traços do rosto para identificar ou verificar quem é uma pessoa a partir de uma imagem.",
+    "auditoria algorítmica":"Avaliação independente de um sistema para verificar se ele funciona de forma justa, inclusive para grupos diferentes.",
+    "LGPD":"Lei Geral de Proteção de Dados (Lei 13.709/2018). Entre outros direitos, permite pedir revisão de decisões tomadas apenas por meios automatizados."
+  };
+  var dlg = document.getElementById("gloss"), list = document.getElementById("glossList");
+  Object.keys(terms).forEach(function(k){
+    var dt = document.createElement("dt"); dt.textContent = k.charAt(0).toUpperCase() + k.slice(1); dt.id = "g-" + k.replace(/\s/g, "-");
+    var dd = document.createElement("dd"); dd.textContent = terms[k];
+    list.appendChild(dt); list.appendChild(dd);
+  });
+  function openGloss(term){
+    list.querySelectorAll("dt").forEach(function(d){ d.classList.remove("hl"); });
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    if(term){ var el = document.getElementById("g-" + term.replace(/\s/g, "-")); if(el){ el.classList.add("hl"); el.scrollIntoView({block:"center"}); } }
+  }
+  document.getElementById("glossBtn").addEventListener("click", function(){ openGloss(); });
+  document.getElementById("glossClose").addEventListener("click", function(){ dlg.close ? dlg.close() : dlg.removeAttribute("open"); });
+  document.querySelectorAll("[data-term]").forEach(function(b){ b.addEventListener("click", function(){ openGloss(b.dataset.term); }); });
+
+  // quiz
+  var qs = [
+    ["Por que um algoritmo pode ser racista mesmo sem ninguém programar isso?", ["Porque computadores têm opinião própria","Porque aprende com dados que registram uma sociedade desigual","Porque só funciona com internet lenta"], 1, "Ele aprende padrões do passado. Se o passado é desigual, o padrão aprendido também é."],
+    ["Em Gender Shades, qual grupo teve a maior taxa de erro?", ["Homens de pele clara","Mulheres de pele clara","Mulheres de pele escura"], 2, "O erro chegou a 34,7% para mulheres de pele escura, contra 0,8% para homens de pele clara."],
+    ["Segundo a Rede de Observatórios da Segurança, quantos dos presos por reconhecimento facial em 2019 eram negros?", ["Cerca de 50%","90,5%","Menos de 30%"], 1, "90,5% nos casos com informação de raça, e a Bahia concentrou 52% das prisões."],
+    ["Se a base de treino ficar perfeitamente equilibrada, o problema acaba?", ["Sim, totalmente","Não, porque decidir onde e contra quem usar o sistema também gera injustiça","Sim, desde que a câmera seja cara"], 1, "Equilibrar os dados reduz o erro técnico, mas a escolha de onde vigiar continua sendo uma decisão política."],
+    ["Qual destas é uma ação possível para quem desenvolve tecnologia?", ["Medir o desempenho do modelo separado por grupo","Olhar só a acurácia média","Esconder a categoria que deu problema"], 0, "A média esconde quem fica para trás. Medir por grupo revela o viés."]
+  ];
+  var box = document.getElementById("quizBox"), right = 0, answered = 0;
+  qs.forEach(function(q, i){
+    var w = document.createElement("div"); w.className = "q";
+    var fs = document.createElement("fieldset");
+    var lg = document.createElement("legend"); lg.textContent = (i+1) + ". " + q[0]; fs.appendChild(lg);
+    var fbk = document.createElement("p"); fbk.className = "fb"; fbk.setAttribute("aria-live", "polite");
+    q[1].forEach(function(o, j){
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.textContent = o;
+      b.addEventListener("click", function(){
+        var all = fs.querySelectorAll(".opt");
+        all.forEach(function(x, k){ x.disabled = true; if(k === q[2]) x.classList.add("right"); });
+        var ok = j === q[2]; if(!ok) b.classList.add("wrong"); else right++;
+        answered++;
+        fbk.innerHTML = "<strong>" + (ok ? "Isso mesmo." : "Não exatamente.") + "</strong> " + q[3];
+        if(answered === qs.length) document.getElementById("score").textContent = "Você acertou " + right + " de " + qs.length + ".";
+      });
+      fs.appendChild(b);
+    });
+    fs.appendChild(fbk); w.appendChild(fs); box.appendChild(w);
+  });
+
+  // barra de progresso
+  var ids = ["espelho","neutralidade","maquina","casos","resistencia","agora"];
+  var links = document.querySelectorAll(".steps a");
+  function onScroll(){
+    var y = window.scrollY + window.innerHeight * 0.35, cur = -1;
+    ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
+    if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
+    links.forEach(function(a, i){ a.classList.toggle("on", i <= cur); if(i === cur) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
+  }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  // abrir na seção indicada pelo link
+  if(location.hash){ var t = document.getElementById(location.hash.slice(1)); if(t) setTimeout(function(){ t.scrollIntoView(); }, 50); }
+})();
+</script>
+</body>
+</html>
