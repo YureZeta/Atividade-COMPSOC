@@ -11,7 +11,7 @@
 <link rel="manifest" href="favicon/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="codigo-de-cor.css">
 </head>
 <body>
@@ -246,7 +246,7 @@
           <div class="compass" id="compass" aria-hidden="true"><span>N</span><span class="s">S</span></div>
           <p class="centered-control"><button class="btn btn-ghost" type="button" id="flipBtn">Inverter o mapa</button></p>
         </div>
-        <div>
+        <div id="southCopy">
           <p>Em 1943, o artista uruguaio Joaquín Torres García desenhou a América do Sul de cabeça para baixo e escreveu que “nosso norte é o sul”. Monagreda usa essa imagem para explicar o Sul Global: não apenas um lugar no mapa, mas uma posição de onde se enxerga o mundo, marcada pelo legado colonial. Para as big techs, o Sul aparece como fonte de dados, minérios e trabalho barato. Para quem vive aqui, é também um lugar de produção de conhecimento e de resistência.</p>
           <span class="src">Fonte: slides “IA: desafios desde o Sul Global”, Palestra 5, e Monagreda (2026), cap. 7, seção 1.</span>
         </div>
@@ -354,7 +354,7 @@
         <p>Em 2018, a organização Big Brother Watch, que aparece no filme, obteve os números do reconhecimento facial da Polícia Metropolitana de Londres. Cada quadrado abaixo é um alerta emitido pelo sistema.</p>
         <div class="alerts" id="alerts" aria-hidden="true"></div>
         <div class="legend"><span class="innocent">Pessoa inocente apontada</span><span class="correct">Identificação correta</span></div>
-        <p class="alert-actions"><button class="btn" type="button" id="alertsBtn">Revelar o resultado</button></p>
+        <p class="alert-actions"><button class="btn" type="button" id="alertsBtn" aria-expanded="false" aria-controls="alerts alertsNote">Revelar o resultado</button></p>
         <p class="sim-note" id="alertsNote" aria-live="polite"></p>
         <span class="src">Fontes: <a href="https://bigbrotherwatch.org.uk/all-media/dangerous-and-inaccurate-police-facial-recognition-exposed-in-new-big-brother-watch-report/" target="_blank" rel="noopener">Big Brother Watch, relatório <i>Face Off</i>, maio 2018</a>; <a href="https://www.itv.com/news/2018-05-15/facial-recognition-software-used-by-police-wrong-in-more-than-90-of-cases/" target="_blank" rel="noopener">ITV News, 15 maio 2018</a>.</span>
       </div>
