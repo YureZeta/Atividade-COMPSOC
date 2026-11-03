@@ -2,7 +2,7 @@
 
 > Um percurso interativo sobre racismo algorítmico: como ele acontece, quem é afetado e como podemos questionar as tecnologias que moldam nossas vidas.
 
-[Abrir o percurso interativo](./codigo-de-cor%20(versaoParaProd).html#inicio)
+[Abrir o percurso interativo](./index.html#inicio)
 
 ## Neste README
 
@@ -27,7 +27,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Explore exemplos de filtros de beleza, reconhecimento facial e alertas automatizados para refletir sobre como vieses podem aparecer em experiências comuns.
 
-  [Ir para a etapa 1](./codigo-de-cor%20(versaoParaProd).html#espelho)
+  [Ir para a etapa 1](./index.html#espelho)
 </details>
 
 <details>
@@ -35,7 +35,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Entenda como dados históricos e escolhas de projeto podem levar um sistema a reproduzir desigualdades, mesmo sem uma instrução explicitamente discriminatória.
 
-  [Ir para a etapa 2](./codigo-de-cor%20(versaoParaProd).html#neutralidade)
+  [Ir para a etapa 2](./index.html#neutralidade)
 </details>
 
 <details>
@@ -43,7 +43,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Acompanhe como coleta, rotulagem, modelagem, composição das equipes e contexto de uso influenciam os resultados de sistemas algorítmicos.
 
-  [Ir para a etapa 3](./codigo-de-cor%20(versaoParaProd).html#maquina)
+  [Ir para a etapa 3](./index.html#maquina)
 </details>
 
 <details>
@@ -51,7 +51,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Conheça casos e pesquisas sobre reconhecimento facial, erros de classificação e seus efeitos sobre diferentes grupos.
 
-  [Ir para a etapa 4](./codigo-de-cor%20(versaoParaProd).html#casos)
+  [Ir para a etapa 4](./index.html#casos)
 </details>
 
 <details>
@@ -59,7 +59,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Veja referências, pesquisadoras, pesquisadores e iniciativas que questionam a tecnologia e propõem outras formas de construir conhecimento.
 
-  [Ir para a etapa 5](./codigo-de-cor%20(versaoParaProd).html#resistencia)
+  [Ir para a etapa 5](./index.html#resistencia)
 </details>
 
 <details>
@@ -67,7 +67,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
   Reflita sobre ações possíveis para quem usa, estuda, desenvolve ou toma decisões sobre tecnologia.
 
-  [Ir para a etapa 6](./codigo-de-cor%20(versaoParaProd).html#agora)
+  [Ir para a etapa 6](./index.html#agora)
 </details>
 
 ## Recursos interativos
@@ -80,13 +80,13 @@ Além do conteúdo explicativo, a página inclui:
 - glossário, quiz e navegação entre etapas;
 - minijogos de forca, caça-palavras e palavras cruzadas.
 
-[Conhecer os minijogos](./codigo-de-cor%20(versaoParaProd).html#minijogos)
+[Conhecer os minijogos](./index.html#minijogos)
 
 ## Como executar
 
 1. Baixe ou clone este repositório.
 2. Mantenha o HTML, o CSS e o JavaScript na mesma pasta.
-3. Abra `codigo-de-cor (versaoParaProd).html` em um navegador.
+3. Abra `index.html` em um navegador.
 
 Não é necessário instalar dependências nem executar um processo de build. A página carrega fontes do Google Fonts; sem conexão com a internet, o navegador usará as fontes alternativas definidas no CSS.
 
@@ -94,7 +94,7 @@ Não é necessário instalar dependências nem executar um processo de build. A 
 
 | Arquivo | Função |
 | --- | --- |
-| [`codigo-de-cor (versaoParaProd).html`](./codigo-de-cor%20(versaoParaProd).html) | Conteúdo e estrutura da página principal |
+| [`index.html`](./index.html) | Conteúdo e estrutura da página principal |
 | [`codigo-de-cor.css`](./codigo-de-cor.css) | Estilos, layout e adaptação para diferentes telas |
 | [`codigo-de-cor.js`](./codigo-de-cor.js) | Interações, simuladores, quiz e minijogos |
 
