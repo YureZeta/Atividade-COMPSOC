@@ -2,7 +2,7 @@
 
 > Um percurso interativo sobre racismo algorítmico: como ele acontece, quem é afetado e como podemos questionar as tecnologias que moldam nossas vidas.
 
-[Abrir o percurso interativo](./[https://yurezeta.github.io/Atividade-COMPSOC/]#inicio)
+[Abrir o percurso interativo](./https://yurezeta.github.io/Atividade-COMPSOC/#inicio)
 
 ## Neste README
 
