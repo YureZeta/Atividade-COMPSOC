@@ -1,630 +1,780 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Código de Cor: um percurso pelo racismo algorítmico</title>
-<link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
-<link rel="shortcut icon" href="favicon/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-<link rel="manifest" href="favicon/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="codigo-de-cor.css">
-</head>
-<body>
-<a class="skip" href="#espelho">Pular para o conteúdo</a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Código de Cor: um percurso pelo racismo algorítmico</title>
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="codigo-de-cor.css">
+  </head>
+  <body>
+    <a class="skip" href="#espelho">Pular para o conteúdo</a>
 
-<header class="bar">
-  <div class="wide bar-in">
-    <a class="brand" href="#inicio">Código de Cor</a>
-    <ol class="steps" aria-label="Etapas do percurso">
-      <li><a href="#espelho"><span>1. Espelho, espelho meu</span></a></li>
-      <li><a href="#neutralidade"><span>2. O mito da neutralidade</span></a></li>
-      <li><a href="#maquina"><span>3. Por dentro da máquina</span></a></li>
-      <li><a href="#casos"><span>4. Onde acontece</span></a></li>
-      <li><a href="#resistencia"><span>5. Quem resiste</span></a></li>
-      <li><a href="#agora"><span>6. E agora?</span></a></li>
-    </ol>
-    <nav class="views" aria-label="Abas do site">
-      <a href="#inicio" data-v="percurso">Percurso</a>
-      <a href="#minijogos" data-v="jogos">Minijogos</a>
-    </nav>
-    <button class="icon-btn" id="themeBtn" type="button" aria-label="Alternar tema claro ou escuro">Tema</button>
-  </div>
-</header>
+    <!-- Navegação global: os links de etapa rolam dentro do percurso; data-v alterna percurso e minijogos. -->
+    <header class="bar">
+      <div class="wide bar-in">
+        <a class="brand" href="#inicio">Código de Cor</a>
+        <ol class="steps" aria-label="Etapas do percurso">
+          <li><a href="#espelho"><span>1. Espelho, espelho meu</span></a></li>
+          <li><a href="#neutralidade"><span>2. O mito da neutralidade</span></a></li>
+          <li><a href="#maquina"><span>3. Por dentro da máquina</span></a></li>
+          <li><a href="#casos"><span>4. Onde acontece</span></a></li>
+          <li><a href="#resistencia"><span>5. Quem resiste</span></a></li>
+          <li><a href="#agora"><span>6. E agora?</span></a></li>
+        </ol>
+        <nav class="views" aria-label="Abas do site">
+          <a href="#inicio" data-v="percurso">Percurso</a>
+          <a href="#minijogos" data-v="jogos">Minijogos</a>
+        </nav>
+      </div>
+    </header>
 
-<main>
-<div id="percurso">
-<section class="hero" id="inicio">
-  <div class="wide">
-    <h1>O algoritmo não enxerga todo mundo igual.</h1>
-    <p class="lead">Um percurso interativo sobre racismo algorítmico: o que é, como acontece, onde já aconteceu aqui na Bahia e o que dá para fazer a respeito.</p>
-    <div class="faces" id="faces" role="img" aria-label="Simulação de um sistema de reconhecimento facial analisando doze rostos de tons de pele diferentes. Os rostos de pele clara são detectados com mais de 95% de confiança. Os de pele mais escura recebem confiança baixa ou não são detectados.">
-      <div class="scanline"></div>
-    </div>
-    <p class="caption">Simulação ilustrativa, inspirada no padrão de erro medido pela pesquisa <i>Gender Shades</i> (2018) em sistemas comerciais de análise facial.
-      <span class="src">Fonte: Buolamwini e Gebru, <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Gender Shades, PMLR v. 81, 2018</a>.</span></p>
-    <p class="intro-actions"><a class="btn" href="#espelho">Começar o percurso</a> <button class="btn btn-ghost" type="button" id="replay">Ver a análise de novo</button></p>
-  </div>
-</section>
-
-<section class="stage" id="espelho">
-  <div class="wrap">
-    <span class="num">1 de 6</span>
-    <h2>Espelho, espelho meu</h2>
-    <p class="lead">Monte um personagem para explorar como sistemas podem afetar pessoas de maneiras diferentes. Depois, escolha uma reação em cada situação.</p>
-
-    <div class="character-builder" aria-labelledby="characterTitle">
-      <div class="character-controls">
-        <h3 id="characterTitle">Configure o personagem</h3>
-        <p>As escolhas personalizam somente esta simulação. Elas não identificam você nem são enviadas ou salvas.</p>
-        <fieldset class="character-fieldset">
-          <legend>Tom de pele</legend>
-          <div class="tone-options">
-            <label class="tone-option"><input type="radio" name="characterTone" value="1"><span class="tone-swatch tone-1" aria-hidden="true"></span><span>1 · claro</span></label>
-            <label class="tone-option"><input type="radio" name="characterTone" value="2"><span class="tone-swatch tone-2" aria-hidden="true"></span><span>2 · claro-médio</span></label>
-            <label class="tone-option"><input type="radio" name="characterTone" value="3" checked><span class="tone-swatch tone-3" aria-hidden="true"></span><span>3 · médio-claro</span></label>
-            <label class="tone-option"><input type="radio" name="characterTone" value="4"><span class="tone-swatch tone-4" aria-hidden="true"></span><span>4 · médio-escuro</span></label>
-            <label class="tone-option"><input type="radio" name="characterTone" value="5"><span class="tone-swatch tone-5" aria-hidden="true"></span><span>5 · escuro</span></label>
-            <label class="tone-option"><input type="radio" name="characterTone" value="6"><span class="tone-swatch tone-6" aria-hidden="true"></span><span>6 · muito escuro</span></label>
+    <main>
+      <div id="percurso">
+        <!-- A introdução e seus rostos são preenchidos/animados por codigo-de-cor.js. -->
+        <section class="hero" id="inicio">
+          <div class="wide">
+            <h1>O algoritmo não enxerga todo mundo igual.</h1>
+            <p class="lead">Um percurso interativo sobre racismo algorítmico: o que é, como acontece, onde já aconteceu aqui na Bahia e o que dá para fazer a respeito.</p>
+            <div class="faces" id="faces" role="img" aria-label="Simulação de um sistema de reconhecimento facial analisando doze rostos de tons de pele diferentes. Os rostos de pele clara são detectados com mais de 95% de confiança. Os de pele mais escura recebem confiança baixa ou não são detectados.">
+              <div class="scanline"></div>
+            </div>
+            <p class="caption">Simulação ilustrativa, inspirada no padrão de erro medido pela pesquisa <i>Gender Shades</i> (2018) em sistemas comerciais de análise facial.
+              <span class="src">Fonte: Buolamwini e Gebru, <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Gender Shades, PMLR v. 81, 2018</a>.</span></p>
+            <p class="intro-actions"><a class="btn" href="#espelho">Começar o percurso</a> <button class="btn btn-ghost" type="button" id="replay">Ver a análise de novo</button></p>
           </div>
-          <p class="small">Escala visual ilustrativa; tons de pele reais são diversos e não cabem em seis categorias.</p>
-        </fieldset>
-        <div class="character-selects">
-          <label for="characterHair">Textura do cabelo
-            <select id="characterHair">
-              <option value="liso">Liso</option>
-              <option value="ondulado">Ondulado</option>
-              <option value="cacheado">Cacheado</option>
-              <option value="crespo">Crespo</option>
-            </select>
-          </label>
-          <label for="characterLength">Comprimento do cabelo
-            <select id="characterLength">
-              <option value="curto">Curto</option>
-              <option value="medio">Médio</option>
-              <option value="longo">Longo</option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <div class="character-preview">
-        <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-length="curto">
-          <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo liso curto</title>
-          <path class="avatar-hair-back avatar-hair-short" d="M22 57C17 16 32 8 51 8c22 0 34 15 28 49l-8 22H30z"/>
-          <path class="avatar-hair-back avatar-hair-medium" d="M17 59C13 17 31 7 51 7c24 0 38 17 31 53l-3 31H21z"/>
-          <path class="avatar-hair-back avatar-hair-long" d="M15 58C11 16 30 6 51 6c25 0 40 18 33 56l-1 48H17z"/>
-          <ellipse class="avatar-face" cx="50" cy="50" rx="25" ry="31"/>
-          <path class="avatar-fringe" d="M25 43C24 20 37 12 52 12c16 0 25 12 24 31-7-10-13-15-23-16-9 7-18 10-28 10z"/>
-          <path class="avatar-hair-lines texture-liso" d="M30 23c-5 9-5 18-4 27m44-27c5 9 5 18 4 27"/>
-          <path class="avatar-hair-lines texture-ondulado" d="M29 22c-6 7 5 9-1 16s5 9 0 15m43-31c6 7-5 9 1 16s-5 9 0 15"/>
-          <path class="avatar-hair-lines texture-cacheado" d="M29 23c-7 4 4 8-2 12s6 8 0 13m44-25c7 4-4 8 2 12s-6 8 0 13"/>
-          <path class="avatar-hair-lines texture-crespo" d="M29 23c-3 3 3 5 0 8s3 5 0 8m42-16c3 3-3 5 0 8s-3 5 0 8M38 15c-3 3 3 5 0 8m24-8c3 3-3 5 0 8"/>
-          <path class="avatar-features" d="M40 51h1m18 0h1m-15 14q5 4 10 0"/>
-          <path class="avatar-neck" d="M41 78v11h18V78"/>
-          <path class="avatar-shirt" d="M23 120c1-21 11-31 27-31s26 10 27 31z"/>
-        </svg>
-        <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo liso e curto.</p>
-      </div>
-    </div>
+        </section>
 
-    <aside class="skin-impact" id="skinImpact" data-tone="3" aria-live="polite" aria-labelledby="skinImpactTitle">
-      <h3 id="skinImpactTitle">O que pode acontecer com esse personagem?</h3>
-      <p id="skinImpactCopy">Os resultados variam conforme os dados, a iluminação e o sistema. Pesquisas mostram que a taxa de erro pode mudar entre grupos, mas não permite prever o resultado de uma pessoa específica.</p>
-      <span class="src">Contexto: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, <i>Gender Shades</i> (2018)</a>; veja também as situações abaixo.</span>
-    </aside>
+        <!-- Etapa 1: cenários, configurador ilustrativo, reflexões e pesquisas. -->
+        <section class="stage" id="espelho">
+          <div class="wrap">
+            <span class="num">1 de 6</span>
+            <h2>Espelho, espelho meu</h2>
+            <p class="lead">Monte um personagem para explorar como sistemas podem afetar pessoas de maneiras diferentes. Depois, escolha uma reação em cada situação.</p>
 
-    <div class="scenario" data-scn>
-      <h3>O filtro “embelezador”</h3>
-      <p>Você testa um filtro de beleza novo. Ele afina seu nariz, clareia sua pele e deixa seu cabelo mais liso.</p>
-      <div class="choices">
-        <button class="choice" type="button" aria-pressed="false" data-react="Muita gente pensa assim, e é justamente por parecer inofensivo que passa despercebido.">É só um filtro</button>
-        <button class="choice" type="button" aria-pressed="false" data-react="Esse incômodo tem fundamento.">Isso me incomoda</button>
-      </div>
-      <div class="reveal" hidden><p class="react"></p><p>Filtros aprendem o que é “bonito” a partir de milhões de imagens e avaliações. Se essas imagens refletem um padrão de beleza branco, o algoritmo transforma esse padrão em regra e devolve para você um rosto “corrigido” na direção dele. Tarcízio Silva chama isso de embranquecimento literal dos indivíduos.</p>
-      <span class="src">Fonte: Silva, T. <i>Racismo algorítmico</i>. Edições Sesc, 2022, p. 75, citado em <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 114</a>.</span></div>
-    </div>
+            <div class="character-builder" aria-labelledby="characterTitle">
+              <div class="character-controls">
+                <h3 id="characterTitle">Configure o personagem</h3>
+                <p>As escolhas personalizam somente esta simulação. Elas não identificam você nem são enviadas ou salvas.</p>
+                <fieldset class="character-fieldset">
+                  <legend>Tom de pele</legend>
+                  <div class="tone-options">
+                    <label class="tone-option"><input type="radio" name="characterTone" value="1"><span class="tone-swatch tone-1" aria-hidden="true"></span><span>1 · claro</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="2"><span class="tone-swatch tone-2" aria-hidden="true"></span><span>2 · claro-médio</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="3" checked><span class="tone-swatch tone-3" aria-hidden="true"></span><span>3 · médio-claro</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="4"><span class="tone-swatch tone-4" aria-hidden="true"></span><span>4 · médio-escuro</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="5"><span class="tone-swatch tone-5" aria-hidden="true"></span><span>5 · escuro</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="6"><span class="tone-swatch tone-6" aria-hidden="true"></span><span>6 · muito escuro</span></label>
+                  </div>
+                  <p class="small">Escala visual ilustrativa; tons de pele reais são diversos e não cabem em seis categorias.</p>
+                </fieldset>
+                <div class="character-selects">
+                  <label for="characterHair">Textura do cabelo
+                    <select id="characterHair">
+                      <option value="liso">Liso</option>
+                      <option value="ondulado">Ondulado</option>
+                      <option value="cacheado">Cacheado</option>
+                      <option value="crespo">Crespo</option>
+                    </select>
+                  </label>
+                  <label for="characterLength">Comprimento do cabelo
+                    <select id="characterLength">
+                      <option value="curto">Curto</option>
+                      <option value="medio">Médio</option>
+                      <option value="longo">Longo</option>
+                    </select>
+                  </label>
+                  <label for="characterGender">Gênero / apresentação visual
+                    <select id="characterGender">
+                      <option value="feminina">Feminina</option>
+                      <option value="masculina">Masculina</option>
+                      <option value="androgina">Andrógina</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div class="character-preview">
+                <div class="avatar-frame">
+                  <!-- data-* é o contrato entre controles/JS e seletores CSS; os grupos SVG são formas alternativas. -->
+                  <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-length="curto" data-gender="feminina">
+                    <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo liso curto</title>
+                    <g class="avatar-hair-style hair-straight">
+                      <path class="hair-back hair-short" d="M24 51C19 27 25 9 49 8c24-1 31 19 27 43L70 68l-2-30c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
+                      <path class="hair-back hair-medium" d="M23 51C18 27 25 8 49 7c25-1 33 20 27 45l3 36q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
+                      <path class="hair-back hair-long" d="M21 52C16 26 24 7 49 6c27-1 35 21 28 47l3 58q-5 9-12 2l-3-69c-6-7-12-11-18-13-7 7-15 10-23 11l2 71q-7 6-12-2z"/>
+                      <path class="hair-front" d="M25 43C24 20 36 11 51 11c17 0 26 12 24 33-7-10-14-15-23-17-8 7-17 10-27 11z"/>
+                    </g>
+                    <g class="avatar-hair-style hair-wavy">
+                      <path class="hair-back hair-short" d="M24 51C17 45 24 40 20 34c-4-7 3-10 1-17C30 7 40 7 50 8c13-2 23 5 28 14-4 8 3 14-1 22l-7 24-2-30c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
+                      <path class="hair-back hair-medium" d="M23 51C16 45 23 40 19 34c-4-7 3-10 1-17C29 6 40 6 50 7c14-2 25 6 30 15-4 8 3 15-1 23l1 42q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
+                      <path class="hair-back hair-long" d="M21 52C14 46 21 40 17 34c-4-7 3-10 1-17C27 5 39 5 50 6c15-2 27 6 32 16-4 8 3 15-1 24l1 55q-5 9-12 2l-3-68c-6-7-12-11-18-13-7 7-15 10-23 11l2 71q-7 6-12-2z"/>
+                      <path class="hair-front" d="M25 44C22 37 30 35 26 29c-3-6 4-17 13-18 6-2 9 2 14 0 9-1 17 7 19 15 2 7-2 12-1 18-6-4-7-10-12-13-5-3-8-5-12-9-4 8-12 12-22 14z"/>
+                      <path class="hair-texture hair-short" d="M26 50c6 5-4 9 2 14s-3 7 1 11m44-25c-6 5 4 9-2 14s3 7-1 11"/>
+                      <path class="hair-texture hair-medium" d="M25 50c6 5-4 9 2 14s-3 7 1 11-4 9 1 14m44-39c-6 5 4 9-2 14s3 7-1 11 4 9-1 14"/>
+                      <path class="hair-texture hair-long" d="M23 51c6 5-4 9 2 14s-3 7 1 11-4 9 1 14-4 9 1 14m46-53c-6 5 4 9-2 14s3 7-1 11 4 9-1 14 4 9-1 14"/>
+                    </g>
+                    <g class="avatar-hair-style hair-curly">
+                      <path class="hair-back hair-short" d="M24 51C18 47 21 42 17 38c-4-5 2-9-1-14-2-5 4-8 4-13 6 1 8-5 14-4 5-4 9 1 15-1 6-2 9 4 14 3 7 0 8 7 13 10 5 5 0 10 3 15 2 6-4 9-3 15l-7 15-2-29c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
+                      <path class="hair-back hair-medium" d="M23 51C17 47 20 42 16 38c-4-5 2-9-1-14-2-5 4-8 4-13 6 1 8-5 14-4 5-4 9 1 15-1 6-2 9 4 14 3 7 0 8 7 13 10 5 5 0 10 3 15 2 6-4 9-3 15l1 39q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
+                      <path class="hair-back hair-long" d="M21 52C16 48 18 43 14 39C10 35 15 31 12 26C9 21 16 17 17 12C23 13 25 6 31 8C36 2 42 8 48 5C54 1 60 7 65 6C72 5 73 12 79 14C85 18 80 24 85 29C89 34 82 39 86 44C88 50 83 55 79 59L82 112Q78 120 71 116L69 38C63 33 56 28 50 22C43 31 34 37 25 40L28 116Q21 120 16 114Z"/>
+                      <path class="hair-front" d="M24 45C18 40 23 35 20 31c-3-5 3-8 2-12 5 1 6-5 11-5 3-5 8-1 11-5 4 4 8 0 12 3 5-2 7 4 11 5 5 1 4 7 8 10-3 5 2 9-1 14-5-2-7-7-11-9-4-3-7-4-11-8-5 8-15 15-29 21z"/>
+                      <path class="hair-detail" d="M17 27c4-5 7 1 4 4m9-14c5-4 7 2 3 5m13-9c5-2 6 4 2 6m14-2c5 0 5 6 0 7m13 5c4 3 1 8-3 6M13 40c4-3 7 2 4 5m59 0c-4-4-7 1-4 5"/>
+                      <path class="hair-texture hair-short" d="M24 48c-6 3 5 7 0 11s5 7 0 11m51-22c6 3-5 7 0 11s-5 7 0 11"/>
+                      <path class="hair-texture hair-medium" d="M23 48c-6 3 5 7 0 11s5 7 0 11-5 7 0 11m51-33c6 3-5 7 0 11s-5 7 0 11 5 7 0 11"/>
+                      <path class="hair-texture hair-long" d="M21 49c-6 3 5 7 0 11s5 7 0 11-5 7 0 11-5 7 0 11m53-44c6 3-5 7 0 11s-5 7 0 11 5 7 0 11-5 7 0 11"/>
+                    </g>
+                    <g class="avatar-hair-style hair-coily">
+                      <path class="hair-back hair-short" d="M24 51C18 48 20 44 15 42c-4-2-1-6-5-8-3-4 2-6 0-10-2-5 4-6 3-11 4-3 7-1 10-6 4-3 8 1 12-3 5-3 8 2 13-1 5-2 8 2 13 1 5-1 7 4 12 4 5 2 4 6 8 9 4 4-1 7 2 11 2 4-3 7-1 11-3 4-8 5-8 10l-7 13-2-29c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
+                      <path class="hair-back hair-medium" d="M23 51C17 48 19 44 14 42c-4-2-1-6-5-8-3-4 2-6 0-10-2-5 4-6 3-11 4-3 7-1 10-6 4-3 8 1 12-3 5-3 8 2 13-1 5-2 8 2 13 1 5-1 7 4 12 4 5 2 4 6 8 9 4 4-1 7 2 11 2 4-3 7-1 11-3 4-8 5-8 10l1 39q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
+                      <path class="hair-back hair-long" d="M21 52C15 49 17 45 12 43c-4-2-1-6-5-8-3-4 2-6 0-10-2-5 4-6 3-11 4-3 7-1 10-6 4-3 8 1 12-3 5-3 8 2 13-1 5-2 8 2 13 1 5-1 7 4 12 4 5 2 4 6 8 9 4 4-1 7 2 11 2 4-3 7-1 11-3 4-8 5-8 10l1 54q-5 9-12 2l-3-68c-6-7-12-11-18-13-7 7-15 10-23 11l2 71q-7 6-12-2z"/>
+                      <path class="hair-front" d="M24 45C17 42 21 38 16 36c-4-3 0-7-4-10 1-5 6-4 7-9 4 2 6-4 10-3 3-4 7 0 10-4 4 3 7-1 11 2 4-3 7 2 11 1 5 0 5 5 9 6 4 3 1 7 5 10-2 4 2 7-1 10-5-1-8-6-12-8-4-3-7-5-11-9-6 8-16 16-27 23z"/>
+                      <path class="hair-detail" d="M13 24c3-4 6 0 3 3m12-11c4-3 6 1 3 4m13-8c4-2 6 2 2 4m14-2c4-1 5 4 1 5m13 4c4 2 2 6-2 5M9 39c4-3 6 1 3 4m64 1c-4-3-6 1-3 4M20 53c3-3 5 1 2 3m48-2c-3-3-5 1-2 3"/>
+                      <path class="hair-texture hair-short" d="M25 48c-6 2 5 5 0 8s5 5 0 8m50-16c6 2-5 5 0 8s-5 5 0 8"/>
+                      <path class="hair-texture hair-medium" d="M24 48c-6 2 5 5 0 8s5 5 0 8-5 5 0 8m50-24c6 2-5 5 0 8s-5 5 0 8 5 5 0 8"/>
+                      <path class="hair-texture hair-long" d="M22 49c-6 2 5 5 0 8s5 5 0 8-5 5 0 8-5 5 0 8-5 5 0 8m52-40c6 2-5 5 0 8s-5 5 0 8 5 5 0 8-5 5 0 8 5 5 0 8"/>
+                    </g>
+                    <ellipse class="avatar-ear" cx="25" cy="52" rx="5" ry="8"/>
+                    <ellipse class="avatar-ear" cx="75" cy="52" rx="5" ry="8"/>
+                    <path class="avatar-face avatar-face-feminina" d="M50 19c-14 0-24 11-24 27 0 15 8 28 24 34 16-6 24-19 24-34 0-16-10-27-24-27z"/>
+                    <path class="avatar-face avatar-face-masculina" d="M50 19c-15 0-25 11-25 27 0 12 4 22 12 29 4 3 8 5 13 6 5-1 9-3 13-6 8-7 12-17 12-29 0-16-10-27-25-27z"/>
+                    <ellipse class="avatar-face avatar-face-androgina" cx="50" cy="50" rx="25" ry="31"/>
+                    <path class="avatar-face-shade" d="M29 54c2 15 10 25 21 25s19-10 21-25c-4 9-12 14-21 14s-17-5-21-14z"/>
+                    <ellipse class="avatar-cheek" cx="36" cy="59" rx="5" ry="2.5"/>
+                    <ellipse class="avatar-cheek" cx="64" cy="59" rx="5" ry="2.5"/>
+                    <g class="avatar-hair-style hair-straight hair-over-face"><path class="hair-front" d="M25 43C24 20 36 11 51 11c17 0 26 12 24 33-7-10-14-15-23-17-8 7-17 10-27 11z"/></g>
+                    <g class="avatar-hair-style hair-wavy hair-over-face"><path class="hair-front" d="M25 44C22 37 30 35 26 29c-3-6 4-17 13-18 6-2 9 2 14 0 9-1 17 7 19 15 2 7-2 12-1 18-6-4-7-10-12-13-5-3-8-5-12-9-4 8-12 12-22 14z"/></g>
+                    <g class="avatar-hair-style hair-curly hair-over-face"><path class="hair-front" d="M24 45C18 40 23 35 20 31c-3-5 3-8 2-12 5 1 6-5 11-5 3-5 8-1 11-5 4 4 8 0 12 3 5-2 7 4 11 5 5 1 4 7 8 10-3 5 2 9-1 14-5-2-7-7-11-9-4-3-7-4-11-8-5 8-15 15-29 21z"/><path class="hair-detail" d="M28 23c3-3 5 0 3 3m12-9c4-2 5 2 2 4m13-1c4-1 5 3 1 4m12 6c3 2 1 5-2 4"/></g>
+                    <g class="avatar-hair-style hair-coily hair-over-face"><path class="hair-front" d="M24 45C17 42 21 38 16 36c-4-3 0-7-4-10 1-5 6-4 7-9 4 2 6-4 10-3 3-4 7 0 10-4 4 3 7-1 11 2 4-3 7 2 11 1 5 0 5 5 9 6 4 3 1 7 5 10-2 4 2 7-1 10-5-1-8-6-12-8-4-3-7-5-11-9-6 8-16 16-27 23z"/><path class="hair-detail" d="M29 22c3-2 4 1 2 3m11-8c3-2 5 1 2 3m13 0c3-1 4 2 1 3m12 8c3 1 1 4-2 3"/></g>
+                    <g class="avatar-hair-gender avatar-hair-gender-feminina">
+                      <path class="gender-hair-shape" d="M27 33c2-8 7-13 13-17-2 9-5 16-10 22l-3 14-3-2c2-6 1-11 3-17zm46 0c-2-8-7-13-13-17 2 9 5 16 10 22l3 14 3-2c-2-6-1-11-3-17z"/>
+                    </g>
+                    <g class="avatar-hair-gender avatar-hair-gender-masculina">
+                      <path class="gender-hair-shape" d="m25 33 5-4v18l-4 6-2-5zm50 0-5-4v18l4 6 2-5z"/>
+                    </g>
+                    <g class="avatar-hair-gender avatar-hair-gender-androgina">
+                      <path class="gender-hair-part" d="M50 12q-2 7 0 14m-4-13q1 4 0 7m8-7q-1 4 0 7"/>
+                    </g>
+                    <g class="avatar-male-hair male-straight">
+                      <path class="male-hair-cut male-short" d="M24 55c-4-5-3-12-2-18 0-15 9-25 22-28 12-3 24 2 30 12 5 8 5 18 2 27l-1 7-4-2-2-14c-5 4-12 5-19 5s-14-1-19-5l-1 14z"/>
+                      <path class="male-hair-cut male-medium" d="M23 68c-4-6-3-14-2-22-1-17 9-29 23-33 13-4 25 2 31 14 5 9 4 20 1 29l2 11q-3 5-7 1l-3-28c-5 4-11 5-18 5s-14-1-20-5l-1 28q-4 4-6 0z"/>
+                      <path class="male-hair-cut male-long" d="M21 91c-5-8-4-18-2-27-2-19 8-37 23-47 13-8 27-6 35 7 8 12 5 28 1 40l2 24q-4 6-9 2l-3-51c-5 4-11 6-18 6s-13-2-18-6l-2 51q-4 5-9 1z"/>
+                    </g>
+                    <g class="avatar-male-hair male-wavy">
+                      <path class="male-hair-cut male-short" d="M24 55c-4-5-3-10-2-15-3-5 0-9-1-14 3-9 10-15 18-15 4-6 10-4 14-4 6-1 11 2 15 7 7 4 10 12 8 19 2 9 0 17-4 22l-4-5-1-13c-6 4-12 5-19 5s-13-1-19-5l-1 13z"/>
+                      <path class="male-hair-cut male-medium" d="M23 68c-5-6-4-12-2-18-3-6 0-10-1-16 3-10 10-17 19-17 4-6 10-4 15-4 7-1 12 3 16 9 7 5 9 14 7 22 2 10 0 19-5 25l-5-6-1-20c-6 4-12 5-19 5s-14-1-20-5l-1 20q-4 4-7 0z"/>
+                      <path class="male-hair-cut male-long" d="M20 91C15 83 18 73 16 65C13 55 19 49 16 42C18 29 28 22 38 23C44 15 51 19 55 15C63 12 68 20 73 21C82 26 84 37 80 47C84 59 80 73 78 81L80 89Q76 95 71 91L69 39C64 43 57 45 50 45S35 43 30 39L29 88Q24 95 20 91Z"/>
+                    </g>
+                    <g class="avatar-male-hair male-curly">
+                      <path class="male-hair-cut male-short" d="M24 55c-4-5-3-10-2-14-3-5 0-9-1-13 3-5 7-8 12-8 2-7 8-8 12-6 5-5 10-3 14-1 6-4 11-1 14 5 7 2 9 8 8 14 3 8 1 17-4 22l-4-5-1-13c-6 4-12 5-19 5s-13-1-19-5l-1 13z"/>
+                      <path class="male-hair-cut male-medium" d="M23 68c-5-6-4-12-2-17-3-6 0-10-1-15 3-6 8-10 13-10 2-7 8-9 13-6 6-6 11-3 15-1 7-4 12 0 14 6 8 2 10 9 8 16 2 10 0 19-5 25l-5-6-1-20c-6 4-12 5-19 5s-14-1-20-5l-1 20q-4 4-7 0z"/>
+                      <path class="male-hair-cut male-long" d="M20 91C14 83 18 74 15 66C12 56 17 50 14 43C15 30 25 22 36 23C42 14 50 18 54 14C62 10 68 18 73 20C83 24 85 36 81 47C85 59 81 73 78 81L80 89Q76 95 71 91L69 39C64 43 57 45 50 45S35 43 30 39L29 88Q24 95 20 91Z"/>
+                    </g>
+                    <g class="avatar-male-hair male-coily">
+                      <path class="male-hair-cut male-short" d="M24 55c-4-5-3-11-2-17-1-7 2-13 7-17 1-7 7-9 12-6 3-7 10-8 15-3 5-6 12-4 15 2 7-1 11 5 10 11 4 8 2 19-4 26l-4-5-1-13c-5 4-12 6-19 6s-14-2-19-6l-1 13z"/>
+                      <path class="male-hair-cut male-medium" d="M23 68c-5-6-4-13-2-20-1-8 2-14 7-18 1-7 7-9 12-6 3-7 10-8 15-3 5-6 12-4 15 2 7-1 11 5 10 11 4 9 2 20-4 27l-5-6-1-20c-5 4-12 6-19 6s-14-2-19-6l-1 20q-4 4-8 0z"/>
+                      <path class="male-hair-cut male-long" d="M20 91C14 83 17 75 14 69C9 63 14 57 11 51C9 44 15 38 16 32C22 30 25 20 32 23C37 14 45 18 50 15C56 9 63 16 67 15C75 13 78 22 83 24C90 28 89 38 92 45C95 55 87 65 83 73C82 80 79 86 76 91L71 85L70 39C65 43 57 45 50 45S35 43 30 39L29 88Q24 95 20 91Z"/>
+                    </g>
+                    <g class="avatar-features avatar-features-feminina">
+                      <path class="avatar-brows" d="M36 46q5-5 10-1m8 0q5-4 10 1"/>
+                      <path class="avatar-eye" d="M36 52q5-4 10 0-5 5-10 0zm18 0q5-4 10 0-5 5-10 0z"/>
+                      <circle class="avatar-iris" cx="41" cy="52" r="1.7"/><circle class="avatar-iris" cx="59" cy="52" r="1.7"/>
+                      <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".55"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".55"/>
+                      <path class="avatar-lash" d="m36 51-1-2m3 1-1-2m25 3 1-2m-3 1 1-2"/>
+                      <path class="avatar-nose" d="M50 52q-1 6-3 9 2 2 5 0"/>
+                      <path class="avatar-mouth" d="M44 67q6-4 12 0-5 6-12 0z"/>
+                    </g>
+                    <g class="avatar-features avatar-features-masculina">
+                      <path class="avatar-brows" d="M36 46q5-2 10 0m8 0q5-2 10 0"/>
+                      <path class="avatar-eye" d="M36 52q5-3 10 0-5 3-10 0zm18 0q5-3 10 0-5 3-10 0z"/>
+                      <circle class="avatar-iris" cx="41" cy="52" r="1.6"/><circle class="avatar-iris" cx="59" cy="52" r="1.6"/>
+                      <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".5"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".5"/>
+                      <path class="avatar-nose" d="M50 51q0 7-3 10 3 2 6 0"/>
+                      <path class="avatar-mouth" d="M44 67q6-2 12 0-6 4-12 0z"/>
+                    </g>
+                    <g class="avatar-features avatar-features-androgina">
+                      <path class="avatar-brows" d="M36 46q5-3 10 0m8 0q5-3 10 0"/>
+                      <path class="avatar-eye" d="M36 52q5-3 10 0-5 4-10 0zm18 0q5-3 10 0-5 4-10 0z"/>
+                      <circle class="avatar-iris" cx="41" cy="52" r="1.6"/><circle class="avatar-iris" cx="59" cy="52" r="1.6"/>
+                      <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".5"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".5"/>
+                      <path class="avatar-nose" d="M50 52q-1 6-3 9 2 2 5 0"/>
+                      <path class="avatar-mouth" d="M44 67q6-3 12 0-6 5-12 0z"/>
+                    </g>
+                    <path class="avatar-neck" d="M41 78v11h18V78"/>
+                    <g class="avatar-outfit avatar-outfit-feminina">
+                      <path class="avatar-shirt" d="M23 120c1-20 10-30 22-31l5 8 5-8c12 1 21 11 22 31z"/>
+                      <path class="avatar-shirt-detail" d="M43 90q7 9 14 0"/>
+                    </g>
+                    <g class="avatar-outfit avatar-outfit-masculina">
+                      <path class="avatar-shirt" d="M21 120c1-20 10-30 24-31l5 7 5-7c14 1 23 11 24 31z"/>
+                      <path class="avatar-shirt-detail" d="m42 90 8 8 8-8"/>
+                    </g>
+                    <g class="avatar-outfit avatar-outfit-androgina">
+                      <path class="avatar-shirt" d="M22 120c1-20 10-30 23-31l5 7 5-7c13 1 22 11 23 31z"/>
+                      <path class="avatar-shirt-detail" d="M44 90h12"/>
+                    </g>
+                  </svg>
+                </div>
+                <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo liso e curto.</p>
+                <p class="character-note">A apresentação visual não define a identidade de gênero de uma pessoa real. A cor do cabelo é uma escolha ilustrativa: pessoas de qualquer tom de pele podem ter diferentes cores de cabelo.</p>
+                <figure class="hair-reference">
+                  <img id="hairReferenceImage" src="assets/hair/straight.jpg" alt="Referência fotográfica de cabelo liso">
+                  <figcaption>Exemplo fotográfico de textura: <span id="hairReferenceTitle">Soft Permanent Japanese Straight</span>, por <span id="hairReferenceCreator">MirianaL</span>. <a id="hairReferenceSource" href="https://www.flickr.com/photos/41124264@N04/5865910932" target="_blank" rel="noopener">Ver origem</a> · <a id="hairReferenceLicense" href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>. A foto é apenas referência de cabelo, não representa o personagem.</figcaption>
+                </figure>
+              </div>
+            </div>
 
-    <div class="scenario" data-scn>
-      <h3>O desbloqueio que não funciona</h3>
-      <p>Seu amigo de pele escura tenta desbloquear o celular pelo rosto num ambiente com pouca luz. Falha três vezes. O seu desbloqueia de primeira.</p>
-      <div class="choices">
-        <button class="choice" type="button" aria-pressed="false" data-react="A luz importa, mas não explica tudo.">Deve ser a luz</button>
-        <button class="choice" type="button" aria-pressed="false" data-react="Exatamente. O defeito não está no rosto dele.">O sistema não foi feito pra ele</button>
-      </div>
-      <div class="reveal" hidden><p class="react"></p><p>Em 2018, a pesquisa <i>Gender Shades</i> testou sistemas comerciais de três empresas: o erro chegou a 34,7% para mulheres de pele escura e não passou de 0,8% para homens de pele clara. Quando os dados de treino e os testes priorizam um tipo de rosto, os outros viram exceção.</p>
-      <span class="src">Fonte: <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News, 11 fev. 2018</a>.</span></div>
-    </div>
+            <aside class="character-insight" aria-labelledby="characterInsightTitle">
+              <h3 id="characterInsightTitle">Reflexão para esta combinação</h3>
+              <p class="small">O recorte considera o tom de pele, o comprimento e a textura escolhidos. É uma pergunta para avaliar sistemas, não uma previsão sobre a pessoa.</p>
+              <p id="characterInsight" aria-live="polite"></p>
+            </aside>
 
-    <div class="scenario" data-scn>
-      <h3>O alerta na estação</h3>
-      <p>Você passa por uma câmera no metrô de Salvador. O sistema emite um alerta: seu rosto “parece” o de uma pessoa procurada. Policiais te abordam.</p>
-      <div class="choices">
-        <button class="choice" type="button" aria-pressed="false" data-react="Na prática, quem é abordado precisa provar que não é quem a máquina disse.">Explico e vou embora</button>
-        <button class="choice" type="button" aria-pressed="false" data-react="E a resposta, nos dados, tem cor.">Quem é parado mais vezes?</button>
-      </div>
-      <div class="reveal" hidden><p class="react"></p><p>Em 2019, a Rede de Observatórios da Segurança acompanhou prisões feitas com reconhecimento facial em cinco estados. Nos casos com informação de raça, 90,5% das pessoas presas eram negras, e a Bahia concentrava mais da metade das prisões. Você vai ver esse caso de perto na etapa 4.</p>
-      <span class="src">Fonte: <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span></div>
-    </div>
-  </div>
-</section>
+            <aside class="skin-impact" id="skinImpact" data-tone="3" aria-live="polite" aria-labelledby="skinImpactTitle">
+              <h3 id="skinImpactTitle">O que pode acontecer com esse personagem?</h3>
+              <p id="skinImpactCopy">Os resultados variam conforme os dados, a iluminação e o sistema. Pesquisas mostram que a taxa de erro pode mudar entre grupos, mas não permite prever o resultado de uma pessoa específica.</p>
+              <span class="src">Contexto: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, <i>Gender Shades</i> (2018)</a>; veja também as situações abaixo.</span>
+            </aside>
 
-<section class="stage" id="neutralidade">
-  <div class="wrap">
-    <span class="num">2 de 6</span>
-    <h2>O mito da neutralidade</h2>
-    <p>Muita gente acredita que computadores são justos porque “não têm preconceito”: só fazem contas. O problema é <em>com o que</em> eles fazem as contas. Um algoritmo de aprendizado de máquina aprende padrões a partir de <button class="term" type="button" data-term="dados de treino">dados de treino</button>, e esses dados são o registro de uma sociedade que já é desigual.</p>
-    <p><button class="term" type="button" data-term="racismo algorítmico">Racismo algorítmico</button> é o nome que se dá ao modo como sistemas computacionais reproduzem, automatizam e ampliam discriminações raciais. Não depende de alguém ter programado “seja racista”. Basta o sistema aprender com o passado sem ninguém perguntar que passado é esse.</p>
+            <aside class="bahia-research" id="bahiaResearch" data-tone="3" aria-labelledby="bahiaResearchTitle">
+              <h3 id="bahiaResearchTitle">Pesquisas e casos na Bahia</h3>
+              <p id="bahiaCharacterContext" aria-live="polite">Os estudos registram categorias raciais, não os seis tons desta simulação. Eles mostram desigualdades coletivas, mas não permitem estimar o risco de uma pessoa específica.</p>
+              <div class="bahia-results">
+                <div class="bahia-result">
+                  <strong>90,5%</strong>
+                  <p>das pessoas presas por reconhecimento facial, nos casos com raça informada em cinco estados, eram negras. A Bahia concentrava 52% das prisões monitoradas.</p>
+                  <span class="src">Fonte: <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">Rede de Observatórios da Segurança, dados de 2019</a>.</span>
+                </div>
+                <div class="bahia-result">
+                  <strong>98,8%</strong>
+                  <p>das pessoas presas em flagrante em Salvador eram negras, segundo levantamento da Defensoria Pública da Bahia sobre audiências de custódia.</p>
+                  <span class="src">Fonte: <a href="https://www.intercept.com.br/2021/09/20/rui-costa-esta-transformando-a-bahia-em-um-laboratorio-de-vigilancia-com-reconhecimento-facial/" target="_blank" rel="noopener">Defensoria Pública da Bahia, dados de 2019, via The Intercept Brasil</a>.</span>
+                </div>
+              </div>
+              <p class="small" id="bahiaCharacterLimit">Os relatórios não cruzam esses dados com tom individual, textura de cabelo ou apresentação de gênero; a configuração não é uma previsão.</p>
+            </aside>
 
-    <p class="machine-voice">“Eu só repito os padrões que encontrei nos dados.”</p>
+            <div class="scenario" data-scn>
+              <h3>O filtro “embelezador”</h3>
+              <p>Você testa um filtro de beleza novo. Ele afina seu nariz, clareia sua pele e deixa seu cabelo mais liso.</p>
+              <div class="choices">
+                <button class="choice" type="button" aria-pressed="false" data-react="Muita gente pensa assim, e é justamente por parecer inofensivo que passa despercebido.">É só um filtro</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Esse incômodo tem fundamento.">Isso me incomoda</button>
+              </div>
+              <div class="reveal" hidden><p class="react"></p><p>Filtros aprendem o que é “bonito” a partir de milhões de imagens e avaliações. Se essas imagens refletem um padrão de beleza branco, o algoritmo transforma esse padrão em regra e devolve para você um rosto “corrigido” na direção dele. Tarcízio Silva chama isso de embranquecimento literal dos indivíduos.</p>
+                <span class="src">Fonte: Silva, T. <i>Racismo algorítmico</i>. Edições Sesc, 2022, p. 75, citado em <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 114</a>.</span></div>
+            </div>
 
-    <p>Veja o que acontece quando um sistema aprende com o histórico de prisões de Salvador.</p>
-    <div class="ledger">
-      <div class="cell">
-        <p class="small ledger-label">Passado: o que os dados mostram</p>
-        <div class="big">98,8%</div>
-        <p class="ledger-copy">das pessoas presas em flagrante em Salvador eram negras, segundo relatório da Defensoria Pública da Bahia (2019).</p>
-        <span class="src">Fonte: <a href="https://www.intercept.com.br/2021/09/20/rui-costa-esta-transformando-a-bahia-em-um-laboratorio-de-vigilancia-com-reconhecimento-facial/" target="_blank" rel="noopener">The Intercept Brasil, 20 set. 2021</a>.</span>
-      </div>
-      <div class="arrow" aria-hidden="true">→</div>
-      <div class="cell future" id="future" data-shown="false" aria-live="polite">
-        <p class="small ledger-label">Futuro: o que o sistema aprende</p>
-        <div class="big">“suspeito”</div>
-        <p class="ledger-copy">vira sinônimo de “negro”. O sistema aponta mais pessoas negras, que geram mais prisões, que viram novos dados de treino. O ciclo se fecha sozinho.</p>
-      </div>
-    </div>
-    <p><button class="btn btn-ghost" type="button" id="futureBtn">Mostrar o que o sistema aprende</button></p>
+            <div class="scenario" data-scn>
+              <h3>O desbloqueio que não funciona</h3>
+              <p>Seu amigo de pele escura tenta desbloquear o celular pelo rosto num ambiente com pouca luz. Falha três vezes. O seu desbloqueia de primeira.</p>
+              <div class="choices">
+                <button class="choice" type="button" aria-pressed="false" data-react="A luz importa, mas não explica tudo.">Deve ser a luz</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Exatamente. O defeito não está no rosto dele.">O sistema não foi feito pra ele</button>
+              </div>
+              <div class="reveal" hidden><p class="react"></p><p>Em 2018, a pesquisa <i>Gender Shades</i> testou sistemas comerciais de três empresas: o erro chegou a 34,7% para mulheres de pele escura e não passou de 0,8% para homens de pele clara. Quando os dados de treino e os testes priorizam um tipo de rosto, os outros viram exceção.</p>
+                <span class="src">Fonte: <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News, 11 fev. 2018</a>.</span></div>
+            </div>
 
-    <blockquote class="thesis">
-      Algoritmos não inventam o racismo, mas lhe dão escala, velocidade e uma aparência de objetividade que o torna mais difícil de contestar. Por isso, a pergunta não é só “o algoritmo erra?”, e sim “para quem ele erra, quem decidiu usá-lo e quem paga pelo erro?”.
-      <footer>Tese do grupo</footer>
-    </blockquote>
-  </div>
-</section>
-
-<section class="stage" id="maquina">
-  <div class="wrap">
-    <span class="num">3 de 6</span>
-    <h2>Por dentro da máquina</h2>
-    <p>Um sistema de reconhecimento facial passa por várias etapas até chegar à câmera da estação. O viés pode entrar em qualquer uma delas. Toque em cada etapa.</p>
-    <ol class="pipe" role="tablist" aria-label="Etapas de um sistema de IA" id="pipe"></ol>
-    <div class="pipe-panel" role="tabpanel" id="pipePanel" aria-live="polite"></div>
-
-    <div class="sim" id="sim">
-      <h3>Simulador: treine o seu próprio classificador</h3>
-      <p>Arraste para mudar a proporção de rostos de pele escura na base de treino e veja o que acontece com a taxa de erro de cada grupo.</p>
-      <label for="mix">Rostos de pele escura na base de treino: <span id="mixOut">10%</span></label>
-      <input type="range" id="mix" min="5" max="50" step="1" value="10">
-      <div class="share" aria-hidden="true"><div class="d" id="shD">10%</div><div class="l" id="shL">90%</div></div>
-      <div class="bars">
-        <div class="barrow"><span>Pele escura</span><div class="track"><div class="fill hot" id="bD"></div></div><span class="val" id="vD"></span></div>
-        <div class="barrow"><span>Pele clara</span><div class="track"><div class="fill" id="bL"></div></div><span class="val" id="vL"></span></div>
-      </div>
-      <p class="sim-note" id="simNote" aria-live="polite"></p>
-      <p class="small">Modelo ilustrativo. Os extremos foram calibrados com os valores de <i>Gender Shades</i> (34,7% e 0,8%), mas a curva entre eles é uma simplificação didática, não uma medição.
-        <span class="src">Fonte dos extremos: <a href="https://www.media.mit.edu/projects/gender-shades/results/" target="_blank" rel="noopener">MIT Media Lab, Gender Shades: resultados</a>.</span></p>
-    </div>
-  </div>
-</section>
-
-<section class="stage" id="casos">
-  <div class="wrap">
-    <span class="num">4 de 6</span>
-    <h2>Onde acontece</h2>
-    <p>Não é ficção científica nem problema só de outros países. Os pontos vermelhos são casos no Brasil.</p>
-    <p class="stat">90,5%</p>
-    <p class="lead">das pessoas presas por reconhecimento facial no Brasil em 2019 eram negras, nos casos em que havia informação de raça.</p>
-    <span class="src">Fonte: Rede de Observatórios da Segurança, monitoramento de março a outubro de 2019 na Bahia, Ceará, Paraíba, Rio de Janeiro e Santa Catarina, divulgado em <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span>
-
-    <div class="filters" role="group" aria-label="Filtrar casos">
-      <button class="choice" type="button" aria-pressed="true" data-filter="all">Todos</button>
-      <button class="choice" type="button" aria-pressed="false" data-filter="br">Brasil</button>
-      <button class="choice" type="button" aria-pressed="false" data-filter="world">Mundo</button>
-    </div>
-
-    <ol class="timeline" id="timeline">
-      <li data-where="world"><span class="year">2015</span><span class="place">Estados Unidos</span>
-        <h3>Google Fotos rotula pessoas negras como “gorilas”</h3>
-        <p>Um usuário denunciou que o app havia agrupado fotos dele e de uma amiga, ambos negros, com esse rótulo. A “solução” da empresa foi remover a categoria, não corrigir o modelo.</p>
-        <span class="src">Fonte: <a href="https://www.slate.com/blogs/future_tense/2015/06/30/google_s_image_recognition_software_returns_some_surprisingly_racist_results.html" target="_blank" rel="noopener">Slate, 30 jun. 2015</a>.</span>
-        <details><summary>Por que isso importa</summary><p>Mostra como a falta de diversidade nos dados de treino e nos testes gera erros que desumanizam, e como esconder o sintoma é mais barato do que tratar a causa.</p></details></li>
-      <li data-where="world"><span class="year">2016</span><span class="place">Estados Unidos</span>
-        <h3>COMPAS: o algoritmo que prevê “reincidência”</h3>
-        <p>A investigação <i>Machine Bias</i>, da ProPublica, mostrou que réus negros tinham quase o dobro de chance de serem classificados erroneamente como de alto risco em comparação com réus brancos.</p>
-        <span class="src">Fonte: <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">ProPublica, 23 maio 2016</a>.</span>
-        <details><summary>Por que isso importa</summary><p>Quando um número decide fiança e pena, o viés deixa de ser um incômodo e passa a tirar liberdade.</p></details></li>
-      <li data-where="world"><span class="year">2018</span><span class="place">Estados Unidos</span>
-        <h3>Gender Shades</h3>
-        <p>Joy Buolamwini e Timnit Gebru testaram sistemas de análise facial de grandes empresas: erro de até 34,7% para mulheres de pele escura, contra no máximo 0,8% para homens de pele clara.</p>
-        <span class="src">Fonte: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, PMLR v. 81, 2018</a>.</span>
-        <details><summary>Por que isso importa</summary><p>Transformou uma suspeita em evidência mensurável e pressionou as empresas a reverem seus produtos.</p></details></li>
-      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Feira de Santana, Bahia</span>
-        <h3>Micareta vigiada</h3>
-        <p>Em quatro dias de festa, as câmeras capturaram os rostos de mais de 1,3 milhão de pessoas e geraram 903 alertas. Foram 33 prisões (18 por mandados em aberto), ou seja, só 3,6% dos alertas resultaram em prisão. Mais de 96% não levaram a nada.</p>
-        <span class="src">Fontes: <a href="https://www.correio24horas.com.br/bahia/micareta-de-feira-tem-33-presos-por-sistema-de-reconhecimento-facial-0419" target="_blank" rel="noopener">Correio, abr. 2019</a>; <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span>
-        <details><summary>Por que isso importa</summary><p>Cada alerta falso é uma pessoa abordada sem motivo. Numa cidade de maioria negra, essas abordagens não se distribuem por acaso.</p></details></li>
-      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Rio de Janeiro</span>
-        <h3>Presa por engano no primeiro dia</h3>
-        <p>Logo na estreia do sistema em Copacabana, uma mulher foi detida após ser confundida com uma foragida. A procurada verdadeira já estava presa havia quatro anos.</p>
-        <span class="src">Fonte: <a href="https://olhardigital.com.br/noticia/90-dos-presos-por-reconhecimento-facial-no-brasil-sao-negros/93336" target="_blank" rel="noopener">Olhar Digital, 22 nov. 2019</a>.</span>
-        <details><summary>Por que isso importa</summary><p>O erro não foi só da câmera: foi também de um banco de dados desatualizado e de uma polícia que confiou na máquina sem checar.</p></details></li>
-      <li data-where="br" class="br"><span class="year">2019</span><span class="place">Cinco estados</span>
-        <h3>90,5% das pessoas presas eram negras</h3>
-        <p>O levantamento da Rede de Observatórios da Segurança mostrou ainda que a Bahia, estado com a maior proporção de população negra do país, respondia por 52% das prisões feitas com a tecnologia.</p>
-        <span class="src">Fonte: <a href="https://olhardigital.com.br/noticia/90-dos-presos-por-reconhecimento-facial-no-brasil-sao-negros/93336" target="_blank" rel="noopener">Olhar Digital, 22 nov. 2019</a>.</span>
-        <details><summary>Por que isso importa</summary><p>Mesmo um sistema tecnicamente “preciso” amplia a desigualdade se for instalado onde a polícia já concentra suas abordagens.</p></details></li>
-      <li data-where="world"><span class="year">2020</span><span class="place">Detroit, Estados Unidos</span>
-        <h3>Robert Williams, preso por um algoritmo</h3>
-        <p>Um homem negro foi preso na frente das filhas e passou cerca de 30 horas detido, acusado de furto com base num “acerto” falso do reconhecimento facial.</p>
-        <span class="src">Fonte: <a href="https://aclu.org/press-releases/man-wrongfully-arrested-because-face-recognition-cant-tell-black-people-apart" target="_blank" rel="noopener">ACLU, 24 jun. 2020</a>.</span>
-        <details><summary>Por que isso importa</summary><p>É o primeiro caso documentado nos Estados Unidos de prisão injusta causada por reconhecimento facial, e virou referência no debate sobre proibir a tecnologia na polícia.</p></details></li>
-      <li data-where="world"><span class="year">2021</span><span class="place">Redes sociais</span>
-        <h3>O recorte automático que escolhia rostos brancos</h3>
-        <p>Depois de denúncias de usuários em 2020, um estudo do próprio Twitter confirmou que o recorte automático de imagens favorecia pessoas brancas em 4% das comparações, e a função foi abandonada.</p>
-        <span class="src">Fonte: <a href="https://petapixel.com/2021/05/22/twitter-axing-ai-photo-cropping-after-tests-reveal-race-gender-bias" target="_blank" rel="noopener">PetaPixel, 22 maio 2021</a>.</span>
-        <details><summary>Por que isso importa</summary><p>O racismo algorítmico também decide quem aparece e quem some na sua timeline.</p></details></li>
-    </ol>
-  </div>
-</section>
-
-<section class="stage" id="resistencia">
-  <div class="wrap">
-    <span class="num">5 de 6</span>
-    <h2>Quem resiste</h2>
-    <p>Resistir começa por entender. Aqui estão as palestras, as leituras e o documentário que fundamentam este site, cada um com uma forma diferente de responder à pergunta: quem controla a tecnologia, quem lucra com ela e quem sofre suas consequências?</p>
-    <nav class="subnav" aria-label="Nesta seção">
-      <a href="#palestra-5">Palestra 5: Johanna Monagreda</a>
-      <a href="#coded-bias">Coded Bias</a>
-      <a href="#palestra-1">Palestra 1: Marcello Chaves</a>
-      <a href="#outras-vozes">Outras vozes</a>
-    </nav>
-
-    <!-- PALESTRA 5 -->
-    <div class="block" id="palestra-5">
-      <p class="kicker">Palestra 5</p>
-      <h3>Racismo Algorítmico, com Johanna Monagreda</h3>
-      <p>Doutora em Ciência Política pela UFMG e integrante do Aqualtune Lab e do grupo DIGITALIA/UFBA, Johanna Monagreda propõe olhar a inteligência artificial pela lente dos direitos humanos e do Sul Global. Sua pergunta central é simples e incômoda: quem controla a tecnologia, quem lucra com ela e quem paga o preço? Ao longo da palestra, ela desmonta a ideia de que a IA seria um saber neutro e mostra como sistemas automatizados prolongam relações de poder que vêm da colonização.</p>
-      <div class="watch">
-        <a class="btn" href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Assistir à palestra no YouTube</a>
-      </div>
-
-      <h4>Objeto ou sujeito?</h4>
-      <p>Monagreda sugere ver a IA de dois jeitos ao mesmo tempo. Alterne entre eles.</p>
-      <div class="toggle" role="group" aria-label="Perspectiva sobre a IA">
-        <button type="button" aria-pressed="true" data-view="obj">Como objeto</button>
-        <button type="button" aria-pressed="false" data-view="suj">Como sujeito</button>
-      </div>
-      <div class="panel" id="viewPanel" aria-live="polite"></div>
-      <span class="src">Fonte: Monagreda, J. K. IA e especificidades do Sul Global. In: Bioni et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Forense, 2026, cap. 7, p. 116 a 122.</span>
-
-      <h4 class="heading-spaced">Pensar a partir do Sul</h4>
-      <div class="south">
-        <div>
-          <div class="compass" id="compass" aria-hidden="true"><span>N</span><span class="s">S</span></div>
-          <p class="centered-control"><button class="btn btn-ghost" type="button" id="flipBtn">Inverter o mapa</button></p>
-        </div>
-        <div id="southCopy">
-          <p>Em 1943, o artista uruguaio Joaquín Torres García desenhou a América do Sul de cabeça para baixo e escreveu que “nosso norte é o sul”. Monagreda usa essa imagem para explicar o Sul Global: não apenas um lugar no mapa, mas uma posição de onde se enxerga o mundo, marcada pelo legado colonial. Para as big techs, o Sul aparece como fonte de dados, minérios e trabalho barato. Para quem vive aqui, é também um lugar de produção de conhecimento e de resistência.</p>
-          <span class="src">Fonte: slides “IA: desafios desde o Sul Global”, Palestra 5, e Monagreda (2026), cap. 7, seção 1.</span>
-        </div>
-      </div>
-
-      <h4 class="heading-spaced">Os sete riscos</h4>
-      <p>No capítulo “Por que falar de raça quando falamos de dados pessoais, IA e algoritmos?”, Monagreda organiza sete riscos que pesam mais sobre a população negra. Abra cada um para ver o que significa e um caso real.</p>
-      <ol class="risks">
-        <li><details><summary><span class="n">1</span><span>Perda de privacidade e apropriação de dados sensíveis</span></summary><div class="body">
-          <p>Dados sobre raça são dados sensíveis. Quando o Estado e o mercado tratam pessoas negras como se não fossem plenamente sujeitos de direito, até o direito de saber o que é feito com os próprios dados enfraquece.</p>
-          <div class="case"><strong>Bolsa Família</strong>Pesquisa do InternetLab encontrou servidores que deixavam de explicar o uso dos dados às beneficiárias, e a imagem de mulheres negras e pobres como possíveis fraudadoras pesava mais do que o direito delas à proteção de dados.
-          <span class="src">Fontes: <a href="https://internetlab.org.br/en/news/internetlab-releases-report-about-personal-data-protection-in-social-protection-policies/" target="_blank" rel="noopener">InternetLab, relatório Diagnósticos e Recomendações n. 6, 2021</a>; <a href="https://novosestudos.com.br/wp-content/uploads/2021/07/01_valente_119_p10a31.pdf" target="_blank" rel="noopener">Valente, Neris e Fragoso, Novos Estudos Cebrap, 2021</a>.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">2</span><span>Mercantilização da vida e datificação da pobreza</span></summary><div class="body">
-          <p>Nossos dados viram mercadoria. Para quem tem pouco, trocar privacidade por desconto ou acesso parece vantagem, e proteger os próprios dados custa dinheiro que nem todos têm.</p>
-          <div class="case"><strong>Beneficiárias como alvo</strong>Beneficiárias do Bolsa Família, em sua maioria mulheres, já foram alvo de propaganda política dirigida, golpes, desinformação e vírus no celular.
-          <span class="src">Fonte: Valente e Fragoso (2020), citadas em <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 120</a>.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">3</span><span>Reprodução e automatização do racismo</span></summary><div class="body">
-          <p>Monagreda distingue dois caminhos. No primeiro, o erro vem de dados pouco diversos, como em <i>Gender Shades</i>. No segundo, mais difícil de ver, a máquina funciona “corretamente” dentro de uma lógica racista: ela aprende a injustiça como regra.</p>
-          <div class="case"><strong>O algoritmo de saúde</strong>Nos Estados Unidos, um algoritmo usado para decidir quem precisava de mais cuidados favorecia pacientes brancos. O critério não era raça, mas gasto prévio com saúde, e pessoas negras historicamente gastam menos por terem menos acesso. Corrigido o critério, a parcela de pacientes negros indicados para cuidado extra subiria de 17,7% para 46,5%.
-          <span class="src">Fontes: Obermeyer et al., <i>Science</i>, 25 out. 2019, resumido em <a href="https://www.chicagobooth.edu/review/2019/october/how-racial-bias-infected-major-health-care-algorithm" target="_blank" rel="noopener">Chicago Booth Review</a> e <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">UC Berkeley</a>.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">4</span><span>Perfilamento racial e discriminação algorítmica</span></summary><div class="body">
-          <p>Perfilar é coletar dados para criar um alvo. A partir de Anita Allen, Monagreda descreve três formas de discriminação: a vigilância excessiva, a exclusão de oportunidades e a predação, quando pessoas vulneráveis viram alvo de golpes.</p>
-          <div class="case"><strong>Currículos na Amazon</strong>Em 2018, a Amazon abandonou uma ferramenta de recrutamento que penalizava currículos com a palavra “women’s” e rebaixava formadas em faculdades femininas, porque aprendera com dez anos de contratações majoritariamente masculinas.
-          <span class="src">Fonte: <a href="https://www.euronews.com/2018/10/10/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women" target="_blank" rel="noopener">Reuters, via Euronews, 10 out. 2018</a>.</span></div>
-          <div class="case"><strong>Preço conforme o lugar</strong>No Brasil, em 2018, o Ministério Público acusou a Decolar.com de mudar preços e bloquear ofertas conforme a localização de quem buscava.
-          <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 119 e 120</a>.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">5</span><span>Vigilância excessiva e criminalização</span></summary><div class="body">
-          <p>Sub-representadas nos dados que treinam as máquinas, mas sobre-representadas nos bancos de suspeitos, pessoas negras viram alvo preferencial. Para Monagreda, o uso de câmeras de reconhecimento facial na Bahia é o exemplo brasileiro mais claro.</p>
-          <div class="case"><strong>Metrô de São Paulo</strong>Em 2022, Idec, Defensorias Públicas e organizações da sociedade civil foram à Justiça para impedir a coleta biométrica dos cerca de 4 milhões de usuários diários do metrô. A proibição liminar foi derrubada pelo Tribunal de Justiça em outubro daquele ano.
-          <span class="src">Fontes: <a href="https://idec.org.br/release/acao-quer-vedar-o-uso-de-tecnologias-de-reconhecimento-facial-pelo-metro-de-sao-paulo" target="_blank" rel="noopener">Idec, 3 mar. 2022</a>; <a href="https://agenciabrasil.ebc.com.br/geral/noticia/2022-03/sp-justica-proibe-que-metro-utilize-sistema-de-reconhecimento-facial" target="_blank" rel="noopener">Agência Brasil, 23 mar. 2022</a>; <a href="https://www.conjur.com.br/?p=345148" target="_blank" rel="noopener">Conjur</a>.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">6</span><span>Impacto em como somos vistos e nos vemos</span></summary><div class="body">
-          <p>Quando a máquina repete estereótipos com aparência de ciência, ela não só erra sobre as pessoas: ajuda a definir quem elas “são”, reforçando a ideia de corpos negros como suspeitos ou perigosos.</p>
-          <div class="case"><strong>Renata Souza</strong>Em 2023, a deputada estadual do Rio pediu a uma IA uma ilustração de si mesma, mulher negra da favela, e recebeu a imagem de uma mulher segurando uma arma.
-          <span class="src">Fonte: <a href="https://www.brasildefato.com.br/2023/10/27/rj-deputada-acusa-inteligencia-artificial-da-microsoft-de-racismo-apos-robo-criar-mulher-negra-com-arma-na-mao" target="_blank" rel="noopener">Brasil de Fato, 27 out. 2023</a>.</span></div>
-          <div class="case"><strong>Lélia Gonzalez</strong>Ao “expandir” uma foto da intelectual com IA, a ferramenta acrescentou estereótipos racistas à imagem, caso apresentado na palestra a partir de uma publicação do instituto IRIS.
-          <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Palestra 5 (vídeo)</a> e slide 41 da apresentação, que cita publicação do instituto IRIS no Instagram.</span></div>
-        </div></details></li>
-        <li><details><summary><span class="n">7</span><span>Apagamento do caráter político dos problemas sociais</span></summary><div class="body">
-          <p>Quando a culpa vai para “o sistema”, ninguém responde pela decisão. E quando um problema complexo, como a segurança pública, vira “compra de tecnologia”, o debate político some. Tarcízio Silva aponta essa diluição de responsabilidade como um dos maiores perigos do racismo algorítmico.</p>
-          <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 126 e 127</a>.</span>
-        </div></details></li>
-      </ol>
-
-      <div class="repair">
-        <h4>A proposta: uma linguagem de reparação</h4>
-        <p class="flush-paragraph">Para Monagreda, buscar neutralidade só mantém a hierarquia racial. O caminho é o oposto: colocar raça no centro das decisões sobre dados, definir o combate ao racismo como objetivo explícito dos sistemas e reconhecer que alguns usos, como o reconhecimento facial na segurança pública, talvez devam simplesmente ser proibidos.</p>
-        <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 128 e 129</a>.</span>
-      </div>
-
-      <h4 class="heading-spaced">Para ler</h4>
-      <ul class="reads">
-        <li>MONAGREDA, J. K. Por que falar de raça quando falamos de dados pessoais, inteligência artificial e algoritmos? In: GONÇALVES, A.; TORRE, L.; MELO, P. V. (ed.). <i>Inteligência artificial e algoritmos: desafios e oportunidades para os media</i>. Covilhã: LabCom, 2024, p. 103 a 133. <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">PDF gratuito</a></li>
-        <li>MONAGREDA, J. K. IA e especificidades do Sul Global. In: BIONI, B. et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Rio de Janeiro: Forense, 2026, cap. 7, p. 115 a 135. Livro impresso.</li>
-        <li>MONAGREDA, J. K. <i>IA: desafios desde o Sul Global</i>. Apresentação (slides) da Palestra 5, MATA68, UFBA, 2026.</li>
-      </ul>
-    </div>
-
-    <!-- CODED BIAS -->
-    <div class="block" id="coded-bias">
-      <p class="kicker">Documentário</p>
-      <h3>Coded Bias (2020)</h3>
-      <p>Dirigido por Shalini Kantayya, o documentário acompanha Joy Buolamwini, pesquisadora do MIT, desde o dia em que um software de rastreamento facial não reconheceu seu rosto até ela vestir uma máscara branca. A partir daí, o filme segue a investigação que virou <i>Gender Shades</i>, a criação da Algorithmic Justice League e a luta de ativistas em Londres contra o reconhecimento facial da polícia. É a mesma história que Monagreda cita no risco 3, contada por quem a viveu.</p>
-      <span class="src">Fonte do episódio da máscara: <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News, 11 fev. 2018</a>. Sobre a AJL: <a href="https://www.ajl.org" target="_blank" rel="noopener">ajl.org</a>.</span>
-
-      <div class="sim">
-        <h3>Simulador 1: a máscara branca</h3>
-        <div class="mask-stage">
-          <div class="mask-face">
-            <svg viewBox="0 0 100 120" aria-hidden="true">
-              <circle cx="50" cy="44" r="25" fill="var(--t5)"/>
-              <path d="M14 120c0-24 16-40 36-40s36 16 36 40z" fill="var(--t5)"/>
-              <g class="mask" id="maskShape" opacity="0"><ellipse cx="50" cy="44" rx="23" ry="25" fill="#FAFAFA" stroke="#999" stroke-width=".8"/><ellipse cx="41" cy="40" rx="4" ry="2.6" fill="#333"/><ellipse cx="59" cy="40" rx="4" ry="2.6" fill="#333"/><path d="M42 56q8 5 16 0" stroke="#999" stroke-width="1.5" fill="none"/></g>
-            </svg>
-            <div class="box none" id="maskBox"><span class="tag">nenhum rosto</span></div>
+            <div class="scenario" data-scn>
+              <h3>O alerta na estação</h3>
+              <p>Você passa por uma câmera no metrô de Salvador. O sistema emite um alerta: seu rosto “parece” o de uma pessoa procurada. Policiais te abordam.</p>
+              <div class="choices">
+                <button class="choice" type="button" aria-pressed="false" data-react="Na prática, quem é abordado precisa provar que não é quem a máquina disse.">Explico e vou embora</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="E a resposta, nos dados, tem cor.">Quem é parado mais vezes?</button>
+              </div>
+              <div class="reveal" hidden><p class="react"></p><p>Em 2019, a Rede de Observatórios da Segurança acompanhou prisões feitas com reconhecimento facial em cinco estados. Nos casos com informação de raça, 90,5% das pessoas presas eram negras, e a Bahia concentrava mais da metade das prisões. Você vai ver esse caso de perto na etapa 4.</p>
+                <span class="src">Fonte: <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span></div>
+            </div>
           </div>
-          <div>
-            <p>Este é o rosto de uma mulher negra diante de um detector facial calibrado com dados majoritariamente brancos. Tente fazer o sistema “ver” o rosto.</p>
-            <button class="btn" type="button" id="maskBtn" aria-pressed="false">Colocar a máscara branca</button>
-            <p class="sim-note" id="maskNote" aria-live="polite"></p>
+        </section>
+
+        <!-- Etapa 2: histórico, ciclo de realimentação e sua revelação interativa. -->
+        <section class="stage" id="neutralidade">
+          <div class="wrap">
+            <span class="num">2 de 6</span>
+            <h2>O mito da neutralidade</h2>
+            <p>Muita gente acredita que computadores são justos porque “não têm preconceito”: só fazem contas. O problema é <em>com o que</em> eles fazem as contas. Um algoritmo de aprendizado de máquina aprende padrões a partir de <button class="term" type="button" data-term="dados de treino">dados de treino</button>, e esses dados são o registro de uma sociedade que já é desigual.</p>
+            <p><button class="term" type="button" data-term="racismo algorítmico">Racismo algorítmico</button> é o nome que se dá ao modo como sistemas computacionais reproduzem, automatizam e ampliam discriminações raciais. Não depende de alguém ter programado “seja racista”. Basta o sistema aprender com o passado sem ninguém perguntar que passado é esse.</p>
+
+            <p class="machine-voice">“Eu só repito os padrões que encontrei nos dados.”</p>
+
+            <p>Veja o que acontece quando um sistema aprende com o histórico de prisões de Salvador.</p>
+            <div class="ledger">
+              <div class="cell">
+                <p class="small ledger-label">Passado: o que os dados mostram</p>
+                <div class="big">98,8%</div>
+                <p class="ledger-copy">das pessoas presas em flagrante em Salvador eram negras, segundo relatório da Defensoria Pública da Bahia (2019).</p>
+                <span class="src">Fonte: <a href="https://www.intercept.com.br/2021/09/20/rui-costa-esta-transformando-a-bahia-em-um-laboratorio-de-vigilancia-com-reconhecimento-facial/" target="_blank" rel="noopener">The Intercept Brasil, 20 set. 2021</a>.</span>
+              </div>
+              <div class="arrow" aria-hidden="true">→</div>
+              <div class="cell future" id="future" data-shown="false" aria-live="polite">
+                <p class="small ledger-label">Futuro: o que o sistema aprende</p>
+                <div class="big">“suspeito”</div>
+                <p class="ledger-copy">vira sinônimo de “negro”. O sistema aponta mais pessoas negras, que geram mais prisões, que viram novos dados de treino. O ciclo se fecha sozinho.</p>
+              </div>
+            </div>
+            <p><button class="btn btn-ghost" type="button" id="futureBtn">Mostrar o que o sistema aprende</button></p>
+
+            <blockquote class="thesis">
+              Algoritmos não inventam o racismo, mas lhe dão escala, velocidade e uma aparência de objetividade que o torna mais difícil de contestar. Por isso, a pergunta não é só “o algoritmo erra?”, e sim “para quem ele erra, quem decidiu usá-lo e quem paga pelo erro?”.
+              <footer>Tese do grupo</footer>
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- Etapa 3: pipeline selecionável e simulador didático da composição da base. -->
+        <section class="stage" id="maquina">
+          <div class="wrap">
+            <span class="num">3 de 6</span>
+            <h2>Por dentro da máquina</h2>
+            <p>Um sistema de reconhecimento facial passa por várias etapas até chegar à câmera da estação. O viés pode entrar em qualquer uma delas. Toque em cada etapa.</p>
+            <ol class="pipe" role="tablist" aria-label="Etapas de um sistema de IA" id="pipe"></ol>
+            <div class="pipe-panel" role="tabpanel" id="pipePanel" aria-live="polite"></div>
+
+            <div class="sim" id="sim">
+              <h3>Simulador: treine o seu próprio classificador</h3>
+              <p>Arraste para mudar a proporção de rostos de pele escura na base de treino e veja o que acontece com a taxa de erro de cada grupo.</p>
+              <label for="mix">Rostos de pele escura na base de treino: <span id="mixOut">10%</span></label>
+              <input type="range" id="mix" min="5" max="50" step="1" value="10">
+              <div class="share" aria-hidden="true"><div class="d" id="shD">10%</div><div class="l" id="shL">90%</div></div>
+              <div class="bars">
+                <div class="barrow"><span>Pele escura</span><div class="track"><div class="fill hot" id="bD"></div></div><span class="val" id="vD"></span></div>
+                <div class="barrow"><span>Pele clara</span><div class="track"><div class="fill" id="bL"></div></div><span class="val" id="vL"></span></div>
+              </div>
+              <p class="sim-note" id="simNote" aria-live="polite"></p>
+              <p class="small">Modelo ilustrativo. Os extremos foram calibrados com os valores de <i>Gender Shades</i> (34,7% e 0,8%), mas a curva entre eles é uma simplificação didática, não uma medição.
+                <span class="src">Fonte dos extremos: <a href="https://www.media.mit.edu/projects/gender-shades/results/" target="_blank" rel="noopener">MIT Media Lab, Gender Shades: resultados</a>.</span></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Etapa 4: filtros e linha do tempo de casos. -->
+        <section class="stage" id="casos">
+          <div class="wrap">
+            <span class="num">4 de 6</span>
+            <h2>Onde acontece</h2>
+            <p>Não é ficção científica nem problema só de outros países. Os pontos vermelhos são casos no Brasil.</p>
+            <p class="stat">90,5%</p>
+            <p class="lead">das pessoas presas por reconhecimento facial no Brasil em 2019 eram negras, nos casos em que havia informação de raça.</p>
+            <span class="src">Fonte: Rede de Observatórios da Segurança, monitoramento de março a outubro de 2019 na Bahia, Ceará, Paraíba, Rio de Janeiro e Santa Catarina, divulgado em <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span>
+
+            <div class="filters" role="group" aria-label="Filtrar casos">
+              <button class="choice" type="button" aria-pressed="true" data-filter="all">Todos</button>
+              <button class="choice" type="button" aria-pressed="false" data-filter="br">Brasil</button>
+              <button class="choice" type="button" aria-pressed="false" data-filter="world">Mundo</button>
+            </div>
+
+            <ol class="timeline" id="timeline">
+              <li data-where="world"><span class="year">2015</span><span class="place">Estados Unidos</span>
+                <h3>Google Fotos rotula pessoas negras como “gorilas”</h3>
+                <p>Um usuário denunciou que o app havia agrupado fotos dele e de uma amiga, ambos negros, com esse rótulo. A “solução” da empresa foi remover a categoria, não corrigir o modelo.</p>
+                <span class="src">Fonte: <a href="https://www.slate.com/blogs/future_tense/2015/06/30/google_s_image_recognition_software_returns_some_surprisingly_racist_results.html" target="_blank" rel="noopener">Slate, 30 jun. 2015</a>.</span>
+                <details><summary>Por que isso importa</summary><p>Mostra como a falta de diversidade nos dados de treino e nos testes gera erros que desumanizam, e como esconder o sintoma é mais barato do que tratar a causa.</p></details></li>
+              <li data-where="world"><span class="year">2016</span><span class="place">Estados Unidos</span>
+                <h3>COMPAS: o algoritmo que prevê “reincidência”</h3>
+                <p>A investigação <i>Machine Bias</i>, da ProPublica, mostrou que réus negros tinham quase o dobro de chance de serem classificados erroneamente como de alto risco em comparação com réus brancos.</p>
+                <span class="src">Fonte: <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">ProPublica, 23 maio 2016</a>.</span>
+                <details><summary>Por que isso importa</summary><p>Quando um número decide fiança e pena, o viés deixa de ser um incômodo e passa a tirar liberdade.</p></details></li>
+              <li data-where="world"><span class="year">2018</span><span class="place">Estados Unidos</span>
+                <h3>Gender Shades</h3>
+                <p>Joy Buolamwini e Timnit Gebru testaram sistemas de análise facial de grandes empresas: erro de até 34,7% para mulheres de pele escura, contra no máximo 0,8% para homens de pele clara.</p>
+                <span class="src">Fonte: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, PMLR v. 81, 2018</a>.</span>
+                <details><summary>Por que isso importa</summary><p>Transformou uma suspeita em evidência mensurável e pressionou as empresas a reverem seus produtos.</p></details></li>
+              <li data-where="br" class="br"><span class="year">2019</span><span class="place">Feira de Santana, Bahia</span>
+                <h3>Micareta vigiada</h3>
+                <p>Em quatro dias de festa, as câmeras capturaram os rostos de mais de 1,3 milhão de pessoas e geraram 903 alertas. Foram 33 prisões (18 por mandados em aberto), ou seja, só 3,6% dos alertas resultaram em prisão. Mais de 96% não levaram a nada.</p>
+                <span class="src">Fontes: <a href="https://www.correio24horas.com.br/bahia/micareta-de-feira-tem-33-presos-por-sistema-de-reconhecimento-facial-0419" target="_blank" rel="noopener">Correio, abr. 2019</a>; <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span>
+                <details><summary>Por que isso importa</summary><p>Cada alerta falso é uma pessoa abordada sem motivo. Numa cidade de maioria negra, essas abordagens não se distribuem por acaso.</p></details></li>
+              <li data-where="br" class="br"><span class="year">2019</span><span class="place">Rio de Janeiro</span>
+                <h3>Presa por engano no primeiro dia</h3>
+                <p>Logo na estreia do sistema em Copacabana, uma mulher foi detida após ser confundida com uma foragida. A procurada verdadeira já estava presa havia quatro anos.</p>
+                <span class="src">Fonte: <a href="https://olhardigital.com.br/noticia/90-dos-presos-por-reconhecimento-facial-no-brasil-sao-negros/93336" target="_blank" rel="noopener">Olhar Digital, 22 nov. 2019</a>.</span>
+                <details><summary>Por que isso importa</summary><p>O erro não foi só da câmera: foi também de um banco de dados desatualizado e de uma polícia que confiou na máquina sem checar.</p></details></li>
+              <li data-where="br" class="br"><span class="year">2019</span><span class="place">Cinco estados</span>
+                <h3>90,5% das pessoas presas eram negras</h3>
+                <p>O levantamento da Rede de Observatórios da Segurança mostrou ainda que a Bahia, estado com a maior proporção de população negra do país, respondia por 52% das prisões feitas com a tecnologia.</p>
+                <span class="src">Fonte: <a href="https://olhardigital.com.br/noticia/90-dos-presos-por-reconhecimento-facial-no-brasil-sao-negros/93336" target="_blank" rel="noopener">Olhar Digital, 22 nov. 2019</a>.</span>
+                <details><summary>Por que isso importa</summary><p>Mesmo um sistema tecnicamente “preciso” amplia a desigualdade se for instalado onde a polícia já concentra suas abordagens.</p></details></li>
+              <li data-where="world"><span class="year">2020</span><span class="place">Detroit, Estados Unidos</span>
+                <h3>Robert Williams, preso por um algoritmo</h3>
+                <p>Um homem negro foi preso na frente das filhas e passou cerca de 30 horas detido, acusado de furto com base num “acerto” falso do reconhecimento facial.</p>
+                <span class="src">Fonte: <a href="https://aclu.org/press-releases/man-wrongfully-arrested-because-face-recognition-cant-tell-black-people-apart" target="_blank" rel="noopener">ACLU, 24 jun. 2020</a>.</span>
+                <details><summary>Por que isso importa</summary><p>É o primeiro caso documentado nos Estados Unidos de prisão injusta causada por reconhecimento facial, e virou referência no debate sobre proibir a tecnologia na polícia.</p></details></li>
+              <li data-where="world"><span class="year">2021</span><span class="place">Redes sociais</span>
+                <h3>O recorte automático que escolhia rostos brancos</h3>
+                <p>Depois de denúncias de usuários em 2020, um estudo do próprio Twitter confirmou que o recorte automático de imagens favorecia pessoas brancas em 4% das comparações, e a função foi abandonada.</p>
+                <span class="src">Fonte: <a href="https://petapixel.com/2021/05/22/twitter-axing-ai-photo-cropping-after-tests-reveal-race-gender-bias" target="_blank" rel="noopener">PetaPixel, 22 maio 2021</a>.</span>
+                <details><summary>Por que isso importa</summary><p>O racismo algorítmico também decide quem aparece e quem some na sua timeline.</p></details></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Etapa 5: referências e demonstrações de perspectivas, sistemas e impactos. -->
+        <section class="stage" id="resistencia">
+          <div class="wrap">
+            <span class="num">5 de 6</span>
+            <h2>Quem resiste</h2>
+            <p>Resistir começa por entender. Aqui estão as palestras, as leituras e o documentário que fundamentam este site, cada um com uma forma diferente de responder à pergunta: quem controla a tecnologia, quem lucra com ela e quem sofre suas consequências?</p>
+            <nav class="subnav" aria-label="Nesta seção">
+              <a href="#palestra-5">Palestra 5: Johanna Monagreda</a>
+              <a href="#coded-bias">Coded Bias</a>
+              <a href="#palestra-1">Palestra 1: Marcello Chaves</a>
+              <a href="#outras-vozes">Outras vozes</a>
+            </nav>
+
+            <!-- PALESTRA 5 -->
+            <div class="block" id="palestra-5">
+              <p class="kicker">Palestra 5</p>
+              <h3>Racismo Algorítmico, com Johanna Monagreda</h3>
+              <p>Doutora em Ciência Política pela UFMG e integrante do Aqualtune Lab e do grupo DIGITALIA/UFBA, Johanna Monagreda propõe olhar a inteligência artificial pela lente dos direitos humanos e do Sul Global. Sua pergunta central é simples e incômoda: quem controla a tecnologia, quem lucra com ela e quem paga o preço? Ao longo da palestra, ela desmonta a ideia de que a IA seria um saber neutro e mostra como sistemas automatizados prolongam relações de poder que vêm da colonização.</p>
+              <div class="watch">
+                <a class="btn" href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Assistir à palestra no YouTube</a>
+              </div>
+
+              <h4>Objeto ou sujeito?</h4>
+              <p>Monagreda sugere ver a IA de dois jeitos ao mesmo tempo. Alterne entre eles.</p>
+              <div class="toggle" role="group" aria-label="Perspectiva sobre a IA">
+                <button type="button" aria-pressed="true" data-view="obj">Como objeto</button>
+                <button type="button" aria-pressed="false" data-view="suj">Como sujeito</button>
+              </div>
+              <div class="panel" id="viewPanel" aria-live="polite"></div>
+              <span class="src">Fonte: Monagreda, J. K. IA e especificidades do Sul Global. In: Bioni et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Forense, 2026, cap. 7, p. 116 a 122.</span>
+
+              <h4 class="heading-spaced">Pensar a partir do Sul</h4>
+              <div class="south">
+                <div>
+                  <div class="compass" id="compass" aria-hidden="true"><span>N</span><span class="s">S</span></div>
+                  <p class="centered-control"><button class="btn btn-ghost" type="button" id="flipBtn">Inverter o mapa</button></p>
+                </div>
+                <div id="southCopy">
+                  <p>Em 1943, o artista uruguaio Joaquín Torres García desenhou a América do Sul de cabeça para baixo e escreveu que “nosso norte é o sul”. Monagreda usa essa imagem para explicar o Sul Global: não apenas um lugar no mapa, mas uma posição de onde se enxerga o mundo, marcada pelo legado colonial. Para as big techs, o Sul aparece como fonte de dados, minérios e trabalho barato. Para quem vive aqui, é também um lugar de produção de conhecimento e de resistência.</p>
+                  <span class="src">Fonte: slides “IA: desafios desde o Sul Global”, Palestra 5, e Monagreda (2026), cap. 7, seção 1.</span>
+                </div>
+              </div>
+
+              <h4 class="heading-spaced">Os sete riscos</h4>
+              <p>No capítulo “Por que falar de raça quando falamos de dados pessoais, IA e algoritmos?”, Monagreda organiza sete riscos que pesam mais sobre a população negra. Abra cada um para ver o que significa e um caso real.</p>
+              <ol class="risks">
+                <li><details><summary><span class="n">1</span><span>Perda de privacidade e apropriação de dados sensíveis</span></summary><div class="body">
+                      <p>Dados sobre raça são dados sensíveis. Quando o Estado e o mercado tratam pessoas negras como se não fossem plenamente sujeitos de direito, até o direito de saber o que é feito com os próprios dados enfraquece.</p>
+                      <div class="case"><strong>Bolsa Família</strong>Pesquisa do InternetLab encontrou servidores que deixavam de explicar o uso dos dados às beneficiárias, e a imagem de mulheres negras e pobres como possíveis fraudadoras pesava mais do que o direito delas à proteção de dados.
+                        <span class="src">Fontes: <a href="https://internetlab.org.br/en/news/internetlab-releases-report-about-personal-data-protection-in-social-protection-policies/" target="_blank" rel="noopener">InternetLab, relatório Diagnósticos e Recomendações n. 6, 2021</a>; <a href="https://novosestudos.com.br/wp-content/uploads/2021/07/01_valente_119_p10a31.pdf" target="_blank" rel="noopener">Valente, Neris e Fragoso, Novos Estudos Cebrap, 2021</a>.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">2</span><span>Mercantilização da vida e datificação da pobreza</span></summary><div class="body">
+                      <p>Nossos dados viram mercadoria. Para quem tem pouco, trocar privacidade por desconto ou acesso parece vantagem, e proteger os próprios dados custa dinheiro que nem todos têm.</p>
+                      <div class="case"><strong>Beneficiárias como alvo</strong>Beneficiárias do Bolsa Família, em sua maioria mulheres, já foram alvo de propaganda política dirigida, golpes, desinformação e vírus no celular.
+                        <span class="src">Fonte: Valente e Fragoso (2020), citadas em <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 120</a>.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">3</span><span>Reprodução e automatização do racismo</span></summary><div class="body">
+                      <p>Monagreda distingue dois caminhos. No primeiro, o erro vem de dados pouco diversos, como em <i>Gender Shades</i>. No segundo, mais difícil de ver, a máquina funciona “corretamente” dentro de uma lógica racista: ela aprende a injustiça como regra.</p>
+                      <div class="case"><strong>O algoritmo de saúde</strong>Nos Estados Unidos, um algoritmo usado para decidir quem precisava de mais cuidados favorecia pacientes brancos. O critério não era raça, mas gasto prévio com saúde, e pessoas negras historicamente gastam menos por terem menos acesso. Corrigido o critério, a parcela de pacientes negros indicados para cuidado extra subiria de 17,7% para 46,5%.
+                        <span class="src">Fontes: Obermeyer et al., <i>Science</i>, 25 out. 2019, resumido em <a href="https://www.chicagobooth.edu/review/2019/october/how-racial-bias-infected-major-health-care-algorithm" target="_blank" rel="noopener">Chicago Booth Review</a> e <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">UC Berkeley</a>.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">4</span><span>Perfilamento racial e discriminação algorítmica</span></summary><div class="body">
+                      <p>Perfilar é coletar dados para criar um alvo. A partir de Anita Allen, Monagreda descreve três formas de discriminação: a vigilância excessiva, a exclusão de oportunidades e a predação, quando pessoas vulneráveis viram alvo de golpes.</p>
+                      <div class="case"><strong>Currículos na Amazon</strong>Em 2018, a Amazon abandonou uma ferramenta de recrutamento que penalizava currículos com a palavra “women’s” e rebaixava formadas em faculdades femininas, porque aprendera com dez anos de contratações majoritariamente masculinas.
+                        <span class="src">Fonte: <a href="https://www.euronews.com/2018/10/10/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women" target="_blank" rel="noopener">Reuters, via Euronews, 10 out. 2018</a>.</span></div>
+                      <div class="case"><strong>Preço conforme o lugar</strong>No Brasil, em 2018, o Ministério Público acusou a Decolar.com de mudar preços e bloquear ofertas conforme a localização de quem buscava.
+                        <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 119 e 120</a>.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">5</span><span>Vigilância excessiva e criminalização</span></summary><div class="body">
+                      <p>Sub-representadas nos dados que treinam as máquinas, mas sobre-representadas nos bancos de suspeitos, pessoas negras viram alvo preferencial. Para Monagreda, o uso de câmeras de reconhecimento facial na Bahia é o exemplo brasileiro mais claro.</p>
+                      <div class="case"><strong>Metrô de São Paulo</strong>Em 2022, Idec, Defensorias Públicas e organizações da sociedade civil foram à Justiça para impedir a coleta biométrica dos cerca de 4 milhões de usuários diários do metrô. A proibição liminar foi derrubada pelo Tribunal de Justiça em outubro daquele ano.
+                        <span class="src">Fontes: <a href="https://idec.org.br/release/acao-quer-vedar-o-uso-de-tecnologias-de-reconhecimento-facial-pelo-metro-de-sao-paulo" target="_blank" rel="noopener">Idec, 3 mar. 2022</a>; <a href="https://agenciabrasil.ebc.com.br/geral/noticia/2022-03/sp-justica-proibe-que-metro-utilize-sistema-de-reconhecimento-facial" target="_blank" rel="noopener">Agência Brasil, 23 mar. 2022</a>; <a href="https://www.conjur.com.br/?p=345148" target="_blank" rel="noopener">Conjur</a>.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">6</span><span>Impacto em como somos vistos e nos vemos</span></summary><div class="body">
+                      <p>Quando a máquina repete estereótipos com aparência de ciência, ela não só erra sobre as pessoas: ajuda a definir quem elas “são”, reforçando a ideia de corpos negros como suspeitos ou perigosos.</p>
+                      <div class="case"><strong>Renata Souza</strong>Em 2023, a deputada estadual do Rio pediu a uma IA uma ilustração de si mesma, mulher negra da favela, e recebeu a imagem de uma mulher segurando uma arma.
+                        <span class="src">Fonte: <a href="https://www.brasildefato.com.br/2023/10/27/rj-deputada-acusa-inteligencia-artificial-da-microsoft-de-racismo-apos-robo-criar-mulher-negra-com-arma-na-mao" target="_blank" rel="noopener">Brasil de Fato, 27 out. 2023</a>.</span></div>
+                      <div class="case"><strong>Lélia Gonzalez</strong>Ao “expandir” uma foto da intelectual com IA, a ferramenta acrescentou estereótipos racistas à imagem, caso apresentado na palestra a partir de uma publicação do instituto IRIS.
+                        <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Palestra 5 (vídeo)</a> e slide 41 da apresentação, que cita publicação do instituto IRIS no Instagram.</span></div>
+                </div></details></li>
+                <li><details><summary><span class="n">7</span><span>Apagamento do caráter político dos problemas sociais</span></summary><div class="body">
+                      <p>Quando a culpa vai para “o sistema”, ninguém responde pela decisão. E quando um problema complexo, como a segurança pública, vira “compra de tecnologia”, o debate político some. Tarcízio Silva aponta essa diluição de responsabilidade como um dos maiores perigos do racismo algorítmico.</p>
+                      <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 126 e 127</a>.</span>
+                </div></details></li>
+              </ol>
+
+              <div class="repair">
+                <h4>A proposta: uma linguagem de reparação</h4>
+                <p class="flush-paragraph">Para Monagreda, buscar neutralidade só mantém a hierarquia racial. O caminho é o oposto: colocar raça no centro das decisões sobre dados, definir o combate ao racismo como objetivo explícito dos sistemas e reconhecer que alguns usos, como o reconhecimento facial na segurança pública, talvez devam simplesmente ser proibidos.</p>
+                <span class="src">Fonte: <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 128 e 129</a>.</span>
+              </div>
+
+              <h4 class="heading-spaced">Para ler</h4>
+              <ul class="reads">
+                <li>MONAGREDA, J. K. Por que falar de raça quando falamos de dados pessoais, inteligência artificial e algoritmos? In: GONÇALVES, A.; TORRE, L.; MELO, P. V. (ed.). <i>Inteligência artificial e algoritmos: desafios e oportunidades para os media</i>. Covilhã: LabCom, 2024, p. 103 a 133. <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">PDF gratuito</a></li>
+                <li>MONAGREDA, J. K. IA e especificidades do Sul Global. In: BIONI, B. et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Rio de Janeiro: Forense, 2026, cap. 7, p. 115 a 135. Livro impresso.</li>
+                <li>MONAGREDA, J. K. <i>IA: desafios desde o Sul Global</i>. Apresentação (slides) da Palestra 5, MATA68, UFBA, 2026.</li>
+              </ul>
+            </div>
+
+            <!-- CODED BIAS -->
+            <div class="block" id="coded-bias">
+              <p class="kicker">Documentário</p>
+              <h3>Coded Bias (2020)</h3>
+              <p>Dirigido por Shalini Kantayya, o documentário acompanha Joy Buolamwini, pesquisadora do MIT, desde o dia em que um software de rastreamento facial não reconheceu seu rosto até ela vestir uma máscara branca. A partir daí, o filme segue a investigação que virou <i>Gender Shades</i>, a criação da Algorithmic Justice League e a luta de ativistas em Londres contra o reconhecimento facial da polícia. É a mesma história que Monagreda cita no risco 3, contada por quem a viveu.</p>
+              <span class="src">Fonte do episódio da máscara: <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News, 11 fev. 2018</a>. Sobre a AJL: <a href="https://www.ajl.org" target="_blank" rel="noopener">ajl.org</a>.</span>
+
+              <div class="sim">
+                <h3>Simulador 1: a máscara branca</h3>
+                <div class="mask-stage">
+                  <div class="mask-face">
+                    <svg viewBox="0 0 100 120" aria-hidden="true">
+                      <circle cx="50" cy="44" r="25" fill="var(--t5)"/>
+                      <path d="M14 120c0-24 16-40 36-40s36 16 36 40z" fill="var(--t5)"/>
+                      <g class="mask" id="maskShape" opacity="0"><ellipse cx="50" cy="44" rx="23" ry="25" fill="#FAFAFA" stroke="#999" stroke-width=".8"/><ellipse cx="41" cy="40" rx="4" ry="2.6" fill="#333"/><ellipse cx="59" cy="40" rx="4" ry="2.6" fill="#333"/><path d="M42 56q8 5 16 0" stroke="#999" stroke-width="1.5" fill="none"/></g>
+                    </svg>
+                    <div class="box none" id="maskBox"><span class="tag">nenhum rosto</span></div>
+                  </div>
+                  <div>
+                    <p>Este é o rosto de uma mulher negra diante de um detector facial calibrado com dados majoritariamente brancos. Tente fazer o sistema “ver” o rosto.</p>
+                    <button class="btn" type="button" id="maskBtn" aria-pressed="false">Colocar a máscara branca</button>
+                    <p class="sim-note" id="maskNote" aria-live="polite"></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sim">
+                <h3>Simulador 2: refaça a auditoria</h3>
+                <p>Escolha um dos três sistemas comerciais testados em <i>Gender Shades</i> e veja a taxa de erro na classificação de gênero para cada grupo.</p>
+                <div class="co" role="group" aria-label="Sistema auditado">
+                  <button class="choice" type="button" aria-pressed="true" data-co="0">Microsoft</button>
+                  <button class="choice" type="button" aria-pressed="false" data-co="1">Face++</button>
+                  <button class="choice" type="button" aria-pressed="false" data-co="2">IBM</button>
+                </div>
+                <div class="bars" id="auditBars"></div>
+                <p class="sim-note" id="auditNote" aria-live="polite"></p>
+                <p class="small">Os bancos de teste mais usados na época tinham mais de 77% de rostos masculinos e mais de 83% de rostos brancos, por isso o problema passava despercebido.
+                  <span class="src">Fontes: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, PMLR v. 81, 2018, tabela 4</a>; <a href="https://www.media.mit.edu/projects/gender-shades/results/" target="_blank" rel="noopener">MIT Media Lab</a>; <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News</a>.</span></p>
+              </div>
+
+              <div class="sim">
+                <h3>Simulador 3: os alertas da polícia de Londres</h3>
+                <p>Em 2018, a organização Big Brother Watch, que aparece no filme, obteve os números do reconhecimento facial da Polícia Metropolitana de Londres. Cada quadrado abaixo é um alerta emitido pelo sistema.</p>
+                <div class="alerts" id="alerts" aria-hidden="true"></div>
+                <div class="legend"><span class="innocent">Pessoa inocente apontada</span><span class="correct">Identificação correta</span></div>
+                <p class="alert-actions"><button class="btn" type="button" id="alertsBtn" aria-expanded="false" aria-controls="alerts alertsNote">Revelar o resultado</button></p>
+                <p class="sim-note" id="alertsNote" aria-live="polite"></p>
+                <span class="src">Fontes: <a href="https://bigbrotherwatch.org.uk/all-media/dangerous-and-inaccurate-police-facial-recognition-exposed-in-new-big-brother-watch-report/" target="_blank" rel="noopener">Big Brother Watch, relatório <i>Face Off</i>, maio 2018</a>; <a href="https://www.itv.com/news/2018-05-15/facial-recognition-software-used-by-police-wrong-in-more-than-90-of-cases/" target="_blank" rel="noopener">ITV News, 15 maio 2018</a>.</span>
+              </div>
+            </div>
+
+            <!-- PALESTRA 1 -->
+            <div class="block" id="palestra-1">
+              <p class="kicker">Palestra 1</p>
+              <h3>Ética, Conhecimento, Tecnologia e Sociedade: fundamentos e história, com Marcello Chaves</h3>
+              <p>Marcello Chaves propõe um diálogo filosófico em que a história funciona como um manual de instruções para o futuro: os padrões de dominação se repetem, só mudam de roupa. Ele parte da origem grega da palavra ética, <i>ethos</i>, ligada aos hábitos e ao conviver, e chega a um princípio simples: se colocar no lugar do outro. Para ele, a resposta aos problemas estruturais de hoje é política e educacional, e passa por tecnologias sociais, software livre e uma universidade que seja polo de intervenção.</p>
+              <div class="watch">
+                <a class="btn" href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Assistir à palestra no YouTube</a>
+              </div>
+
+              <h4>O ciclo CTS</h4>
+              <p>Marcello aponta um padrão histórico entre Ciência, Tecnologia e Sociedade. Percorra as etapas e pense em como o reconhecimento facial na Bahia se encaixa nelas.</p>
+              <div class="cycle" id="cycle"></div>
+              <div class="panel" id="cyclePanel" aria-live="polite"></div>
+              <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Palestra 1 (vídeo)</a>. A ligação com o reconhecimento facial é leitura do grupo.</span>
+
+              <h4 class="heading-spaced">O Teste de Turing invertido</h4>
+              <p>Alan Turing propôs testar se uma máquina consegue se passar por humana. Marcello observa que hoje o teste virou de lado.</p>
+              <button class="captcha" type="button" id="captcha" aria-pressed="false"><span class="ck" aria-hidden="true"></span><span>Não sou um robô</span></button>
+              <p class="sim-note" id="captchaNote" aria-live="polite"></p>
+              <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Palestra 1 (vídeo)</a>.</span>
+            </div>
+
+            <!-- OUTRAS VOZES -->
+            <div class="block" id="outras-vozes">
+              <p class="kicker">Para continuar</p>
+              <h3>Outras vozes</h3>
+              <ul class="people">
+                <li><i></i><div><h4>Tarcízio Silva</h4><p>Pesquisador brasileiro, autor de <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i> (2022), principal referência do tema em português e autor muito citado por Monagreda. Monagreda cita seu texto “O horror do reconhecimento facial na Bahia, onde poderia ser diferente” (2021).</p></div></li>
+                <li><i></i><div><h4>Nina da Hora</h4><p>Cientista da computação e pesquisadora brasileira que discute ética em IA e se define como hacker antirracista, aproximando o debate técnico do público jovem.</p></div></li>
+                <li><i></i><div><h4>PretaLab</h4><p>Iniciativa do Olabi que mapeia e fortalece mulheres negras e indígenas na tecnologia. <a href="https://www.pretalab.com" target="_blank" rel="noopener">pretalab.com</a></p></div></li>
+                <li><i></i><div><h4>Rede de Observatórios da Segurança</h4><p>Rede que monitora a violência e as políticas de segurança em vários estados, incluindo a Bahia, e produziu o levantamento sobre reconhecimento facial citado neste site.</p></div></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Etapa 6 e questionário de revisão do percurso. -->
+        <section class="stage" id="agora">
+          <div class="wrap">
+            <span class="num">6 de 6</span>
+            <h2>E agora?</h2>
+            <div class="manifesto">
+              <p>Nós, do Grupo 6, defendemos que nenhuma tecnologia que decide sobre a liberdade, o corpo ou as oportunidades das pessoas deve ser usada sem transparência, auditoria independente e participação de quem será afetado por ela.</p>
+              <p>Na segurança pública, o ônus da prova está invertido: hoje, quem é apontado pela máquina precisa provar que ela errou. Enquanto não houver regras claras e evidência de que esses sistemas não aprofundam o encarceramento da população negra, defendemos a suspensão do reconhecimento facial no policiamento.</p>
+              <p>E acreditamos que a saída não é rejeitar a tecnologia, mas disputá-la: mais pessoas negras e indígenas criando, testando e decidindo sobre os sistemas que moldam a vida de todo mundo.</p>
+            </div>
+
+            <h3 class="heading-spaced-large">O que você pode fazer</h3>
+            <div class="tabs" role="tablist" aria-label="Ações por perfil">
+              <button role="tab" type="button" aria-selected="true" aria-controls="tp1" id="tb1">Se você usa tecnologia</button>
+              <button role="tab" type="button" aria-selected="false" aria-controls="tp2" id="tb2">Se você estuda ou desenvolve</button>
+              <button role="tab" type="button" aria-selected="false" aria-controls="tp3" id="tb3">Se você decide políticas</button>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="tp1" aria-labelledby="tb1">
+              <ol>
+                <li>Desconfie da ideia de que “a máquina não erra”. Pergunte quem fez, com que dados e para quê.</li>
+                <li>Conheça seus direitos: a LGPD (art. 20) garante pedir revisão de decisões tomadas só por meios automatizados.</li>
+                <li>Registre e denuncie. Prints e relatos de erros ajudam pesquisadores e jornalistas a provar padrões.</li>
+                <li>Compartilhe este percurso com alguém que ainda acha que tecnologia é neutra.</li>
+              </ol>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="tp2" aria-labelledby="tb2" hidden>
+              <ol>
+                <li>Meça o desempenho do seu modelo separado por grupo, não só a média geral. A média esconde quem fica para trás.</li>
+                <li>Documente seus dados: de onde vieram, quem está representado e quem falta.</li>
+                <li>Pergunte se o sistema deveria existir antes de perguntar como otimizá-lo.</li>
+                <li>Prefira e contribua com software livre e tecnologias sociais, como defende Marcello Chaves na Palestra 1.</li>
+              </ol>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="tp3" aria-labelledby="tb3" hidden>
+              <ol>
+                <li>Exija relatórios públicos de impacto e auditorias independentes antes de contratar sistemas de IA.</li>
+                <li>Publique as taxas de erro, abordagens e prisões geradas por reconhecimento facial, separadas por raça.</li>
+                <li>Garanta que nenhuma pessoa seja presa com base apenas em um alerta automatizado.</li>
+                <li>Inclua movimentos negros, pesquisadores e defensorias na decisão sobre adotar essas tecnologias.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section class="stage" id="quiz">
+          <div class="wrap">
+            <h2>Teste o que ficou</h2>
+            <p>Sete perguntas rápidas sobre o percurso.</p>
+            <div id="quizBox"></div>
+            <p class="score" id="score" aria-live="polite"></p>
+            <p class="quiz-actions"><a class="btn" href="#minijogos">Ir para os minijogos</a></p>
+          </div>
+        </section>
+      </div>
+      <!-- A tela dos jogos é alternada com #percurso; cada painel é controlado por uma aba. -->
+      <section class="stage games" id="minijogos" hidden>
+        <div class="wrap">
+          <h2>Minijogos</h2>
+          <p class="lead">Quatro jogos para explorar questões de racismo e viés algorítmico. Nos jogos de palavras, cada descoberta traz uma explicação; no labirinto, cada desafio abre caminho para uma tecnologia mais justa.</p>
+          <div class="tabs" role="tablist" aria-label="Escolha um jogo">
+            <button role="tab" type="button" aria-selected="true" aria-controls="g-forca" id="gt-forca">Forca</button>
+            <button role="tab" type="button" aria-selected="false" aria-controls="g-caca" id="gt-caca">Caça-palavras</button>
+            <button role="tab" type="button" aria-selected="false" aria-controls="g-cruz" id="gt-cruz">Palavras cruzadas</button>
+            <button role="tab" type="button" aria-selected="false" aria-controls="g-labirinto" id="gt-labirinto">Labirinto</button>
+          </div>
+
+          <div class="gpanel" role="tabpanel" id="g-forca" aria-labelledby="gt-forca">
+            <h3>Forca do viés algorítmico</h3>
+            <p class="small">100 palavras, sem acentos. Cinco erros encerram o jogo. Use o teclado da tela ou o do computador.</p>
+            <div class="g-stats"><span id="fRound">Rodada 1</span><span id="fErr">Erros: 0/5</span><span id="fPts">Pontos: 0</span></div>
+            <div class="g-hint"><strong>Dica:</strong> <span id="fHint"></span></div>
+            <div class="f-game">
+              <svg viewBox="0 0 180 210" role="img" aria-label="Desenho da forca" id="fSvg">
+                <g stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round"><path d="M20 198 H150 M55 198 V16 H117 V37"/></g>
+                <g stroke="var(--alert)" stroke-width="5" fill="none" stroke-linecap="round">
+                  <circle class="f-part" cx="117" cy="56" r="19"/>
+                  <path class="f-part" d="M117 75 V125"/>
+                  <path class="f-part" d="M117 88 L89 110"/>
+                  <path class="f-part" d="M117 88 L145 110"/>
+                  <path class="f-part" d="M117 125 L94 163 M117 125 L140 163"/>
+                </g>
+              </svg>
+              <div>
+                <div id="fWord" class="f-word" aria-label="Palavra a descobrir"></div>
+                <p id="fMsg" class="f-msg" aria-live="polite"></p>
+              </div>
+            </div>
+            <div id="fKeys" class="f-keys" aria-label="Teclado de letras"></div>
+            <div id="fExp" class="f-exp" hidden></div>
+            <p class="forca-next"><button class="btn" type="button" id="fNext" disabled>Próxima palavra</button></p>
+          </div>
+
+          <div class="gpanel" role="tabpanel" id="g-caca" aria-labelledby="gt-caca" hidden>
+            <h3>Caça-palavras</h3>
+            <p class="small">Encontre as 10 palavras escondidas na horizontal, na vertical ou na diagonal. Arraste da primeira à última letra, ou toque na primeira e depois na última.</p>
+            <div class="ws-wrap">
+              <div id="wsGrid" class="ws-grid" aria-label="Grade de letras"></div>
+              <div>
+                <ul id="wsList" class="ws-list" aria-label="Palavras a encontrar"></ul>
+                <p class="g-count" id="wsCount"></p>
+              </div>
+            </div>
+            <div class="g-hint" id="wsFact" aria-live="polite">Cada palavra encontrada revela aqui uma explicação.</div>
+            <div class="g-actions"><button class="btn btn-ghost" type="button" id="wsNew">Novo tabuleiro</button></div>
+          </div>
+
+          <div class="gpanel" role="tabpanel" id="g-cruz" aria-labelledby="gt-cruz" hidden>
+            <h3>Palavras cruzadas</h3>
+            <p class="small">Todas as respostas aparecem no percurso e nas palestras. Escreva sem acentos. Toque numa casa ou numa pista para começar; toque de novo na mesma casa para trocar entre horizontal e vertical.</p>
+            <div id="cwGrid" class="cw-grid"></div>
+            <p class="g-hint" id="cwCur" aria-live="polite"></p>
+            <div class="g-actions">
+              <button class="btn" type="button" id="cwCheck">Verificar</button>
+              <button class="btn btn-ghost" type="button" id="cwReveal">Revelar palavra atual</button>
+              <button class="btn btn-ghost" type="button" id="cwClear">Limpar</button>
+            </div>
+            <p class="sim-note" id="cwMsg" aria-live="polite"></p>
+            <div class="cw-clues">
+              <div><h4>Horizontais</h4><ol id="cwH"></ol></div>
+              <div><h4>Verticais</h4><ol id="cwV"></ol></div>
+            </div>
+          </div>
+
+          <div class="gpanel" role="tabpanel" id="g-labirinto" aria-labelledby="gt-labirinto" hidden>
+            <h3>Labirinto dos Algoritmos</h3>
+            <p class="small">Explore três fases, responda aos desafios e encontre a saída. Use as setas ou WASD; em dispositivos móveis, toque nos controles direcionais.</p>
+            <iframe class="maze-frame" src="labirinto.html" title="Labirinto dos Algoritmos" loading="lazy"></iframe>
           </div>
         </div>
+      </section>
+
+    </main>
+
+    <!-- Conteúdo de referência e diálogo do glossário, compartilhado pelo percurso. -->
+    <footer class="site">
+      <div class="wrap">
+        <h2>Referências</h2>
+        <h3>Palestras da disciplina</h3>
+        <ul class="refs">
+          <li>CHAVES, Marcello. Palestra 1: Ética, Conhecimento, Tecnologia e Sociedade: fundamentos e história. MATA68, UFBA. <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Vídeo no YouTube</a></li>
+          <li>MONAGREDA, Johanna K. Palestra 5: Racismo Algorítmico. MATA68, UFBA. <a href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Vídeo no YouTube</a></li>
+        </ul>
+        <h3>Livros, artigos e relatórios</h3>
+        <ul class="refs">
+          <li>BUOLAMWINI, J.; GEBRU, T. Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. <i>Proceedings of Machine Learning Research</i>, v. 81, p. 77 a 91, 2018. <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Link</a></li>
+          <li>BIG BROTHER WATCH. <i>Face Off: the lawless growth of facial recognition in UK policing</i>. Londres, 2018. <a href="https://bigbrotherwatch.org.uk/all-media/dangerous-and-inaccurate-police-facial-recognition-exposed-in-new-big-brother-watch-report/" target="_blank" rel="noopener">Link</a></li>
+          <li>FRAGOSO, N. et al. <i>Proteção de dados pessoais em políticas de proteção social: contribuições a partir do Programa Bolsa Família</i>. InternetLab, 2021. <a href="https://internetlab.org.br/en/news/internetlab-releases-report-about-personal-data-protection-in-social-protection-policies/" target="_blank" rel="noopener">Link</a></li>
+          <li>OBERMEYER, Z. et al. Dissecting racial bias in an algorithm used to manage the health of populations. <i>Science</i>, v. 366, p. 447 a 453, 2019. <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">Resumo</a></li>
+          <li>MONAGREDA, J. K. Por que falar de raça quando falamos de dados pessoais, inteligência artificial e algoritmos? In: GONÇALVES, A.; TORRE, L.; MELO, P. V. (ed.). <i>Inteligência artificial e algoritmos</i>. Covilhã: LabCom, 2024. <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Link</a></li>
+          <li>MONAGREDA, J. K. IA e especificidades do Sul Global. In: BIONI, B. et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Rio de Janeiro: Forense, 2026, cap. 7.</li>
+          <li>NUNES, P. Levantamento revela que 90,5% dos presos por monitoramento facial no Brasil são negros. <i>The Intercept Brasil</i>, 21 nov. 2019. <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">Link</a></li>
+          <li>ANGWIN, J. et al. Machine Bias. <i>ProPublica</i>, 23 maio 2016. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">Link</a></li>
+          <li>SILVA, T. <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i>. São Paulo: Edições Sesc, 2022.</li>
+          <li>NOBLE, S. U. <i>Algoritmos da opressão</i>. Santo André: Rua do Sabão, 2021.</li>
+          <li>O’NEIL, C. <i>Algoritmos de destruição em massa</i>. Santo André: Rua do Sabão, 2020.</li>
+          <li>ALMEIDA, S. <i>Racismo estrutural</i>. São Paulo: Pólen, 2019.</li>
+        </ul>
+        <h3>Audiovisual</h3>
+        <ul class="refs">
+          <li><i>Coded Bias</i>. Direção: Shalini Kantayya. EUA, 2020. Documentário.</li>
+        </ul>
+        <p class="credits">Trabalho multimodal da disciplina MATA68 – Computador, Ética e Sociedade, Instituto de Computação da UFBA, semestre 2026.1. Grupo 6: Benjami Francisco Mendes Nanque, Francisco Yure Cruz Borges, Marcus Paulo Sousa dos Santos
+          , Matheus Ferreira de Oliveira Vieira, Saulo Soares dos Santos, Vinícius dos Santos Freitas Aires.</p>
       </div>
+    </footer>
 
-      <div class="sim">
-        <h3>Simulador 2: refaça a auditoria</h3>
-        <p>Escolha um dos três sistemas comerciais testados em <i>Gender Shades</i> e veja a taxa de erro na classificação de gênero para cada grupo.</p>
-        <div class="co" role="group" aria-label="Sistema auditado">
-          <button class="choice" type="button" aria-pressed="true" data-co="0">Microsoft</button>
-          <button class="choice" type="button" aria-pressed="false" data-co="1">Face++</button>
-          <button class="choice" type="button" aria-pressed="false" data-co="2">IBM</button>
-        </div>
-        <div class="bars" id="auditBars"></div>
-        <p class="sim-note" id="auditNote" aria-live="polite"></p>
-        <p class="small">Os bancos de teste mais usados na época tinham mais de 77% de rostos masculinos e mais de 83% de rostos brancos, por isso o problema passava despercebido.
-          <span class="src">Fontes: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, PMLR v. 81, 2018, tabela 4</a>; <a href="https://www.media.mit.edu/projects/gender-shades/results/" target="_blank" rel="noopener">MIT Media Lab</a>; <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News</a>.</span></p>
-      </div>
+    <button class="fab" type="button" id="glossBtn" aria-haspopup="dialog">Glossário</button>
+    <dialog id="gloss" aria-labelledby="glossTitle">
+      <div class="dlg-head"><h2 id="glossTitle">Glossário</h2><button class="icon-btn" type="button" id="glossClose">Fechar</button></div>
+      <div class="dlg-body"><dl id="glossList"></dl></div>
+    </dialog>
 
-      <div class="sim">
-        <h3>Simulador 3: os alertas da polícia de Londres</h3>
-        <p>Em 2018, a organização Big Brother Watch, que aparece no filme, obteve os números do reconhecimento facial da Polícia Metropolitana de Londres. Cada quadrado abaixo é um alerta emitido pelo sistema.</p>
-        <div class="alerts" id="alerts" aria-hidden="true"></div>
-        <div class="legend"><span class="innocent">Pessoa inocente apontada</span><span class="correct">Identificação correta</span></div>
-        <p class="alert-actions"><button class="btn" type="button" id="alertsBtn" aria-expanded="false" aria-controls="alerts alertsNote">Revelar o resultado</button></p>
-        <p class="sim-note" id="alertsNote" aria-live="polite"></p>
-        <span class="src">Fontes: <a href="https://bigbrotherwatch.org.uk/all-media/dangerous-and-inaccurate-police-facial-recognition-exposed-in-new-big-brother-watch-report/" target="_blank" rel="noopener">Big Brother Watch, relatório <i>Face Off</i>, maio 2018</a>; <a href="https://www.itv.com/news/2018-05-15/facial-recognition-software-used-by-police-wrong-in-more-than-90-of-cases/" target="_blank" rel="noopener">ITV News, 15 maio 2018</a>.</span>
-      </div>
-    </div>
-
-    <!-- PALESTRA 1 -->
-    <div class="block" id="palestra-1">
-      <p class="kicker">Palestra 1</p>
-      <h3>Ética, Conhecimento, Tecnologia e Sociedade: fundamentos e história, com Marcello Chaves</h3>
-      <p>Marcello Chaves propõe um diálogo filosófico em que a história funciona como um manual de instruções para o futuro: os padrões de dominação se repetem, só mudam de roupa. Ele parte da origem grega da palavra ética, <i>ethos</i>, ligada aos hábitos e ao conviver, e chega a um princípio simples: se colocar no lugar do outro. Para ele, a resposta aos problemas estruturais de hoje é política e educacional, e passa por tecnologias sociais, software livre e uma universidade que seja polo de intervenção.</p>
-      <div class="watch">
-        <a class="btn" href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Assistir à palestra no YouTube</a>
-      </div>
-
-      <h4>O ciclo CTS</h4>
-      <p>Marcello aponta um padrão histórico entre Ciência, Tecnologia e Sociedade. Percorra as etapas e pense em como o reconhecimento facial na Bahia se encaixa nelas.</p>
-      <div class="cycle" id="cycle"></div>
-      <div class="panel" id="cyclePanel" aria-live="polite"></div>
-      <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Palestra 1 (vídeo)</a>. A ligação com o reconhecimento facial é leitura do grupo.</span>
-
-      <h4 class="heading-spaced">O Teste de Turing invertido</h4>
-      <p>Alan Turing propôs testar se uma máquina consegue se passar por humana. Marcello observa que hoje o teste virou de lado.</p>
-      <button class="captcha" type="button" id="captcha" aria-pressed="false"><span class="ck" aria-hidden="true"></span><span>Não sou um robô</span></button>
-      <p class="sim-note" id="captchaNote" aria-live="polite"></p>
-      <span class="src">Fonte: <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Palestra 1 (vídeo)</a>.</span>
-    </div>
-
-    <!-- OUTRAS VOZES -->
-    <div class="block" id="outras-vozes">
-      <p class="kicker">Para continuar</p>
-      <h3>Outras vozes</h3>
-      <ul class="people">
-        <li><i></i><div><h4>Tarcízio Silva</h4><p>Pesquisador brasileiro, autor de <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i> (2022), principal referência do tema em português e autor muito citado por Monagreda. Monagreda cita seu texto “O horror do reconhecimento facial na Bahia, onde poderia ser diferente” (2021).</p></div></li>
-        <li><i></i><div><h4>Nina da Hora</h4><p>Cientista da computação e pesquisadora brasileira que discute ética em IA e se define como hacker antirracista, aproximando o debate técnico do público jovem.</p></div></li>
-        <li><i></i><div><h4>PretaLab</h4><p>Iniciativa do Olabi que mapeia e fortalece mulheres negras e indígenas na tecnologia. <a href="https://www.pretalab.com" target="_blank" rel="noopener">pretalab.com</a></p></div></li>
-        <li><i></i><div><h4>Rede de Observatórios da Segurança</h4><p>Rede que monitora a violência e as políticas de segurança em vários estados, incluindo a Bahia, e produziu o levantamento sobre reconhecimento facial citado neste site.</p></div></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="stage" id="agora">
-  <div class="wrap">
-    <span class="num">6 de 6</span>
-    <h2>E agora?</h2>
-    <div class="manifesto">
-      <p>Nós, do Grupo 6, defendemos que nenhuma tecnologia que decide sobre a liberdade, o corpo ou as oportunidades das pessoas deve ser usada sem transparência, auditoria independente e participação de quem será afetado por ela.</p>
-      <p>Na segurança pública, o ônus da prova está invertido: hoje, quem é apontado pela máquina precisa provar que ela errou. Enquanto não houver regras claras e evidência de que esses sistemas não aprofundam o encarceramento da população negra, defendemos a suspensão do reconhecimento facial no policiamento.</p>
-      <p>E acreditamos que a saída não é rejeitar a tecnologia, mas disputá-la: mais pessoas negras e indígenas criando, testando e decidindo sobre os sistemas que moldam a vida de todo mundo.</p>
-    </div>
-
-    <h3 class="heading-spaced-large">O que você pode fazer</h3>
-    <div class="tabs" role="tablist" aria-label="Ações por perfil">
-      <button role="tab" type="button" aria-selected="true" aria-controls="tp1" id="tb1">Se você usa tecnologia</button>
-      <button role="tab" type="button" aria-selected="false" aria-controls="tp2" id="tb2">Se você estuda ou desenvolve</button>
-      <button role="tab" type="button" aria-selected="false" aria-controls="tp3" id="tb3">Se você decide políticas</button>
-    </div>
-    <div class="tabpanel" role="tabpanel" id="tp1" aria-labelledby="tb1">
-      <ol>
-        <li>Desconfie da ideia de que “a máquina não erra”. Pergunte quem fez, com que dados e para quê.</li>
-        <li>Conheça seus direitos: a LGPD (art. 20) garante pedir revisão de decisões tomadas só por meios automatizados.</li>
-        <li>Registre e denuncie. Prints e relatos de erros ajudam pesquisadores e jornalistas a provar padrões.</li>
-        <li>Compartilhe este percurso com alguém que ainda acha que tecnologia é neutra.</li>
-      </ol>
-    </div>
-    <div class="tabpanel" role="tabpanel" id="tp2" aria-labelledby="tb2" hidden>
-      <ol>
-        <li>Meça o desempenho do seu modelo separado por grupo, não só a média geral. A média esconde quem fica para trás.</li>
-        <li>Documente seus dados: de onde vieram, quem está representado e quem falta.</li>
-        <li>Pergunte se o sistema deveria existir antes de perguntar como otimizá-lo.</li>
-        <li>Prefira e contribua com software livre e tecnologias sociais, como defende Marcello Chaves na Palestra 1.</li>
-      </ol>
-    </div>
-    <div class="tabpanel" role="tabpanel" id="tp3" aria-labelledby="tb3" hidden>
-      <ol>
-        <li>Exija relatórios públicos de impacto e auditorias independentes antes de contratar sistemas de IA.</li>
-        <li>Publique as taxas de erro, abordagens e prisões geradas por reconhecimento facial, separadas por raça.</li>
-        <li>Garanta que nenhuma pessoa seja presa com base apenas em um alerta automatizado.</li>
-        <li>Inclua movimentos negros, pesquisadores e defensorias na decisão sobre adotar essas tecnologias.</li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="stage" id="quiz">
-  <div class="wrap">
-    <h2>Teste o que ficou</h2>
-    <p>Sete perguntas rápidas sobre o percurso.</p>
-    <div id="quizBox"></div>
-    <p class="score" id="score" aria-live="polite"></p>
-    <p class="quiz-actions"><a class="btn" href="#minijogos">Ir para os minijogos</a></p>
-  </div>
-</section>
-</div>
-<section class="stage games" id="minijogos" hidden>
-  <div class="wrap">
-    <h2>Minijogos</h2>
-    <p class="lead">Quatro jogos para explorar questões de racismo e viés algorítmico. Nos jogos de palavras, cada descoberta traz uma explicação; no labirinto, cada desafio abre caminho para uma tecnologia mais justa.</p>
-    <div class="tabs" role="tablist" aria-label="Escolha um jogo">
-      <button role="tab" type="button" aria-selected="true" aria-controls="g-forca" id="gt-forca">Forca</button>
-      <button role="tab" type="button" aria-selected="false" aria-controls="g-caca" id="gt-caca">Caça-palavras</button>
-      <button role="tab" type="button" aria-selected="false" aria-controls="g-cruz" id="gt-cruz">Palavras cruzadas</button>
-      <button role="tab" type="button" aria-selected="false" aria-controls="g-labirinto" id="gt-labirinto">Labirinto</button>
-    </div>
-
-    <div class="gpanel" role="tabpanel" id="g-forca" aria-labelledby="gt-forca">
-      <h3>Forca do viés algorítmico</h3>
-      <p class="small">100 palavras, sem acentos. Cinco erros encerram o jogo. Use o teclado da tela ou o do computador.</p>
-      <div class="g-stats"><span id="fRound">Rodada 1</span><span id="fErr">Erros: 0/5</span><span id="fPts">Pontos: 0</span></div>
-      <div class="g-hint"><strong>Dica:</strong> <span id="fHint"></span></div>
-      <div class="f-game">
-        <svg viewBox="0 0 180 210" role="img" aria-label="Desenho da forca" id="fSvg">
-          <g stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round"><path d="M20 198 H150 M55 198 V16 H117 V37"/></g>
-          <g stroke="var(--alert)" stroke-width="5" fill="none" stroke-linecap="round">
-            <circle class="f-part" cx="117" cy="56" r="19"/>
-            <path class="f-part" d="M117 75 V125"/>
-            <path class="f-part" d="M117 88 L89 110"/>
-            <path class="f-part" d="M117 88 L145 110"/>
-            <path class="f-part" d="M117 125 L94 163 M117 125 L140 163"/>
-          </g>
-        </svg>
-        <div>
-          <div id="fWord" class="f-word" aria-label="Palavra a descobrir"></div>
-          <p id="fMsg" class="f-msg" aria-live="polite"></p>
-        </div>
-      </div>
-      <div id="fKeys" class="f-keys" aria-label="Teclado de letras"></div>
-      <div id="fExp" class="f-exp" hidden></div>
-      <p class="forca-next"><button class="btn" type="button" id="fNext" disabled>Próxima palavra</button></p>
-    </div>
-
-    <div class="gpanel" role="tabpanel" id="g-caca" aria-labelledby="gt-caca" hidden>
-      <h3>Caça-palavras</h3>
-      <p class="small">Encontre as 10 palavras escondidas na horizontal, na vertical ou na diagonal. Arraste da primeira à última letra, ou toque na primeira e depois na última.</p>
-      <div class="ws-wrap">
-        <div id="wsGrid" class="ws-grid" aria-label="Grade de letras"></div>
-        <div>
-          <ul id="wsList" class="ws-list" aria-label="Palavras a encontrar"></ul>
-          <p class="g-count" id="wsCount"></p>
-        </div>
-      </div>
-      <div class="g-hint" id="wsFact" aria-live="polite">Cada palavra encontrada revela aqui uma explicação.</div>
-      <div class="g-actions"><button class="btn btn-ghost" type="button" id="wsNew">Novo tabuleiro</button></div>
-    </div>
-
-    <div class="gpanel" role="tabpanel" id="g-cruz" aria-labelledby="gt-cruz" hidden>
-      <h3>Palavras cruzadas</h3>
-      <p class="small">Todas as respostas aparecem no percurso e nas palestras. Escreva sem acentos. Toque numa casa ou numa pista para começar; toque de novo na mesma casa para trocar entre horizontal e vertical.</p>
-      <div id="cwGrid" class="cw-grid"></div>
-      <p class="g-hint" id="cwCur" aria-live="polite"></p>
-      <div class="g-actions">
-        <button class="btn" type="button" id="cwCheck">Verificar</button>
-        <button class="btn btn-ghost" type="button" id="cwReveal">Revelar palavra atual</button>
-        <button class="btn btn-ghost" type="button" id="cwClear">Limpar</button>
-      </div>
-      <p class="sim-note" id="cwMsg" aria-live="polite"></p>
-      <div class="cw-clues">
-        <div><h4>Horizontais</h4><ol id="cwH"></ol></div>
-        <div><h4>Verticais</h4><ol id="cwV"></ol></div>
-      </div>
-    </div>
-
-    <div class="gpanel" role="tabpanel" id="g-labirinto" aria-labelledby="gt-labirinto" hidden>
-      <h3>Labirinto dos Algoritmos</h3>
-      <p class="small">Explore três fases, responda aos desafios e encontre a saída. Use as setas ou WASD; em dispositivos móveis, toque nos controles direcionais.</p>
-      <iframe class="maze-frame" src="labirinto.html" title="Labirinto dos Algoritmos" loading="lazy"></iframe>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <h2>Referências</h2>
-    <h3>Palestras da disciplina</h3>
-    <ul class="refs">
-      <li>CHAVES, Marcello. Palestra 1: Ética, Conhecimento, Tecnologia e Sociedade: fundamentos e história. MATA68, UFBA. <a href="https://www.youtube.com/watch?v=ImrWAGVEklg" target="_blank" rel="noopener">Vídeo no YouTube</a></li>
-      <li>MONAGREDA, Johanna K. Palestra 5: Racismo Algorítmico. MATA68, UFBA. <a href="https://www.youtube.com/watch?v=Bz3RNLF42-E" target="_blank" rel="noopener">Vídeo no YouTube</a></li>
-    </ul>
-    <h3>Livros, artigos e relatórios</h3>
-    <ul class="refs">
-      <li>BUOLAMWINI, J.; GEBRU, T. Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. <i>Proceedings of Machine Learning Research</i>, v. 81, p. 77 a 91, 2018. <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Link</a></li>
-      <li>BIG BROTHER WATCH. <i>Face Off: the lawless growth of facial recognition in UK policing</i>. Londres, 2018. <a href="https://bigbrotherwatch.org.uk/all-media/dangerous-and-inaccurate-police-facial-recognition-exposed-in-new-big-brother-watch-report/" target="_blank" rel="noopener">Link</a></li>
-      <li>FRAGOSO, N. et al. <i>Proteção de dados pessoais em políticas de proteção social: contribuições a partir do Programa Bolsa Família</i>. InternetLab, 2021. <a href="https://internetlab.org.br/en/news/internetlab-releases-report-about-personal-data-protection-in-social-protection-policies/" target="_blank" rel="noopener">Link</a></li>
-      <li>OBERMEYER, Z. et al. Dissecting racial bias in an algorithm used to manage the health of populations. <i>Science</i>, v. 366, p. 447 a 453, 2019. <a href="https://chmi.berkeley.edu/news/dissecting-racial-bias-in-an-algorithm-used-to-manage-the-health-of-populations" target="_blank" rel="noopener">Resumo</a></li>
-      <li>MONAGREDA, J. K. Por que falar de raça quando falamos de dados pessoais, inteligência artificial e algoritmos? In: GONÇALVES, A.; TORRE, L.; MELO, P. V. (ed.). <i>Inteligência artificial e algoritmos</i>. Covilhã: LabCom, 2024. <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Link</a></li>
-      <li>MONAGREDA, J. K. IA e especificidades do Sul Global. In: BIONI, B. et al. (org.). <i>Inteligência artificial e desafios regulatórios</i>. Rio de Janeiro: Forense, 2026, cap. 7.</li>
-      <li>NUNES, P. Levantamento revela que 90,5% dos presos por monitoramento facial no Brasil são negros. <i>The Intercept Brasil</i>, 21 nov. 2019. <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">Link</a></li>
-      <li>ANGWIN, J. et al. Machine Bias. <i>ProPublica</i>, 23 maio 2016. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">Link</a></li>
-      <li>SILVA, T. <i>Racismo algorítmico: inteligência artificial e discriminação nas redes digitais</i>. São Paulo: Edições Sesc, 2022.</li>
-      <li>NOBLE, S. U. <i>Algoritmos da opressão</i>. Santo André: Rua do Sabão, 2021.</li>
-      <li>O’NEIL, C. <i>Algoritmos de destruição em massa</i>. Santo André: Rua do Sabão, 2020.</li>
-      <li>ALMEIDA, S. <i>Racismo estrutural</i>. São Paulo: Pólen, 2019.</li>
-    </ul>
-    <h3>Audiovisual</h3>
-    <ul class="refs">
-      <li><i>Coded Bias</i>. Direção: Shalini Kantayya. EUA, 2020. Documentário.</li>
-    </ul>
-    <p class="credits">Trabalho multimodal da disciplina MATA68 – Computador, Ética e Sociedade, Instituto de Computação da UFBA, semestre 2026.1. Grupo 6: Benjami Francisco Mendes Nanque, Francisco Yure Cruz Borges, Marcus Paulo Sousa dos Santos
-, Matheus Ferreira de Oliveira Vieira, Saulo Soares dos Santos, Vinícius dos Santos Freitas Aires.</p>
-  </div>
-</footer>
-
-<button class="fab" type="button" id="glossBtn" aria-haspopup="dialog">Glossário</button>
-<dialog id="gloss" aria-labelledby="glossTitle">
-  <div class="dlg-head"><h2 id="glossTitle">Glossário</h2><button class="icon-btn" type="button" id="glossClose">Fechar</button></div>
-  <div class="dlg-body"><dl id="glossList"></dl></div>
-</dialog>
-
-<script src="codigo-de-cor.js"></script>
-</body>
+    <script src="codigo-de-cor.js"></script>
+  </body>
 </html>

@@ -3,6 +3,7 @@
 const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
 const COLS=21,ROWS=15,TILE=32,CHALLENGES=5,LEVELS=3;
 
+// Banco editorial: c é o índice da alternativa correta; e explica a resposta.
 const questions=[
 {t:'Dados de treinamento',q:'Um sistema foi treinado com exemplos de apenas uma parte da população. O que pode acontecer?',a:['Ele será imparcial por definição.','Pode funcionar pior para grupos pouco representados.','A quantidade e a variedade dos dados não fazem diferença.'],c:1,e:'Dados pouco diversos podem fazer o sistema aprender padrões que não representam bem toda a população.'},
 {t:'Seleção de candidatos',q:'Uma empresa usa decisões antigas para treinar um algoritmo de contratação. Qual cuidado é necessário?',a:['Verificar se as decisões antigas reproduzem desigualdades.','Aceitar o histórico como neutro porque contém números.','Retirar toda participação humana sem avaliar os resultados.'],c:0,e:'Registros históricos podem refletir desigualdades sociais. Automatizá-los pode reproduzir essas desigualdades.'},
@@ -62,6 +63,7 @@ let held=new Set(),moveAccumulator=0,lastTime=0,moveInterval=125;
 const $=id=>document.getElementById(id);
 const dirs={ArrowUp:[0,-1],w:[0,-1],ArrowDown:[0,1],s:[0,1],ArrowLeft:[-1,0],a:[-1,0],ArrowRight:[1,0],d:[1,0]};
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+// Gera corredores por busca em profundidade, abre alguns atalhos e usa uma busca em largura para posicionar a saída longe do início.
 function generateMaze(){
   grid=Array.from({length:ROWS},()=>Array(COLS).fill(1));
   const stack=[[1,1]];grid[1][1]=0;
@@ -94,6 +96,7 @@ function generateMaze(){
   markers=pick.map(([x,y],i)=>({x,y,q:chosen[i]}));
 }
 function chooseQuestions(){
+  // Evita repetir perguntas entre fases; o banco é reiniciado quando não restam cinco opções.
   let pool=[...Array(questions.length).keys()].filter(i=>!usedInRun.has(i));
   if(pool.length<CHALLENGES){usedInRun=new Set();pool=[...Array(questions.length).keys()];}
   chosen=shuffle(pool).slice(0,CHALLENGES);
@@ -106,6 +109,7 @@ function startPhase(){
   $('progressBar').style.width='0%';$('nextPhase').style.display='none';draw();
 }
 function newGame(){score=0;level=1;usedInRun=new Set();answeringLocked=false;$('score').textContent='0';$('messageModal').classList.remove('show');$('questionModal').classList.remove('show');startPhase();}
+// Desenha o estado completo do jogo no canvas; as cores vêm dos tokens CSS para acompanhar o tema.
 function draw(){
   const styles=getComputedStyle(document.documentElement);
   const color=name=>styles.getPropertyValue(name).trim();
@@ -179,6 +183,7 @@ $('messageButton').addEventListener('click',()=>{
   if(level===LEVELS)newGame();else{level++;startPhase();}
 });
 function frame(time){
+  // A posição lógica muda por passos; px/py interpolam entre casas para animar o deslocamento.
   if(!lastTime)lastTime=time;const dt=Math.min(50,time-lastTime);lastTime=time;
   if(!paused){
     moveAccumulator+=dt;
@@ -203,6 +208,7 @@ document.querySelectorAll('[data-dir]').forEach(b=>{
   ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,()=>held.delete(key)));
 });
 $('newGame').addEventListener('click',newGame);
+// O pai pode enviar uma preferência de tema; o jogo responde também com sua altura para ajustar o iframe.
 window.addEventListener('message',event=>{
   if(event.source!==window.parent||!event.data||event.data.type!=='cdc-theme')return;
   if(event.data.theme==='dark'||event.data.theme==='light'){
