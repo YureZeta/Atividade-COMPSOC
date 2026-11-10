@@ -25,7 +25,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 <details>
   <summary>1. Espelho, espelho meu — situações do cotidiano</summary>
 
-  Explore exemplos de filtros de beleza, reconhecimento facial e alertas automatizados para refletir sobre como vieses podem aparecer em experiências comuns.
+  Configure um personagem fictício e explore exemplos de filtros de beleza, reconhecimento facial e alertas automatizados para refletir sobre como vieses podem aparecer de formas diferentes. As escolhas ficam apenas na página e não são salvas nem enviadas.
 
   [Ir para a etapa 1](./index.html#espelho)
 </details>
@@ -75,7 +75,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 Além do conteúdo explicativo, a página inclui:
 
 - demonstração visual de análise facial, com opção para repetir a animação;
-- cenários com escolhas e respostas;
+- personagem configurável e cenários com escolhas e respostas;
 - simuladores e visualizações sobre dados e taxas de erro;
 - glossário, quiz e navegação entre etapas;
 - minijogos de forca, caça-palavras e palavras cruzadas.

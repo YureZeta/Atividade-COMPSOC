@@ -65,6 +65,41 @@
     });});
   });
 
+  // personagem ilustrativo
+  var avatar = document.getElementById("characterAvatar");
+  var hairSelect = document.getElementById("characterHair");
+  var lengthSelect = document.getElementById("characterLength");
+  var characterSummary = document.getElementById("characterSummary");
+  var impactPanel = document.getElementById("skinImpact");
+  var impactCopy = document.getElementById("skinImpactCopy");
+  var toneNames = ["clara", "claro-média", "médio-clara", "médio-escura", "escura", "muito escura"];
+  var hairNames = {liso:"liso", ondulado:"ondulado", cacheado:"cacheado", crespo:"crespo"};
+  var lengthNames = {curto:"curto", medio:"médio", longo:"longo"};
+  var impactByTone = [
+    "Sistemas treinados com mais rostos de pele clara podem representar melhor esse tom, mas isso não garante acerto individual. Filtros ainda podem clarear a pele ou alisar o cabelo para aproximá-los de um padrão de beleza branco.",
+    "A pesquisa citada mostra diferenças entre grupos, mas não permite prever o resultado para cada tom intermediário ou para uma pessoa específica. Iluminação, câmera, dados e contexto de uso também influenciam.",
+    "Com menos exemplos de pele escura nos dados, sistemas de análise facial podem falhar mais, dificultando um desbloqueio ou contribuindo para um alerta equivocado. Em Gender Shades (2018), o erro chegou a 34,7% para mulheres de pele escura, ante no máximo 0,8% para homens de pele clara nos sistemas avaliados. São taxas de grupos estudados, não previsões individuais."
+  ];
+  function updateCharacter(){
+    var tone = document.querySelector('input[name="characterTone"]:checked').value;
+    var toneIndex = Number(tone) - 1;
+    var hair = hairSelect.value, length = lengthSelect.value;
+    avatar.dataset.tone = tone;
+    avatar.dataset.hair = hair;
+    avatar.dataset.length = length;
+    impactPanel.dataset.tone = tone;
+    var description = "pele " + toneNames[toneIndex] + ", cabelo " + hairNames[hair] + " e " + lengthNames[length];
+    avatar.querySelector("title").textContent = "Personagem ilustrativo, " + description;
+    characterSummary.textContent = "Personagem: " + description + ".";
+    impactCopy.textContent = impactByTone[toneIndex < 2 ? 0 : toneIndex < 4 ? 1 : 2];
+  }
+  document.querySelectorAll('input[name="characterTone"]').forEach(function(input){
+    input.addEventListener("change", updateCharacter);
+  });
+  hairSelect.addEventListener("change", updateCharacter);
+  lengthSelect.addEventListener("change", updateCharacter);
+  updateCharacter();
+
   var fut = document.getElementById("future"), fb = document.getElementById("futureBtn");
   var futureHideTimer;
   fut.addEventListener("animationend", function(e){

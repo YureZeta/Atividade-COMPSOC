@@ -55,7 +55,67 @@
   <div class="wrap">
     <span class="num">1 de 6</span>
     <h2>Espelho, espelho meu</h2>
-    <p class="lead">Antes da teoria, três situações que talvez você já tenha vivido. Escolha uma reação em cada uma.</p>
+    <p class="lead">Monte um personagem para explorar como sistemas podem afetar pessoas de maneiras diferentes. Depois, escolha uma reação em cada situação.</p>
+
+    <div class="character-builder" aria-labelledby="characterTitle">
+      <div class="character-controls">
+        <h3 id="characterTitle">Configure o personagem</h3>
+        <p>As escolhas personalizam somente esta simulação. Elas não identificam você nem são enviadas ou salvas.</p>
+        <fieldset class="character-fieldset">
+          <legend>Tom de pele</legend>
+          <div class="tone-options">
+            <label class="tone-option"><input type="radio" name="characterTone" value="1"><span class="tone-swatch tone-1" aria-hidden="true"></span><span>1 · claro</span></label>
+            <label class="tone-option"><input type="radio" name="characterTone" value="2"><span class="tone-swatch tone-2" aria-hidden="true"></span><span>2 · claro-médio</span></label>
+            <label class="tone-option"><input type="radio" name="characterTone" value="3" checked><span class="tone-swatch tone-3" aria-hidden="true"></span><span>3 · médio-claro</span></label>
+            <label class="tone-option"><input type="radio" name="characterTone" value="4"><span class="tone-swatch tone-4" aria-hidden="true"></span><span>4 · médio-escuro</span></label>
+            <label class="tone-option"><input type="radio" name="characterTone" value="5"><span class="tone-swatch tone-5" aria-hidden="true"></span><span>5 · escuro</span></label>
+            <label class="tone-option"><input type="radio" name="characterTone" value="6"><span class="tone-swatch tone-6" aria-hidden="true"></span><span>6 · muito escuro</span></label>
+          </div>
+          <p class="small">Escala visual ilustrativa; tons de pele reais são diversos e não cabem em seis categorias.</p>
+        </fieldset>
+        <div class="character-selects">
+          <label for="characterHair">Textura do cabelo
+            <select id="characterHair">
+              <option value="liso">Liso</option>
+              <option value="ondulado">Ondulado</option>
+              <option value="cacheado">Cacheado</option>
+              <option value="crespo">Crespo</option>
+            </select>
+          </label>
+          <label for="characterLength">Comprimento do cabelo
+            <select id="characterLength">
+              <option value="curto">Curto</option>
+              <option value="medio">Médio</option>
+              <option value="longo">Longo</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="character-preview">
+        <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-length="curto">
+          <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo liso curto</title>
+          <path class="avatar-hair-back avatar-hair-short" d="M22 57C17 16 32 8 51 8c22 0 34 15 28 49l-8 22H30z"/>
+          <path class="avatar-hair-back avatar-hair-medium" d="M17 59C13 17 31 7 51 7c24 0 38 17 31 53l-3 31H21z"/>
+          <path class="avatar-hair-back avatar-hair-long" d="M15 58C11 16 30 6 51 6c25 0 40 18 33 56l-1 48H17z"/>
+          <ellipse class="avatar-face" cx="50" cy="50" rx="25" ry="31"/>
+          <path class="avatar-fringe" d="M25 43C24 20 37 12 52 12c16 0 25 12 24 31-7-10-13-15-23-16-9 7-18 10-28 10z"/>
+          <path class="avatar-hair-lines texture-liso" d="M30 23c-5 9-5 18-4 27m44-27c5 9 5 18 4 27"/>
+          <path class="avatar-hair-lines texture-ondulado" d="M29 22c-6 7 5 9-1 16s5 9 0 15m43-31c6 7-5 9 1 16s-5 9 0 15"/>
+          <path class="avatar-hair-lines texture-cacheado" d="M29 23c-7 4 4 8-2 12s6 8 0 13m44-25c7 4-4 8 2 12s-6 8 0 13"/>
+          <path class="avatar-hair-lines texture-crespo" d="M29 23c-3 3 3 5 0 8s3 5 0 8m42-16c3 3-3 5 0 8s-3 5 0 8M38 15c-3 3 3 5 0 8m24-8c3 3-3 5 0 8"/>
+          <path class="avatar-features" d="M40 51h1m18 0h1m-15 14q5 4 10 0"/>
+          <path class="avatar-neck" d="M41 78v11h18V78"/>
+          <path class="avatar-shirt" d="M23 120c1-21 11-31 27-31s26 10 27 31z"/>
+        </svg>
+        <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo liso e curto.</p>
+      </div>
+    </div>
+
+    <aside class="skin-impact" id="skinImpact" data-tone="3" aria-live="polite" aria-labelledby="skinImpactTitle">
+      <h3 id="skinImpactTitle">O que pode acontecer com esse personagem?</h3>
+      <p id="skinImpactCopy">Os resultados variam conforme os dados, a iluminação e o sistema. Pesquisas mostram que a taxa de erro pode mudar entre grupos, mas não permite prever o resultado de uma pessoa específica.</p>
+      <span class="src">Contexto: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, <i>Gender Shades</i> (2018)</a>; veja também as situações abaixo.</span>
+    </aside>
 
     <div class="scenario" data-scn>
       <h3>O filtro “embelezador”</h3>

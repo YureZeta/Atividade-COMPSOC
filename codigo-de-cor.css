@@ -129,6 +129,48 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .reveal{margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--line)}
 .reveal[hidden]{display:none}
 .reveal .react{font-weight:700}
+.character-builder{display:grid; gap:1.5rem; grid-template-columns:minmax(0,1.5fr) minmax(10rem,1fr); align-items:center; border:1px solid var(--line); border-radius:10px; padding:1.25rem; background:var(--paper)}
+.character-controls h3{margin-bottom:.4rem}
+.character-fieldset{border:0; margin:1.2rem 0 0; padding:0}
+.character-fieldset legend{font-weight:700; margin-bottom:.5rem}
+.tone-options{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.55rem}
+.tone-option{display:grid; justify-items:center; gap:.3rem; padding:.55rem .3rem; border:1px solid var(--line); border-radius:8px; cursor:pointer; font-size:.82rem; text-align:center}
+.tone-option:has(input:checked){border-color:var(--machine); box-shadow:0 0 0 2px var(--machine-soft); background:var(--machine-soft)}
+.tone-option input{accent-color:var(--machine); margin:0}
+.tone-swatch{display:block; width:2rem; height:2rem; border:1px solid var(--line); border-radius:50%}
+.tone-1{background:var(--t1)} .tone-2{background:var(--t2)} .tone-3{background:var(--t3)}
+.tone-4{background:var(--t4)} .tone-5{background:var(--t5)} .tone-6{background:var(--t6)}
+.character-fieldset .small{margin:.65rem 0 0}
+.character-selects{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin-top:1rem}
+.character-selects label{font-weight:700; font-size:.9rem}
+.character-selects select{display:block; width:100%; margin-top:.3rem; padding:.55rem; border:1px solid var(--line); border-radius:6px; background:var(--paper-2); color:var(--ink); font:inherit}
+.character-preview{text-align:center}
+.character-avatar{width:min(100%,10rem); height:auto; overflow:visible}
+.character-avatar[data-tone="1"]{--character-tone:var(--t1)}
+.character-avatar[data-tone="2"]{--character-tone:var(--t2)}
+.character-avatar[data-tone="3"]{--character-tone:var(--t3)}
+.character-avatar[data-tone="4"]{--character-tone:var(--t4)}
+.character-avatar[data-tone="5"]{--character-tone:var(--t5)}
+.character-avatar[data-tone="6"]{--character-tone:var(--t6)}
+.avatar-hair-back,.avatar-fringe{fill:#34251f}
+.avatar-hair-back{display:none}
+.character-avatar[data-length="curto"] .avatar-hair-short,
+.character-avatar[data-length="medio"] .avatar-hair-medium,
+.character-avatar[data-length="longo"] .avatar-hair-long{display:block}
+.avatar-face{fill:var(--character-tone)}
+.avatar-neck{fill:var(--character-tone); stroke:#34251f; stroke-width:1}
+.avatar-shirt{fill:var(--machine); stroke:var(--ink); stroke-width:1.5}
+.avatar-features,.avatar-hair-lines{fill:none; stroke:#34251f; stroke-width:2.5; stroke-linecap:round}
+.avatar-hair-lines{display:none}
+.character-avatar[data-hair="liso"] .texture-liso,
+.character-avatar[data-hair="ondulado"] .texture-ondulado,
+.character-avatar[data-hair="cacheado"] .texture-cacheado,
+.character-avatar[data-hair="crespo"] .texture-crespo{display:block}
+.character-summary{margin:0; font-size:.9rem}
+.skin-impact{margin:1rem 0 1.5rem; padding:1.1rem 1.3rem; border-left:5px solid var(--spark); border-radius:0 8px 8px 0; background:var(--paper-2)}
+.skin-impact h3{font-size:1.1rem; margin-bottom:.4rem}
+.skin-impact p{margin-bottom:.4rem}
+.skin-impact[data-tone="1"],.skin-impact[data-tone="2"]{border-left-color:var(--machine)}
 
 /* passado/futuro */
 .ledger{display:grid; gap:1rem; margin:1.5rem 0}
@@ -326,7 +368,14 @@ footer.site h3{font-size:1.05rem; color:var(--ink); margin-top:1.6rem}
 .g-count{font-family:var(--display); font-variation-settings:"wdth" 110; font-weight:800; margin-top:.8rem}
 .f-game{display:grid; grid-template-columns:150px 1fr; gap:1.2rem; align-items:center}
 .f-game svg{width:100%; max-height:200px}
-@media (max-width:560px){.f-game{grid-template-columns:1fr}.f-game svg{max-width:120px; margin:auto}}
+@media (max-width:560px){
+  .character-builder{grid-template-columns:1fr}
+  .character-preview{display:flex; align-items:center; gap:.8rem; text-align:left}
+  .character-avatar{width:5.5rem; flex:none}
+  .character-selects{grid-template-columns:1fr}
+  .f-game{grid-template-columns:1fr}
+  .f-game svg{max-width:120px; margin:auto}
+}
 .f-part{visibility:hidden}
 .f-word{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:1rem 0}
 .f-word span{min-width:1.35rem; height:2.2rem; border-bottom:3px solid var(--ink); text-align:center; font-family:var(--display); font-weight:800; font-size:1.5rem; line-height:2.2rem}
