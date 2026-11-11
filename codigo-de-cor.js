@@ -1,14 +1,5 @@
 /* Lógica interativa do projeto Código de Cor. Os blocos abaixo acompanham as seções e os minijogos da página. */
 (function(){
-  var root = document.documentElement;
-  // Aplica a preferência salva antes de configurar as interações da página.
-  try{ var saved = localStorage.getItem("cdc-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
-  document.getElementById("themeBtn").addEventListener("click", function(){
-    var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    var next = cur === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try{ localStorage.setItem("cdc-theme", next); }catch(e){}
-  });
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(!reduce && "IntersectionObserver" in window){
     var revealObserver = new IntersectionObserver(function(entries, observer){
@@ -64,6 +55,125 @@
       rev.querySelector(".react").textContent = b.dataset.react; rev.hidden = false;
     });});
   });
+
+  // personagem ilustrativo
+  var avatar = document.getElementById("characterAvatar");
+  var hairSelect = document.getElementById("characterHair");
+  var hairColorSelect = document.getElementById("characterHairColor");
+  var lengthSelect = document.getElementById("characterLength");
+  var genderSelect = document.getElementById("characterGender");
+  var eyeColorSelect = document.getElementById("characterEyeColor");
+  var expressionSelect = document.getElementById("characterExpression");
+  var characterSummary = document.getElementById("characterSummary");
+  var characterInsight = document.getElementById("characterInsight");
+  var filterScenarioPrompt = document.getElementById("filterScenarioPrompt");
+  var unlockScenarioPrompt = document.getElementById("unlockScenarioPrompt");
+  var stationScenarioPrompt = document.getElementById("stationScenarioPrompt");
+  var hairReferenceImage = document.getElementById("hairReferenceImage");
+  var hairReferenceTitle = document.getElementById("hairReferenceTitle");
+  var hairReferenceCreator = document.getElementById("hairReferenceCreator");
+  var hairReferenceSource = document.getElementById("hairReferenceSource");
+  var hairReferenceLicense = document.getElementById("hairReferenceLicense");
+  var impactPanel = document.getElementById("skinImpact");
+  var impactCopy = document.getElementById("skinImpactCopy");
+  var bahiaResearch = document.getElementById("bahiaResearch");
+  var bahiaCharacterContext = document.getElementById("bahiaCharacterContext");
+  var bahiaCharacterLimit = document.getElementById("bahiaCharacterLimit");
+  // Os índices seguem os valores 1–6 dos rádios de tom; os mapas usam os values dos selects.
+  var toneNames = ["clara", "claro-média", "médio-clara", "médio-escura", "escura", "muito escura"];
+  var hairNames = {liso:"liso", ondulado:"ondulado", cacheado:"cacheado", crespo:"crespo"};
+  var hairColorNames = {castanho:"castanho", preto:"preto", loiro:"loiro", ruivo:"ruivo", grisalho:"grisalho"};
+  var lengthNames = {curto:"curto", medio:"médio", longo:"longo"};
+  var genderNames = {feminina:"feminina", masculina:"masculina", androgina:"andrógina"};
+  var eyeColorNames = {castanhos:"castanhos", azuis:"azuis", verdes:"verdes", cinzas:"cinza"};
+  var expressionNames = {neutra:"neutra", alegre:"alegre", triste:"triste"};
+  var hairReferences = {
+    liso: {
+      image:"assets/hair/straight.jpg",
+      title:"Soft Permanent Japanese Straight",
+      creator:"MirianaL",
+      source:"https://www.flickr.com/photos/41124264@N04/5865910932",
+      license:"https://creativecommons.org/licenses/by/2.0/"
+    },
+    ondulado: {
+      image:"assets/hair/wavy.jpg",
+      title:"Misty Meditation",
+      creator:"MartinAceWood",
+      source:"https://www.flickr.com/photos/102786318@N03/9876945813",
+      license:"https://creativecommons.org/licenses/by/2.0/"
+    },
+    cacheado: {
+      image:"assets/hair/curly.jpg",
+      title:"Portrait of Miss Lockwood with her long curly hair",
+      creator:"BiblioArchives / LibraryArchives",
+      source:"https://www.flickr.com/photos/28853433@N02/49959947082",
+      license:"https://creativecommons.org/licenses/by/2.0/"
+    },
+    crespo: {
+      image:"assets/hair/afro.jpg",
+      title:"Chlorinated Afro - Day 180",
+      creator:"Vox Efx",
+      source:"https://www.flickr.com/photos/39096030@N00/3676115725",
+      license:"https://creativecommons.org/licenses/by/2.0/"
+    }
+  };
+  // Mantém a descrição, o SVG, a reflexão e o contexto de pesquisa sincronizados com os controles.
+  function updateCharacter(){
+    var tone = document.querySelector('input[name="characterTone"]:checked').value;
+    var toneIndex = Number(tone) - 1;
+    var hair = hairSelect.value, hairColor = hairColorSelect.value, length = lengthSelect.value, gender = genderSelect.value;
+    var eyeColor = eyeColorSelect.value, expression = expressionSelect.value;
+    avatar.dataset.tone = tone;
+    avatar.dataset.hair = hair;
+    avatar.dataset.hairColor = hairColor;
+    avatar.dataset.length = length;
+    avatar.dataset.gender = gender;
+    avatar.dataset.eye = eyeColor;
+    avatar.dataset.expression = expression;
+    impactPanel.dataset.tone = tone;
+    bahiaResearch.dataset.tone = tone;
+    var presentation = "apresentação " + genderNames[gender];
+    var hairDescription = hairColorNames[hairColor] + ", " + hairNames[hair] + " e " + lengthNames[length];
+    var profile = "pele " + toneNames[toneIndex] + "; " + presentation + "; cabelo " + hairDescription + "; olhos " + eyeColorNames[eyeColor] + "; expressão " + expressionNames[expression];
+    var description = "pele " + toneNames[toneIndex] + ", " + presentation + ", cabelo " + hairDescription + ", olhos " + eyeColorNames[eyeColor] + " e expressão " + expressionNames[expression];
+    characterInsight.textContent = "Pra esse perfil (" + profile + "), os testes cobrem variações de luz, cabelo, enquadramento, olhos e expressões? Gender Shades (2018) achou diferenças por pele e gênero, mas não testou esse conjunto. Serve pra cobrar uma auditoria, não pra prever alguém.";
+    avatar.querySelector("title").textContent = "Personagem ilustrativo, " + description;
+    characterSummary.textContent = "Personagem: " + description + ".";
+    filterScenarioPrompt.textContent = "Pele " + toneNames[toneIndex] + ", cabelo " + hairColorNames[hairColor] + " " + hairNames[hair] + ": o filtro clareia e alisa. É só brincadeira?";
+    unlockScenarioPrompt.textContent = "O celular falha com pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". Que perfis entraram nos testes?";
+    stationScenarioPrompt.textContent = "No metrô de Salvador, a câmera dá alerta contra alguém de pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". O alerta basta pra abordar?";
+    document.querySelectorAll("[data-scn]").forEach(function(scenario){
+      scenario.querySelectorAll(".choice").forEach(function(button){ button.setAttribute("aria-pressed", "false"); });
+      scenario.querySelector(".reveal").hidden = true;
+    });
+    var genderStudyNote = gender === "androgina" ? "A pesquisa comparou mulheres e homens; não avaliou esse visual." : "As categorias do estudo não descrevem necessariamente esse visual.";
+    impactCopy.textContent = "Gender Shades (2018) testou classificação de gênero: erro de até 34,7% para mulheres de pele escura e 0,8% para homens de pele clara. " + genderStudyNote + " Não testou este perfil nem mediu cabelo, olhos ou expressão; não prevê resultado individual. Na Bahia, 90,5% das prisões monitoradas com raça informada foram de pessoas negras; o estado concentrou 52% das prisões monitoradas. Dados coletivos, não destino.";
+    var photo = hairReferences[hair];
+    hairReferenceImage.src = photo.image;
+    hairReferenceImage.alt = "Referência fotográfica de cabelo " + hairNames[hair];
+    hairReferenceTitle.textContent = photo.title;
+    hairReferenceCreator.textContent = photo.creator;
+    hairReferenceSource.href = photo.source;
+    hairReferenceLicense.href = photo.license;
+    if(toneIndex < 2){
+      bahiaCharacterContext.textContent = "Esse tom não equivale às categorias raciais dos estudos. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Dados coletivos, não previsão individual.";
+    }else if(toneIndex > 3){
+      bahiaCharacterContext.textContent = "Tom de pele não define raça. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Em Salvador, 98,8% das prisões em flagrante foram de pessoas negras. Dados coletivos, não previsão.";
+    }else{
+      bahiaCharacterContext.textContent = "Esse tom não equivale às categorias raciais dos estudos. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Em Salvador, 98,8% das prisões em flagrante foram de pessoas negras. Dados coletivos, não previsão.";
+    }
+    bahiaCharacterLimit.textContent = "Os relatórios não cruzam suas escolhas. Mostram desigualdades coletivas, não o que vai acontecer com alguém.";
+  }
+  document.querySelectorAll('input[name="characterTone"]').forEach(function(input){
+    input.addEventListener("change", updateCharacter);
+  });
+  hairSelect.addEventListener("change", updateCharacter);
+  hairColorSelect.addEventListener("change", updateCharacter);
+  lengthSelect.addEventListener("change", updateCharacter);
+  genderSelect.addEventListener("change", updateCharacter);
+  eyeColorSelect.addEventListener("change", updateCharacter);
+  expressionSelect.addEventListener("change", updateCharacter);
+  updateCharacter();
 
   var fut = document.getElementById("future"), fb = document.getElementById("futureBtn");
   var futureHideTimer;
@@ -308,16 +418,30 @@
   var links = document.querySelectorAll(".steps a");
   var highestStepReached = -1;
   function onScroll(){
-    var y = window.scrollY + window.innerHeight * 0.35, cur = -1;
-    ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
-    if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
+    var cur = -1;
+    if(window.matchMedia("(max-width:680px)").matches){
+      var percurso = document.getElementById("percurso");
+      var center = percurso.getBoundingClientRect().left + percurso.clientWidth / 2;
+      var closestDistance = Infinity;
+      ids.concat("quiz").forEach(function(id, i){
+        var rect = document.getElementById(id).getBoundingClientRect();
+        var distance = Math.abs(rect.left + rect.width / 2 - center);
+        if(distance < closestDistance){ closestDistance = distance; cur = Math.min(i, ids.length - 1); }
+      });
+    }else{
+      var y = window.scrollY + window.innerHeight * 0.35;
+      ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
+      if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
+    }
     highestStepReached = Math.max(highestStepReached, cur);
     links.forEach(function(a, i){ a.classList.toggle("on", i <= highestStepReached); if(i === cur) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
   }
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  document.getElementById("percurso").addEventListener("scroll", onScroll, {passive:true});
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
+  // O iframe só pode ajustar a própria altura quando a mensagem vem da janela incorporada esperada.
   window.addEventListener("message", function(event){
     var mazeFrame = document.querySelector(".maze-frame");
     if(!mazeFrame || event.source !== mazeFrame.contentWindow || !event.data || event.data.type !== "labirinto-height") return;

@@ -1,3 +1,4 @@
+/* Tokens do jogo; --maze-* também é lido por labirinto.js para pintar o canvas. */
 :root{--bg:#F6EFE2;--panel:#F6EFE2;--paper-2:#EBDFC9;--line:#D2C4AA;--edge:#17120D;--shadow:#17120D;--text:#17120D;--muted:#5E5446;--machine:#C8410B;--machine-ink:#17120D;--machine-soft:#FBD9C4;--alert:#B3201A;--alert-soft:#F8D4CF;--gold:#F26A21;--gold-ink:#17120D;--purple:#5E5446;--maze-wall:#D2C4AA;--maze-wall-highlight:#F6EFE2;--maze-wall-shadow:#17120D;--maze-floor:#EBDFC9;--maze-floor-grid:#D2C4AA;--maze-player-ink:#F6EFE2;--maze-exit-ink:#F6EFE2;--canvas-bg:#EBDFC9;--modal-scrim:#17120DB3;--display:"Archivo",Arial,sans-serif;--body:"Atkinson Hyperlegible",Verdana,sans-serif;color-scheme:light}
 :root[data-theme="dark"]{--bg:#16120D;--panel:#252017;--paper-2:#252017;--line:#3C3428;--edge:#F3EBDC;--shadow:#F26A21;--text:#F3EBDC;--muted:#B9AD97;--machine:#FF8A4C;--machine-ink:#17120D;--machine-soft:#4A2713;--alert:#FF7A70;--alert-soft:#4A1E1B;--gold:#F26A21;--gold-ink:#17120D;--purple:#B9AD97;--maze-wall:#3C3428;--maze-wall-highlight:#16120D;--maze-wall-shadow:#0B0907;--maze-floor:#252017;--maze-floor-grid:#3C3428;--maze-player-ink:#17120D;--maze-exit-ink:#17120D;--canvas-bg:#252017;--modal-scrim:#000B;color-scheme:dark}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16120D;--panel:#252017;--paper-2:#252017;--line:#3C3428;--edge:#F3EBDC;--shadow:#F26A21;--text:#F3EBDC;--muted:#B9AD97;--machine:#FF8A4C;--machine-ink:#17120D;--machine-soft:#4A2713;--alert:#FF7A70;--alert-soft:#4A1E1B;--gold:#F26A21;--gold-ink:#17120D;--purple:#B9AD97;--maze-wall:#3C3428;--maze-wall-highlight:#16120D;--maze-wall-shadow:#0B0907;--maze-floor:#252017;--maze-floor-grid:#3C3428;--maze-player-ink:#17120D;--maze-exit-ink:#17120D;--canvas-bg:#252017;--modal-scrim:#000B;color-scheme:dark}}
@@ -6,6 +7,7 @@ body{margin:0;min-height:100vh;padding:22px 12px;background:var(--bg);color:var(
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 main{width:min(1040px,100%);margin:auto}
 header{text-align:center;margin-bottom:16px}h1,h2{font-family:var(--display);line-height:1.05}h1{font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 5px}header p{margin:0;color:var(--muted)}
+/* Tabuleiro, HUD e painel lateral com instruções/legenda/fontes. */
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:15px;align-items:start}
 .panel,.side{background:var(--panel);border:3px solid var(--edge);border-radius:10px;padding:14px;box-shadow:6px 6px 0 var(--shadow)}
 .hud{display:flex;gap:8px 18px;flex-wrap:wrap;justify-content:space-between;margin:0 2px 12px;font-weight:700}
@@ -23,6 +25,7 @@ button.secondary{background:var(--paper-2);color:var(--text)}
 .source-list{font-size:.82rem!important}.source-list a{color:var(--machine)}
 .progress{height:10px;background:var(--paper-2);border:2px solid var(--edge);border-radius:4px;overflow:hidden;margin-top:10px}.progress>div{height:100%;width:0;background:var(--gold);transition:width .25s}
 .mobile-pad{display:none;grid-template-columns:repeat(3,48px);gap:6px;justify-content:center;margin-top:12px}.mobile-pad button{padding:10px 0;font-size:1.1rem}.mobile-pad button:nth-child(1){grid-column:2}.mobile-pad button:nth-child(2){grid-column:1;grid-row:2}.mobile-pad button:nth-child(3){grid-column:2;grid-row:2}.mobile-pad button:nth-child(4){grid-column:3;grid-row:2}
+/* Diálogos para perguntas e conclusão de fase. */
 .modal{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:16px;background:var(--modal-scrim)}.modal.show{display:grid}
 .dialog{width:min(540px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:3px solid var(--edge);border-radius:10px;padding:22px;box-shadow:8px 8px 0 var(--shadow)}
 .tag{font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);font-weight:850}.dialog h2{margin:8px 0}.dialog p{color:var(--text);line-height:1.5}
