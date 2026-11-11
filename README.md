@@ -131,7 +131,7 @@ O material também inclui referências a pesquisas, artigos, livros e palestras 
 [`codigo-de-cor.js`](./codigo-de-cor.js) roda em uma função isolada e conecta os controles aos elementos já declarados no HTML. As seções do arquivo seguem esta ordem:
 
 - entrada e animações: preferência por movimento reduzido, revelação das etapas e varredura da introdução;
-- `cenários` e `personagem ilustrativo`: respostas das situações e atualização do personagem, reflexão, referências capilares e contexto de pesquisa;
+- `cenários` e `personagem ilustrativo`: respostas das situações e atualização do personagem (tom de pele, textura, comprimento e cor do cabelo, apresentação visual, cor dos olhos e expressão), reflexão, referências capilares e contexto de pesquisa;
 - `passado/futuro` e `pipeline`: ciclo dos dados e etapas de um sistema;
 - `simulador de base`: curva didática de erro em função da proporção de exemplos;
 - `filtros`, `objeto x sujeito`, `bússola`, `máscara`, `auditoria Gender Shades` e `alertas de Londres`: interações das seções do percurso;

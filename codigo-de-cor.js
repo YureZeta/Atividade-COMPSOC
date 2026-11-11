@@ -59,10 +59,16 @@
   // personagem ilustrativo
   var avatar = document.getElementById("characterAvatar");
   var hairSelect = document.getElementById("characterHair");
+  var hairColorSelect = document.getElementById("characterHairColor");
   var lengthSelect = document.getElementById("characterLength");
   var genderSelect = document.getElementById("characterGender");
+  var eyeColorSelect = document.getElementById("characterEyeColor");
+  var expressionSelect = document.getElementById("characterExpression");
   var characterSummary = document.getElementById("characterSummary");
   var characterInsight = document.getElementById("characterInsight");
+  var filterScenarioPrompt = document.getElementById("filterScenarioPrompt");
+  var unlockScenarioPrompt = document.getElementById("unlockScenarioPrompt");
+  var stationScenarioPrompt = document.getElementById("stationScenarioPrompt");
   var hairReferenceImage = document.getElementById("hairReferenceImage");
   var hairReferenceTitle = document.getElementById("hairReferenceTitle");
   var hairReferenceCreator = document.getElementById("hairReferenceCreator");
@@ -76,32 +82,11 @@
   // Os índices seguem os valores 1–6 dos rádios de tom; os mapas usam os values dos selects.
   var toneNames = ["clara", "claro-média", "médio-clara", "médio-escura", "escura", "muito escura"];
   var hairNames = {liso:"liso", ondulado:"ondulado", cacheado:"cacheado", crespo:"crespo"};
+  var hairColorNames = {castanho:"castanho", preto:"preto", loiro:"loiro", ruivo:"ruivo", grisalho:"grisalho"};
   var lengthNames = {curto:"curto", medio:"médio", longo:"longo"};
-  var genderNames = {feminina:"apresentação feminina", masculina:"apresentação masculina", androgina:"apresentação andrógina"};
-  var toneInsights = [
-    "verifique se a iluminação preserva os detalhes deste tom sem clareá-lo artificialmente.",
-    "observe se pequenas mudanças de luz alteram a representação deste tom.",
-    "compare se a exposição da câmera mantém os detalhes deste tom em diferentes fundos.",
-    "avalie se contraste e iluminação representam este tom com consistência.",
-    "confira se diferentes condições de luz preservam os detalhes deste tom.",
-    "teste se a câmera registra detalhes deste tom sem depender de iluminação excessiva."
-  ];
-  var hairInsights = {
-    liso:"filtros tratam o cabelo liso como padrão ou também preservam outras texturas.",
-    ondulado:"as categorias usadas pelo sistema reconhecem variações de cabelo ondulado sem simplificá-las.",
-    cacheado:"o processamento preserva os contornos e o volume dos cachos sem alisá-los.",
-    crespo:"a avaliação inclui diferentes formas de cabelo crespo sem reduzi-las a uma única aparência."
-  };
-  var lengthInsights = {
-    curto:"confira se a moldura e o enquadramento continuam adequados.",
-    medio:"observe se o enquadramento preserva o cabelo e os detalhes do rosto.",
-    longo:"verifique se o cabelo sobre o rosto interfere na análise ou no enquadramento."
-  };
-  var genderInsights = {
-    feminina:"observe se os critérios avaliam os traços sem impor um único padrão de feminilidade.",
-    masculina:"confira se a análise não presume barba ou um único padrão de masculinidade.",
-    androgina:"avalie se os critérios contemplam apresentações fora dos padrões binários sem tratá-las como erro."
-  };
+  var genderNames = {feminina:"feminina", masculina:"masculina", androgina:"andrógina"};
+  var eyeColorNames = {castanhos:"castanhos", azuis:"azuis", verdes:"verdes", cinzas:"cinza"};
+  var expressionNames = {neutra:"neutra", alegre:"alegre", triste:"triste"};
   var hairReferences = {
     liso: {
       image:"assets/hair/straight.jpg",
@@ -132,27 +117,37 @@
       license:"https://creativecommons.org/licenses/by/2.0/"
     }
   };
-  var impactByTone = [
-    "Sistemas treinados com mais rostos de pele clara podem representar melhor esse tom, mas isso não garante acerto individual. Filtros ainda podem clarear a pele ou alisar o cabelo para aproximá-los de um padrão de beleza branco.",
-    "A pesquisa citada mostra diferenças entre grupos, mas não permite prever o resultado para cada tom intermediário ou para uma pessoa específica. Iluminação, câmera, dados e contexto de uso também influenciam.",
-    "Com menos exemplos de pele escura nos dados, sistemas de análise facial podem falhar mais, dificultando um desbloqueio ou contribuindo para um alerta equivocado. Em Gender Shades (2018), o erro chegou a 34,7% para mulheres de pele escura, ante no máximo 0,8% para homens de pele clara nos sistemas avaliados. São taxas de grupos estudados, não previsões individuais."
-  ];
   // Mantém a descrição, o SVG, a reflexão e o contexto de pesquisa sincronizados com os controles.
   function updateCharacter(){
     var tone = document.querySelector('input[name="characterTone"]:checked').value;
     var toneIndex = Number(tone) - 1;
-    var hair = hairSelect.value, length = lengthSelect.value, gender = genderSelect.value;
+    var hair = hairSelect.value, hairColor = hairColorSelect.value, length = lengthSelect.value, gender = genderSelect.value;
+    var eyeColor = eyeColorSelect.value, expression = expressionSelect.value;
     avatar.dataset.tone = tone;
     avatar.dataset.hair = hair;
+    avatar.dataset.hairColor = hairColor;
     avatar.dataset.length = length;
     avatar.dataset.gender = gender;
+    avatar.dataset.eye = eyeColor;
+    avatar.dataset.expression = expression;
     impactPanel.dataset.tone = tone;
     bahiaResearch.dataset.tone = tone;
-    var description = "pele " + toneNames[toneIndex] + ", cabelo " + hairNames[hair] + " e " + lengthNames[length] + ", " + genderNames[gender];
-    characterInsight.textContent = "Para a combinação de pele " + toneNames[toneIndex] + ", cabelo " + hairNames[hair] + " " + lengthNames[length] + " e " + genderNames[gender] + ": " + toneInsights[toneIndex] + " Pergunte também se " + hairInsights[hair] + " Para o comprimento " + lengthNames[length] + ", " + lengthInsights[length] + " Na apresentação escolhida, " + genderInsights[gender] + " São pontos para avaliar sistemas, não previsões sobre esta pessoa.";
+    var presentation = "apresentação " + genderNames[gender];
+    var hairDescription = hairColorNames[hairColor] + ", " + hairNames[hair] + " e " + lengthNames[length];
+    var profile = "pele " + toneNames[toneIndex] + "; " + presentation + "; cabelo " + hairDescription + "; olhos " + eyeColorNames[eyeColor] + "; expressão " + expressionNames[expression];
+    var description = "pele " + toneNames[toneIndex] + ", " + presentation + ", cabelo " + hairDescription + ", olhos " + eyeColorNames[eyeColor] + " e expressão " + expressionNames[expression];
+    characterInsight.textContent = "Pra esse perfil (" + profile + "), os testes cobrem variações de luz, cabelo, enquadramento, olhos e expressões? Gender Shades (2018) achou diferenças por pele e gênero, mas não testou esse conjunto. Serve pra cobrar uma auditoria, não pra prever alguém.";
     avatar.querySelector("title").textContent = "Personagem ilustrativo, " + description;
     characterSummary.textContent = "Personagem: " + description + ".";
-    impactCopy.textContent = impactByTone[toneIndex < 2 ? 0 : toneIndex < 4 ? 1 : 2];
+    filterScenarioPrompt.textContent = "Pele " + toneNames[toneIndex] + ", cabelo " + hairColorNames[hairColor] + " " + hairNames[hair] + ": o filtro clareia e alisa. É só brincadeira?";
+    unlockScenarioPrompt.textContent = "O celular falha com pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". Que perfis entraram nos testes?";
+    stationScenarioPrompt.textContent = "No metrô de Salvador, a câmera dá alerta contra alguém de pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". O alerta basta pra abordar?";
+    document.querySelectorAll("[data-scn]").forEach(function(scenario){
+      scenario.querySelectorAll(".choice").forEach(function(button){ button.setAttribute("aria-pressed", "false"); });
+      scenario.querySelector(".reveal").hidden = true;
+    });
+    var genderStudyNote = gender === "androgina" ? "A pesquisa comparou mulheres e homens; não avaliou esse visual." : "As categorias do estudo não descrevem necessariamente esse visual.";
+    impactCopy.textContent = "Gender Shades (2018) testou classificação de gênero: erro de até 34,7% para mulheres de pele escura e 0,8% para homens de pele clara. " + genderStudyNote + " Não testou este perfil nem mediu cabelo, olhos ou expressão; não prevê resultado individual. Na Bahia, 90,5% das prisões monitoradas com raça informada foram de pessoas negras; o estado concentrou 52% das prisões monitoradas. Dados coletivos, não destino.";
     var photo = hairReferences[hair];
     hairReferenceImage.src = photo.image;
     hairReferenceImage.alt = "Referência fotográfica de cabelo " + hairNames[hair];
@@ -161,20 +156,23 @@
     hairReferenceSource.href = photo.source;
     hairReferenceLicense.href = photo.license;
     if(toneIndex < 2){
-      bahiaCharacterContext.textContent = "A opção de pele clara não corresponde diretamente às categorias raciais usadas nesses levantamentos. O contraste é o impacto racial coletivo: 90,5% das pessoas presas nos casos monitorados em cinco estados eram negras; a Bahia concentrava 52% dessas prisões. Esses dados não estimam o risco desta personagem.";
+      bahiaCharacterContext.textContent = "Esse tom não equivale às categorias raciais dos estudos. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Dados coletivos, não previsão individual.";
     }else if(toneIndex > 3){
-      bahiaCharacterContext.textContent = "Para contextualizar uma personagem de pele escura sem equiparar tom a identidade racial: 90,5% das pessoas presas nos casos monitorados em cinco estados eram negras, e a Bahia concentrava 52% dessas prisões. Em Salvador, outro levantamento registrou 98,8% de pessoas negras entre as prisões em flagrante. São dados coletivos, não uma previsão individual.";
+      bahiaCharacterContext.textContent = "Tom de pele não define raça. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Em Salvador, 98,8% das prisões em flagrante foram de pessoas negras. Dados coletivos, não previsão.";
     }else{
-      bahiaCharacterContext.textContent = "Os tons intermediários da simulação não correspondem diretamente às categorias raciais dos estudos. Como contexto, 90,5% das pessoas presas nos casos monitorados em cinco estados eram negras; a Bahia concentrava 52% dessas prisões. Em Salvador, outro levantamento registrou 98,8% de pessoas negras entre as prisões em flagrante. Não é uma estimativa para esta personagem.";
+      bahiaCharacterContext.textContent = "Esse tom não equivale às categorias raciais dos estudos. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Em Salvador, 98,8% das prisões em flagrante foram de pessoas negras. Dados coletivos, não previsão.";
     }
-    bahiaCharacterLimit.textContent = "Os estudos citados não cruzam esses resultados com o tom individual, o cabelo " + hairNames[hair] + " nem a " + genderNames[gender] + "; os percentuais não predizem o que acontecerá com esta personagem.";
+    bahiaCharacterLimit.textContent = "Os relatórios não cruzam suas escolhas. Mostram desigualdades coletivas, não o que vai acontecer com alguém.";
   }
   document.querySelectorAll('input[name="characterTone"]').forEach(function(input){
     input.addEventListener("change", updateCharacter);
   });
   hairSelect.addEventListener("change", updateCharacter);
+  hairColorSelect.addEventListener("change", updateCharacter);
   lengthSelect.addEventListener("change", updateCharacter);
   genderSelect.addEventListener("change", updateCharacter);
+  eyeColorSelect.addEventListener("change", updateCharacter);
+  expressionSelect.addEventListener("change", updateCharacter);
   updateCharacter();
 
   var fut = document.getElementById("future"), fb = document.getElementById("futureBtn");

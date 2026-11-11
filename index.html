@@ -58,12 +58,12 @@
           <div class="wrap">
             <span class="num">1 de 6</span>
             <h2>Espelho, espelho meu</h2>
-            <p class="lead">Monte um personagem para explorar como sistemas podem afetar pessoas de maneiras diferentes. Depois, escolha uma reação em cada situação.</p>
+            <p class="lead">Monte uma pessoa e veja como a tecnologia pode afetar cada perfil. Depois, responda às situações.</p>
 
             <div class="character-builder" aria-labelledby="characterTitle">
               <div class="character-controls">
                 <h3 id="characterTitle">Configure o personagem</h3>
-                <p>As escolhas personalizam somente esta simulação. Elas não identificam você nem são enviadas ou salvas.</p>
+                <p>É só uma simulação: suas escolhas não identificam você nem são salvas.</p>
                 <fieldset class="character-fieldset">
                   <legend>Tom de pele</legend>
                   <div class="tone-options">
@@ -74,7 +74,7 @@
                     <label class="tone-option"><input type="radio" name="characterTone" value="5"><span class="tone-swatch tone-5" aria-hidden="true"></span><span>5 · escuro</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="6"><span class="tone-swatch tone-6" aria-hidden="true"></span><span>6 · muito escuro</span></label>
                   </div>
-                  <p class="small">Escala visual ilustrativa; tons de pele reais são diversos e não cabem em seis categorias.</p>
+                  <p class="small">Escala ilustrativa — pele real não cabe em seis tons.</p>
                 </fieldset>
                 <div class="character-selects">
                   <label for="characterHair">Textura do cabelo
@@ -83,6 +83,15 @@
                       <option value="ondulado">Ondulado</option>
                       <option value="cacheado">Cacheado</option>
                       <option value="crespo">Crespo</option>
+                    </select>
+                  </label>
+                  <label for="characterHairColor">Cor do cabelo
+                    <select id="characterHairColor">
+                      <option value="castanho">Castanho</option>
+                      <option value="preto">Preto</option>
+                      <option value="loiro">Loiro</option>
+                      <option value="ruivo">Ruivo</option>
+                      <option value="grisalho">Grisalho</option>
                     </select>
                   </label>
                   <label for="characterLength">Comprimento do cabelo
@@ -99,13 +108,28 @@
                       <option value="androgina">Andrógina</option>
                     </select>
                   </label>
+                  <label for="characterEyeColor">Cor dos olhos
+                    <select id="characterEyeColor">
+                      <option value="castanhos">Castanhos</option>
+                      <option value="azuis">Azuis</option>
+                      <option value="verdes">Verdes</option>
+                      <option value="cinzas">Cinza</option>
+                    </select>
+                  </label>
+                  <label for="characterExpression">Expressão
+                    <select id="characterExpression">
+                      <option value="neutra">Neutra</option>
+                      <option value="alegre">Alegre</option>
+                      <option value="triste">Triste</option>
+                    </select>
+                  </label>
                 </div>
               </div>
               <div class="character-preview">
                 <div class="avatar-frame">
                   <!-- data-* é o contrato entre controles/JS e seletores CSS; os grupos SVG são formas alternativas. -->
-                  <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-length="curto" data-gender="feminina">
-                    <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo liso curto</title>
+                  <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-hair-color="castanho" data-length="curto" data-gender="feminina" data-eye="castanhos" data-expression="neutra">
+                    <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo castanho liso curto, olhos castanhos, expressão neutra</title>
                     <g class="avatar-hair-style hair-straight">
                       <path class="hair-back hair-short" d="M24 51C19 27 25 9 49 8c24-1 31 19 27 43L70 68l-2-30c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
                       <path class="hair-back hair-medium" d="M23 51C18 27 25 8 49 7c25-1 33 20 27 45l3 36q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
@@ -189,7 +213,9 @@
                       <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".55"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".55"/>
                       <path class="avatar-lash" d="m36 51-1-2m3 1-1-2m25 3 1-2m-3 1 1-2"/>
                       <path class="avatar-nose" d="M50 52q-1 6-3 9 2 2 5 0"/>
-                      <path class="avatar-mouth" d="M44 67q6-4 12 0-5 6-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-neutra" d="M44 67q6-4 12 0-5 6-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-alegre" d="M43 66q7 8 14 0-1 8-7 8t-7-8z"/>
+                      <path class="avatar-mouth avatar-mouth-triste" d="M43 70q7-8 14 0-7-3-14 0z"/>
                     </g>
                     <g class="avatar-features avatar-features-masculina">
                       <path class="avatar-brows" d="M36 46q5-2 10 0m8 0q5-2 10 0"/>
@@ -197,7 +223,9 @@
                       <circle class="avatar-iris" cx="41" cy="52" r="1.6"/><circle class="avatar-iris" cx="59" cy="52" r="1.6"/>
                       <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".5"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".5"/>
                       <path class="avatar-nose" d="M50 51q0 7-3 10 3 2 6 0"/>
-                      <path class="avatar-mouth" d="M44 67q6-2 12 0-6 4-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-neutra" d="M44 67q6-2 12 0-6 4-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-alegre" d="M43 66q7 8 14 0-1 8-7 8t-7-8z"/>
+                      <path class="avatar-mouth avatar-mouth-triste" d="M43 70q7-8 14 0-7-3-14 0z"/>
                     </g>
                     <g class="avatar-features avatar-features-androgina">
                       <path class="avatar-brows" d="M36 46q5-3 10 0m8 0q5-3 10 0"/>
@@ -205,7 +233,9 @@
                       <circle class="avatar-iris" cx="41" cy="52" r="1.6"/><circle class="avatar-iris" cx="59" cy="52" r="1.6"/>
                       <circle class="avatar-eye-glint" cx="41.5" cy="51.5" r=".5"/><circle class="avatar-eye-glint" cx="59.5" cy="51.5" r=".5"/>
                       <path class="avatar-nose" d="M50 52q-1 6-3 9 2 2 5 0"/>
-                      <path class="avatar-mouth" d="M44 67q6-3 12 0-6 5-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-neutra" d="M44 67q6-3 12 0-6 5-12 0z"/>
+                      <path class="avatar-mouth avatar-mouth-alegre" d="M43 66q7 8 14 0-1 8-7 8t-7-8z"/>
+                      <path class="avatar-mouth avatar-mouth-triste" d="M43 70q7-8 14 0-7-3-14 0z"/>
                     </g>
                     <path class="avatar-neck" d="M41 78v11h18V78"/>
                     <g class="avatar-outfit avatar-outfit-feminina">
@@ -222,75 +252,75 @@
                     </g>
                   </svg>
                 </div>
-                <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo liso e curto.</p>
-                <p class="character-note">A apresentação visual não define a identidade de gênero de uma pessoa real. A cor do cabelo é uma escolha ilustrativa: pessoas de qualquer tom de pele podem ter diferentes cores de cabelo.</p>
+                <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo castanho, liso e curto, olhos castanhos e expressão neutra.</p>
+                <p class="character-note">Aparência não define gênero. Cabelos têm muitas cores e texturas.</p>
                 <figure class="hair-reference">
                   <img id="hairReferenceImage" src="assets/hair/straight.jpg" alt="Referência fotográfica de cabelo liso">
-                  <figcaption>Exemplo fotográfico de textura: <span id="hairReferenceTitle">Soft Permanent Japanese Straight</span>, por <span id="hairReferenceCreator">MirianaL</span>. <a id="hairReferenceSource" href="https://www.flickr.com/photos/41124264@N04/5865910932" target="_blank" rel="noopener">Ver origem</a> · <a id="hairReferenceLicense" href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>. A foto é apenas referência de cabelo, não representa o personagem.</figcaption>
+                  <figcaption>Referência de textura: <span id="hairReferenceTitle">Soft Permanent Japanese Straight</span>, por <span id="hairReferenceCreator">MirianaL</span>. <a id="hairReferenceSource" href="https://www.flickr.com/photos/41124264@N04/5865910932" target="_blank" rel="noopener">Origem</a> · <a id="hairReferenceLicense" href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>. É só um exemplo de cabelo.</figcaption>
                 </figure>
               </div>
             </div>
 
             <aside class="character-insight" aria-labelledby="characterInsightTitle">
-              <h3 id="characterInsightTitle">Reflexão para esta combinação</h3>
-              <p class="small">O recorte considera o tom de pele, o comprimento e a textura escolhidos. É uma pergunta para avaliar sistemas, não uma previsão sobre a pessoa.</p>
+              <h3 id="characterInsightTitle">Essa tecnologia foi feita pra geral?</h3>
+              <p class="small">Pense em quem foi incluído nos testes. Não é previsão sobre uma pessoa.</p>
               <p id="characterInsight" aria-live="polite"></p>
             </aside>
 
             <aside class="skin-impact" id="skinImpact" data-tone="3" aria-live="polite" aria-labelledby="skinImpactTitle">
-              <h3 id="skinImpactTitle">O que pode acontecer com esse personagem?</h3>
-              <p id="skinImpactCopy">Os resultados variam conforme os dados, a iluminação e o sistema. Pesquisas mostram que a taxa de erro pode mudar entre grupos, mas não permite prever o resultado de uma pessoa específica.</p>
+              <h3 id="skinImpactTitle">Onde o sistema pode falhar?</h3>
+              <p id="skinImpactCopy">Gender Shades (2018) encontrou diferenças de erro entre grupos de pele e gênero nos sistemas testados. A pesquisa não avaliou esta combinação completa nem permite prever o resultado para uma pessoa específica. Em um uso real, um erro pode significar não reconhecer o rosto ou associá-lo indevidamente a outra pessoa.</p>
               <span class="src">Contexto: <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank" rel="noopener">Buolamwini e Gebru, <i>Gender Shades</i> (2018)</a>; veja também as situações abaixo.</span>
             </aside>
 
             <aside class="bahia-research" id="bahiaResearch" data-tone="3" aria-labelledby="bahiaResearchTitle">
-              <h3 id="bahiaResearchTitle">Pesquisas e casos na Bahia</h3>
+              <h3 id="bahiaResearchTitle">Os dados na Bahia</h3>
               <p id="bahiaCharacterContext" aria-live="polite">Os estudos registram categorias raciais, não os seis tons desta simulação. Eles mostram desigualdades coletivas, mas não permitem estimar o risco de uma pessoa específica.</p>
               <div class="bahia-results">
                 <div class="bahia-result">
                   <strong>90,5%</strong>
-                  <p>das pessoas presas por reconhecimento facial, nos casos com raça informada em cinco estados, eram negras. A Bahia concentrava 52% das prisões monitoradas.</p>
+                  <p>das pessoas presas por reconhecimento facial eram negras, nos casos com raça informada em cinco estados. A Bahia teve 52% dos casos monitorados.</p>
                   <span class="src">Fonte: <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">Rede de Observatórios da Segurança, dados de 2019</a>.</span>
                 </div>
                 <div class="bahia-result">
                   <strong>98,8%</strong>
-                  <p>das pessoas presas em flagrante em Salvador eram negras, segundo levantamento da Defensoria Pública da Bahia sobre audiências de custódia.</p>
+                  <p>das pessoas presas em flagrante em Salvador eram negras, segundo a Defensoria Pública da Bahia.</p>
                   <span class="src">Fonte: <a href="https://www.intercept.com.br/2021/09/20/rui-costa-esta-transformando-a-bahia-em-um-laboratorio-de-vigilancia-com-reconhecimento-facial/" target="_blank" rel="noopener">Defensoria Pública da Bahia, dados de 2019, via The Intercept Brasil</a>.</span>
                 </div>
               </div>
-              <p class="small" id="bahiaCharacterLimit">Os relatórios não cruzam esses dados com tom individual, textura de cabelo ou apresentação de gênero; a configuração não é uma previsão.</p>
+              <p class="small" id="bahiaCharacterLimit">Esses dados são coletivos — não preveem o que aconteceria com este perfil.</p>
             </aside>
 
             <div class="scenario" data-scn>
-              <h3>O filtro “embelezador”</h3>
-              <p>Você testa um filtro de beleza novo. Ele afina seu nariz, clareia sua pele e deixa seu cabelo mais liso.</p>
+              <h3>Filtro de beleza</h3>
+              <p id="filterScenarioPrompt">Você testa um filtro de beleza novo. Ele afina seu nariz, clareia sua pele e deixa seu cabelo mais liso.</p>
               <div class="choices">
-                <button class="choice" type="button" aria-pressed="false" data-react="Muita gente pensa assim, e é justamente por parecer inofensivo que passa despercebido.">É só um filtro</button>
-                <button class="choice" type="button" aria-pressed="false" data-react="Esse incômodo tem fundamento.">Isso me incomoda</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Parece inofensivo, mas vale perguntar: que padrão ele reforça?">É só um filtro?</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Boa pergunta. O filtro pode tratar um padrão branco como se fosse universal.">Quem ele chama de bonito?</button>
               </div>
-              <div class="reveal" hidden><p class="react"></p><p>Filtros aprendem o que é “bonito” a partir de milhões de imagens e avaliações. Se essas imagens refletem um padrão de beleza branco, o algoritmo transforma esse padrão em regra e devolve para você um rosto “corrigido” na direção dele. Tarcízio Silva chama isso de embranquecimento literal dos indivíduos.</p>
+              <div class="reveal" hidden><p class="react"></p><p>Se os dados seguem um padrão branco, o filtro pode clarear a pele e alisar o cabelo. Tarcízio Silva chama isso de embranquecimento literal.</p>
                 <span class="src">Fonte: Silva, T. <i>Racismo algorítmico</i>. Edições Sesc, 2022, p. 75, citado em <a href="https://labcomca.ubi.pt/wp-content/uploads/2024/03/2024_InteligenciaArtificialAlgoritmos_AGoncalvesLTorrePVMelo.pdf" target="_blank" rel="noopener">Monagreda (2024), p. 114</a>.</span></div>
             </div>
 
             <div class="scenario" data-scn>
-              <h3>O desbloqueio que não funciona</h3>
-              <p>Seu amigo de pele escura tenta desbloquear o celular pelo rosto num ambiente com pouca luz. Falha três vezes. O seu desbloqueia de primeira.</p>
+              <h3>O celular não reconhece</h3>
+              <p id="unlockScenarioPrompt">Seu amigo de pele escura tenta desbloquear o celular pelo rosto num ambiente com pouca luz. Falha três vezes. O seu desbloqueia de primeira.</p>
               <div class="choices">
-                <button class="choice" type="button" aria-pressed="false" data-react="A luz importa, mas não explica tudo.">Deve ser a luz</button>
-                <button class="choice" type="button" aria-pressed="false" data-react="Exatamente. O defeito não está no rosto dele.">O sistema não foi feito pra ele</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="A luz conta, mas só testes comparáveis podem dizer se explica a falha.">Foi só a iluminação?</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Isso: vale checar quem apareceu nos dados e nos testes. A falha não está no rosto da pessoa.">Testaram vários perfis?</button>
               </div>
-              <div class="reveal" hidden><p class="react"></p><p>Em 2018, a pesquisa <i>Gender Shades</i> testou sistemas comerciais de três empresas: o erro chegou a 34,7% para mulheres de pele escura e não passou de 0,8% para homens de pele clara. Quando os dados de treino e os testes priorizam um tipo de rosto, os outros viram exceção.</p>
+              <div class="reveal" hidden><p class="react"></p><p>Em 2018, <i>Gender Shades</i> encontrou erros de até 34,7% para mulheres de pele escura e de até 0,8% para homens de pele clara nos sistemas testados. Quem fica fora dos dados pode ficar fora do reconhecimento.</p>
                 <span class="src">Fonte: <a href="https://news.mit.edu/2018/study-finds-gender-skin-type-bias-artificial-intelligence-systems-0212" target="_blank" rel="noopener">MIT News, 11 fev. 2018</a>.</span></div>
             </div>
 
             <div class="scenario" data-scn>
-              <h3>O alerta na estação</h3>
-              <p>Você passa por uma câmera no metrô de Salvador. O sistema emite um alerta: seu rosto “parece” o de uma pessoa procurada. Policiais te abordam.</p>
+              <h3>Alerta no metrô</h3>
+              <p id="stationScenarioPrompt">Você passa por uma câmera no metrô de Salvador. O sistema emite um alerta: seu rosto “parece” o de uma pessoa procurada. Policiais te abordam.</p>
               <div class="choices">
-                <button class="choice" type="button" aria-pressed="false" data-react="Na prática, quem é abordado precisa provar que não é quem a máquina disse.">Explico e vou embora</button>
-                <button class="choice" type="button" aria-pressed="false" data-react="E a resposta, nos dados, tem cor.">Quem é parado mais vezes?</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Não. Um alerta não prova identidade; precisa de checagem independente.">O alerta já é prova?</button>
+                <button class="choice" type="button" aria-pressed="false" data-react="Boa: quem é mais vigiado? Os dados ajudam a cobrar respostas.">Quem é mais parado?</button>
               </div>
-              <div class="reveal" hidden><p class="react"></p><p>Em 2019, a Rede de Observatórios da Segurança acompanhou prisões feitas com reconhecimento facial em cinco estados. Nos casos com informação de raça, 90,5% das pessoas presas eram negras, e a Bahia concentrava mais da metade das prisões. Você vai ver esse caso de perto na etapa 4.</p>
+              <div class="reveal" hidden><p class="react"></p><p>Em 2019, 90,5% das pessoas presas por reconhecimento facial, nos casos com raça informada em cinco estados, eram negras. A Bahia concentrou 52% das prisões monitoradas. A etapa 4 mostra mais.</p>
                 <span class="src">Fonte: <a href="https://intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/" target="_blank" rel="noopener">The Intercept Brasil, 21 nov. 2019</a>.</span></div>
             </div>
           </div>
