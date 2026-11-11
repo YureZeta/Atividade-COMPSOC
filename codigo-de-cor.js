@@ -420,13 +420,26 @@
   var links = document.querySelectorAll(".steps a");
   var highestStepReached = -1;
   function onScroll(){
-    var y = window.scrollY + window.innerHeight * 0.35, cur = -1;
-    ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
-    if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
+    var cur = -1;
+    if(window.matchMedia("(max-width:680px)").matches){
+      var percurso = document.getElementById("percurso");
+      var center = percurso.getBoundingClientRect().left + percurso.clientWidth / 2;
+      var closestDistance = Infinity;
+      ids.concat("quiz").forEach(function(id, i){
+        var rect = document.getElementById(id).getBoundingClientRect();
+        var distance = Math.abs(rect.left + rect.width / 2 - center);
+        if(distance < closestDistance){ closestDistance = distance; cur = Math.min(i, ids.length - 1); }
+      });
+    }else{
+      var y = window.scrollY + window.innerHeight * 0.35;
+      ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = i; });
+      if(document.getElementById("quiz").offsetTop <= y) cur = ids.length - 1;
+    }
     highestStepReached = Math.max(highestStepReached, cur);
     links.forEach(function(a, i){ a.classList.toggle("on", i <= highestStepReached); if(i === cur) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
   }
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  document.getElementById("percurso").addEventListener("scroll", onScroll, {passive:true});
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
