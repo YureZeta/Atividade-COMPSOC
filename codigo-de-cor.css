@@ -98,7 +98,9 @@ p{margin:0 0 1em}
 .btn-ghost:hover{border-color:var(--machine); background:none; color:var(--machine)}
 .hero .btn-ghost{color:var(--ink); border-color:var(--ink)}
 .hero .btn-ghost:hover{border-color:var(--machine); background:var(--machine-soft); color:var(--ink)}
-.swipe-hint{display:none}
+.navigation-hint{display:flex; align-items:center; gap:.55rem; width:fit-content; padding:.55rem .85rem; margin:.9rem 0 0; border-radius:999px; background:var(--machine-soft); color:var(--machine); font-size:.95rem; font-weight:700}
+.navigation-hint span{font-size:1.2rem; line-height:1}
+.navigation-hint--drag{display:none}
 
 /* seções */
 section.stage{padding:clamp(3rem, 7vw, 4.5rem) 0; border:1px solid rgba(36,40,58,.08); border-top:6px solid var(--card-accent, var(--machine)); border-radius:1.4rem; background:var(--card-bg, var(--paper)); box-shadow:0 18px 40px var(--card-shadow)}
@@ -112,6 +114,7 @@ section.stage{padding:clamp(3rem, 7vw, 4.5rem) 0; border:1px solid rgba(36,40,58
 #resistencia{--card-accent:var(--spark); --card-bg:var(--stage-5); z-index:5}
 #agora{--card-accent:var(--machine); --card-bg:var(--stage-6); z-index:6}
 #quiz{--card-accent:var(--spark); --card-bg:var(--stage-quiz); z-index:7}
+#percurso[hidden],#minijogos[hidden]{display:none}
 @media (max-width:680px){
   #percurso{
     display:flex;
@@ -138,12 +141,8 @@ section.stage{padding:clamp(3rem, 7vw, 4.5rem) 0; border:1px solid rgba(36,40,58
     border-radius:0;
     box-shadow:none;
   }
-  .swipe-hint{
-    display:block;
-    margin:.75rem 0 0;
-    color:var(--machine);
-    font-weight:700;
-  }
+  .navigation-hint--scroll{display:none}
+  .navigation-hint--drag{display:flex}
 }
 @media (max-width:680px) and (prefers-reduced-motion: reduce){
   #percurso{scroll-behavior:auto}
@@ -462,13 +461,25 @@ summary{cursor:pointer; color:var(--machine); font-weight:700}
 /* glossário */
 dialog{border:none; border-radius:12px; padding:0; width:min(100% - 2rem, 34rem); max-height:80vh; background:var(--paper); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(23,18,13,.6)}
+.welcome-dialog{width:min(100% - 2rem, 42rem); max-height:min(90vh, 48rem); padding:clamp(1rem, 5vw, 2.5rem); overflow-y:auto}
+.welcome-dialog .eyebrow{margin:0 0 .6rem; color:var(--machine); font-size:.9rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
+.welcome-dialog h2{font-size:clamp(2rem, 6vw, 3rem); margin-bottom:.35em}
+.welcome-dialog > p:not(.eyebrow){margin-bottom:.5rem}
+.welcome-guide{display:grid; gap:.4rem; margin:1rem 0; padding-left:1.4rem; line-height:1.4}
+.welcome-guide li::marker{color:var(--machine)}
+.welcome-start{margin-top:.25rem}
 .dlg-head{display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--paper)}
 .dlg-head h2{font-size:1.5rem; margin:0}
 .dlg-body{padding:1rem 1.25rem 1.5rem}
+.refs-dialog .dlg-body{max-height:calc(80vh - 4rem); overflow-y:auto}
+.refs-dialog .wrap{width:auto; margin:0}
+.refs-dialog h3{font-size:1.05rem; color:var(--ink); margin-top:1.6rem}
 dl dt{font-weight:700; margin-top:1rem}
 dl dt.hl{color:var(--machine)}
 dl dd{margin:.2rem 0 0}
 .fab{position:fixed; right:1rem; bottom:calc(1rem + env(safe-area-inset-bottom,0px)); z-index:15; font:inherit; font-weight:700; background:var(--machine); color:#fff; border:none; border-radius:999px; padding:.75rem 1.2rem; cursor:pointer; box-shadow:0 6px 20px rgba(99,56,214,.35)}
+.refs-fab{display:none}
+.refs-dialog .credits{margin-top:1.5rem}
 
 footer.site{border-top:1px solid var(--line); padding:3rem 0 6rem; font-size:.95rem; color:var(--muted)}
 footer.site h2{font-size:1.4rem; color:var(--ink)}
@@ -485,7 +496,11 @@ footer.site h3{font-size:1.05rem; color:var(--ink); margin-top:1.6rem}
 .views a[aria-current="page"]{background:var(--ink); color:var(--paper)}
 @media (max-width:680px){.steps{display:none}.brand{flex:1}.bar-in{gap:.4rem}.views a{display:inline-flex; align-items:center; min-height:44px; padding:.35rem .25rem; font-size:.88rem}}
 .is-games .steps{visibility:hidden}
-.is-games .fab{display:none}
+@media (max-width:680px){
+  html.has-refs-dialog footer.site{display:none}
+  html.has-refs-dialog .refs-fab{display:block; left:1rem; right:auto}
+}
+.is-games .fab:not(.refs-fab){display:none}
 
 /* minijogos */
 /* Componentes internos dos jogos; cada painel é exibido pela aba selecionada no JS. */

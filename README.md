@@ -75,6 +75,7 @@ Abra os tópicos abaixo para conhecer cada etapa. Os links levam diretamente às
 
 Além do conteúdo explicativo, a página inclui:
 
+- tela inicial com instruções de navegação, exibida antes da animação de análise facial;
 - demonstração visual de análise facial, com opção para repetir a animação;
 - personagem configurável e cenários com escolhas e respostas, com roupa, forma de cabelo e traços faciais que mudam por apresentação, cor de cabelo em paleta ilustrativa por tom de pele e reflexões educativas para combinações de tom, textura, comprimento e apresentação;
 - referências fotográficas locais para quatro texturas de cabelo, com créditos e licenças junto às imagens;
@@ -83,7 +84,7 @@ Além do conteúdo explicativo, a página inclui:
 - glossário, quiz e navegação entre etapas;
 - minijogos de forca, caça-palavras e palavras cruzadas.
 
-[Conhecer os minijogos](./index.html#minijogos)
+Os minijogos podem ser acessados pelo menu superior ou pelo botão ao final do percurso, depois do quiz.
 
 ## Como executar
 
@@ -124,7 +125,7 @@ O material também inclui referências a pesquisas, artigos, livros e palestras 
 7. `#agora`: ações e participação;
 8. `#quiz`: questionário de revisão.
 
-`#minijogos` é uma área separada, alternada pela navegação superior. Suas abas exibem forca, caça-palavras, palavras cruzadas e o Labirinto (um `iframe` de `labirinto.html`). O glossário é um diálogo compartilhado no fim do documento.
+`#minijogos` é uma área separada, acessada pelo menu superior ou pelo botão ao final do percurso. Suas abas exibem forca, caça-palavras, palavras cruzadas e o Labirinto (um `iframe` de `labirinto.html`). O glossário é um diálogo compartilhado no fim do documento. Em telas de até 680 px, as referências do rodapé ficam disponíveis em um botão que abre um diálogo.
 
 ### JavaScript da página principal
 

@@ -44,7 +44,19 @@
     void faces.offsetWidth;
     faces.classList.add("scanning");
   }
-  runScan();
+  var welcome = document.getElementById("welcome");
+  var scanStarted = false;
+  function startScanOnce(){
+    if(scanStarted) return;
+    scanStarted = true;
+    runScan();
+  }
+  welcome.addEventListener("close", startScanOnce);
+  document.getElementById("welcomeStart").addEventListener("click", function(){
+    if(welcome.close) welcome.close(); else welcome.removeAttribute("open");
+    startScanOnce();
+  });
+  if(welcome.showModal) welcome.showModal(); else welcome.setAttribute("open", "");
   document.getElementById("replay").addEventListener("click", runScan);
 
   // cenários
@@ -382,6 +394,20 @@
   document.getElementById("glossBtn").addEventListener("click", function(){ openGloss(); });
   document.getElementById("glossClose").addEventListener("click", function(){ dlg.close ? dlg.close() : dlg.removeAttribute("open"); });
   document.querySelectorAll("[data-term]").forEach(function(b){ b.addEventListener("click", function(){ openGloss(b.dataset.term); }); });
+
+  // referências em telas pequenas
+  var refsDialog = document.getElementById("refsDialog");
+  var refsBody = document.getElementById("refsBody");
+  var refsContent = document.querySelector("footer.site .wrap").cloneNode(true);
+  refsContent.querySelector("h2").remove();
+  refsBody.appendChild(refsContent);
+  document.documentElement.classList.add("has-refs-dialog");
+  document.getElementById("refsBtn").addEventListener("click", function(){
+    if(refsDialog.showModal) refsDialog.showModal(); else refsDialog.setAttribute("open", "");
+  });
+  document.getElementById("refsClose").addEventListener("click", function(){
+    if(refsDialog.close) refsDialog.close(); else refsDialog.removeAttribute("open");
+  });
 
   // quiz
   var qs = [

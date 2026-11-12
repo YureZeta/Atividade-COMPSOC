@@ -43,7 +43,8 @@
           <div class="wide">
             <h1>O algoritmo não enxerga todo mundo igual.</h1>
             <p class="lead">Um percurso interativo sobre racismo algorítmico: o que é, como acontece, onde já aconteceu aqui na Bahia e o que dá para fazer a respeito.</p>
-            <p class="swipe-hint">Deslize para o lado para avançar pelas etapas.</p>
+            <p class="navigation-hint navigation-hint--scroll"><span aria-hidden="true">↓</span> Role a página para avançar pelo percurso.</p>
+            <p class="navigation-hint navigation-hint--drag"><span aria-hidden="true">↔</span> Arraste para o lado para avançar pelas etapas.</p>
             <div class="faces" id="faces" role="img" aria-label="Simulação de um sistema de reconhecimento facial analisando doze rostos de tons de pele diferentes. Os rostos de pele clara são detectados com mais de 95% de confiança. Os de pele mais escura recebem confiança baixa ou não são detectados.">
               <div class="scanline"></div>
             </div>
@@ -767,7 +768,7 @@
 
     </main>
 
-    <!-- Conteúdo de referência e diálogo do glossário, compartilhado pelo percurso. -->
+    <!-- Rodapé de referências e diálogos compartilhados pelo percurso. -->
     <footer class="site">
       <div class="wrap">
         <h2>Referências</h2>
@@ -800,10 +801,29 @@
       </div>
     </footer>
 
+    <button class="fab refs-fab" type="button" id="refsBtn" aria-haspopup="dialog">Referências</button>
+    <dialog class="refs-dialog" id="refsDialog" aria-labelledby="refsTitle">
+      <div class="dlg-head"><h2 id="refsTitle">Referências</h2><button class="icon-btn" type="button" id="refsClose">Fechar</button></div>
+      <div class="dlg-body" id="refsBody"></div>
+    </dialog>
+
     <button class="fab" type="button" id="glossBtn" aria-haspopup="dialog">Glossário</button>
     <dialog id="gloss" aria-labelledby="glossTitle">
       <div class="dlg-head"><h2 id="glossTitle">Glossário</h2><button class="icon-btn" type="button" id="glossClose">Fechar</button></div>
       <div class="dlg-body"><dl id="glossList"></dl></div>
+    </dialog>
+
+    <dialog class="welcome-dialog" id="welcome" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
+      <p class="eyebrow">Antes de começar</p>
+      <h2 id="welcomeTitle">Como navegar pelo site</h2>
+      <p id="welcomeDescription">Um percurso interativo sobre racismo algorítmico. Veja como navegar:</p>
+      <ul class="welcome-guide">
+        <li><strong>Celular:</strong> arraste para o lado entre as etapas.</li>
+        <li><strong>Computador:</strong> role a página para avançar.</li>
+        <li><strong>Menu superior:</strong> acesse o Percurso ou os Minijogos.</li>
+        <li><strong>Botões inferiores:</strong> abra o Glossário e, no celular, as Referências.</li>
+      </ul>
+      <button class="btn welcome-start" type="button" id="welcomeStart" autofocus>Começar e ver a análise</button>
     </dialog>
 
     <script src="codigo-de-cor.js"></script>
