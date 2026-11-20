@@ -494,7 +494,7 @@
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
   var verticalHintMedia = window.matchMedia("(max-width:680px)");
-  var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section"));
+  var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section:not(#inicio)"));
   function addVerticalHint(container){
     var hint = document.createElement("p"), arrow = document.createElement("span");
     hint.className = "navigation-hint navigation-hint--vertical";
