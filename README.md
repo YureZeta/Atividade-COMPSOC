@@ -11,7 +11,6 @@
 - [Recursos interativos](#recursos-interativos)
 - [Como executar](#como-executar)
 - [Arquivos do projeto](#arquivos-do-projeto)
-- [Contrato para alterações](#contratos-para-alteracoes)
 
 ## Objetivo
 
