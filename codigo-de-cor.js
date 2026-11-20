@@ -493,7 +493,6 @@
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
-  var refsButton = document.getElementById("refsBtn");
   var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section"));
   function addVerticalHint(container){
     var hint = document.createElement("p"), arrow = document.createElement("span");
@@ -513,14 +512,12 @@
   });
   var gamesHint = addVerticalHint(gamesEl.querySelector(".wrap"));
   function updateVerticalScrollHints(){
-    var showHints = window.getComputedStyle(refsButton).display !== "none";
     verticalHintPages.forEach(function(section){
       var hint = section._verticalScrollHint;
-      if(hint) hint.classList.toggle("is-visible", showHints);
+      if(hint) hint.classList.add("is-visible");
     });
-    gamesHint.classList.toggle("is-visible", showHints && !gamesEl.hidden);
+    gamesHint.classList.toggle("is-visible", !gamesEl.hidden);
   }
-  window.addEventListener("resize", updateVerticalScrollHints, {passive:true});
   // O iframe só pode ajustar a própria altura quando a mensagem vem da janela incorporada esperada.
   window.addEventListener("message", function(event){
     var mazeFrame = document.querySelector(".maze-frame");
