@@ -68,9 +68,10 @@
                 <fieldset class="character-fieldset">
                   <legend>Tom de pele</legend>
                   <div class="tone-options">
+                    <label class="tone-option"><input type="radio" name="characterTone" value="0" checked><span class="tone-swatch tone-0" aria-hidden="true"></span><span>0 · manequim</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="1"><span class="tone-swatch tone-1" aria-hidden="true"></span><span>1 · claro</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="2"><span class="tone-swatch tone-2" aria-hidden="true"></span><span>2 · claro-médio</span></label>
-                    <label class="tone-option"><input type="radio" name="characterTone" value="3" checked><span class="tone-swatch tone-3" aria-hidden="true"></span><span>3 · médio-claro</span></label>
+                    <label class="tone-option"><input type="radio" name="characterTone" value="3"><span class="tone-swatch tone-3" aria-hidden="true"></span><span>3 · médio-claro</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="4"><span class="tone-swatch tone-4" aria-hidden="true"></span><span>4 · médio-escuro</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="5"><span class="tone-swatch tone-5" aria-hidden="true"></span><span>5 · escuro</span></label>
                     <label class="tone-option"><input type="radio" name="characterTone" value="6"><span class="tone-swatch tone-6" aria-hidden="true"></span><span>6 · muito escuro</span></label>
@@ -80,6 +81,7 @@
                 <div class="character-selects">
                   <label for="characterHair">Textura do cabelo
                     <select id="characterHair">
+                      <option value="" selected>Não definido</option>
                       <option value="liso">Liso</option>
                       <option value="ondulado">Ondulado</option>
                       <option value="cacheado">Cacheado</option>
@@ -88,6 +90,7 @@
                   </label>
                   <label for="characterHairColor">Cor do cabelo
                     <select id="characterHairColor">
+                      <option value="" selected>Não definido</option>
                       <option value="castanho">Castanho</option>
                       <option value="preto">Preto</option>
                       <option value="loiro">Loiro</option>
@@ -97,6 +100,7 @@
                   </label>
                   <label for="characterLength">Comprimento do cabelo
                     <select id="characterLength">
+                      <option value="" selected>Não definido</option>
                       <option value="curto">Curto</option>
                       <option value="medio">Médio</option>
                       <option value="longo">Longo</option>
@@ -104,6 +108,7 @@
                   </label>
                   <label for="characterGender">Gênero / apresentação visual
                     <select id="characterGender">
+                      <option value="" selected>Não definido</option>
                       <option value="feminina">Feminina</option>
                       <option value="masculina">Masculina</option>
                       <option value="androgina">Andrógina</option>
@@ -111,6 +116,7 @@
                   </label>
                   <label for="characterEyeColor">Cor dos olhos
                     <select id="characterEyeColor">
+                      <option value="" selected>Não definido</option>
                       <option value="castanhos">Castanhos</option>
                       <option value="azuis">Azuis</option>
                       <option value="verdes">Verdes</option>
@@ -119,6 +125,7 @@
                   </label>
                   <label for="characterExpression">Expressão
                     <select id="characterExpression">
+                      <option value="" selected>Não definida</option>
                       <option value="neutra">Neutra</option>
                       <option value="alegre">Alegre</option>
                       <option value="triste">Triste</option>
@@ -129,8 +136,8 @@
               <div class="character-preview">
                 <div class="avatar-frame">
                   <!-- data-* é o contrato entre controles/JS e seletores CSS; os grupos SVG são formas alternativas. -->
-                  <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="3" data-hair="liso" data-hair-color="castanho" data-length="curto" data-gender="feminina" data-eye="castanhos" data-expression="neutra">
-                    <title id="characterAvatarTitle">Personagem ilustrativo, pele médio-clara, cabelo castanho liso curto, olhos castanhos, expressão neutra</title>
+                  <svg id="characterAvatar" class="character-avatar" viewBox="0 0 100 120" role="img" aria-labelledby="characterAvatarTitle" data-tone="0" data-hair="" data-hair-color="" data-length="" data-gender="" data-eye="" data-expression="" data-clean="true">
+                    <title id="characterAvatarTitle">Manequim branco sem cabelo definido e sem expressão</title>
                     <g class="avatar-hair-style hair-straight">
                       <path class="hair-back hair-short" d="M24 51C19 27 25 9 49 8c24-1 31 19 27 43L70 68l-2-30c-6-7-12-11-18-13-7 7-15 10-23 11l2 32z"/>
                       <path class="hair-back hair-medium" d="M23 51C18 27 25 8 49 7c25-1 33 20 27 45l3 36q-4 9-11 3l-2-53c-6-7-12-11-18-13-7 7-15 10-23 11l2 55q-7 6-11-3z"/>
@@ -253,9 +260,9 @@
                     </g>
                   </svg>
                 </div>
-                <p class="character-summary" id="characterSummary" aria-live="polite">Personagem: pele médio-clara, cabelo castanho, liso e curto, olhos castanhos e expressão neutra.</p>
+                <p class="character-summary" id="characterSummary" aria-live="polite">Manequim branco pronto para ser personalizado. Sem cabelo definido e sem expressão.</p>
                 <p class="character-note">Aparência não define gênero. Cabelos têm muitas cores e texturas.</p>
-                <figure class="hair-reference">
+                <figure class="hair-reference" id="hairReference">
                   <img id="hairReferenceImage" src="assets/hair/straight.jpg" alt="Referência fotográfica de cabelo liso">
                   <figcaption>Referência de textura: <span id="hairReferenceTitle">Soft Permanent Japanese Straight</span>, por <span id="hairReferenceCreator">MirianaL</span>. <a id="hairReferenceSource" href="https://www.flickr.com/photos/41124264@N04/5865910932" target="_blank" rel="noopener">Origem</a> · <a id="hairReferenceLicense" href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>. É só um exemplo de cabelo.</figcaption>
                 </figure>

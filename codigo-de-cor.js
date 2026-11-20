@@ -82,6 +82,7 @@
   var unlockScenarioPrompt = document.getElementById("unlockScenarioPrompt");
   var stationScenarioPrompt = document.getElementById("stationScenarioPrompt");
   var hairReferenceImage = document.getElementById("hairReferenceImage");
+  var hairReference = document.getElementById("hairReference");
   var hairReferenceTitle = document.getElementById("hairReferenceTitle");
   var hairReferenceCreator = document.getElementById("hairReferenceCreator");
   var hairReferenceSource = document.getElementById("hairReferenceSource");
@@ -131,7 +132,8 @@
   };
   // Mantém a descrição, o SVG, a reflexão e o contexto de pesquisa sincronizados com os controles.
   function updateCharacter(){
-    var tone = document.querySelector('input[name="characterTone"]:checked').value;
+    var toneInput = document.querySelector('input[name="characterTone"]:checked');
+    var tone = toneInput ? toneInput.value : "0";
     var toneIndex = Number(tone) - 1;
     var hair = hairSelect.value, hairColor = hairColorSelect.value, length = lengthSelect.value, gender = genderSelect.value;
     var eyeColor = eyeColorSelect.value, expression = expressionSelect.value;
@@ -144,29 +146,53 @@
     avatar.dataset.expression = expression;
     impactPanel.dataset.tone = tone;
     bahiaResearch.dataset.tone = tone;
-    var presentation = "apresentação " + genderNames[gender];
-    var hairDescription = hairColorNames[hairColor] + ", " + hairNames[hair] + " e " + lengthNames[length];
-    var profile = "pele " + toneNames[toneIndex] + "; " + presentation + "; cabelo " + hairDescription + "; olhos " + eyeColorNames[eyeColor] + "; expressão " + expressionNames[expression];
-    var description = "pele " + toneNames[toneIndex] + ", " + presentation + ", cabelo " + hairDescription + ", olhos " + eyeColorNames[eyeColor] + " e expressão " + expressionNames[expression];
+    var isClean = tone === "0";
+    avatar.dataset.clean = isClean ? "true" : "false";
+    hairReference.hidden = isClean;
+    if(isClean){
+      avatar.querySelector("title").textContent = "Manequim branco sem cabelo definido e sem expressão";
+      characterSummary.textContent = "Manequim branco pronto para ser personalizado. Sem cabelo definido e sem expressão.";
+      characterInsight.textContent = "Neste estado, o personagem é apenas um manequim neutro. Escolha os atributos para personalizá-lo.";
+      filterScenarioPrompt.textContent = "Personalize o manequim antes de testar como os filtros podem alterar sua aparência.";
+      unlockScenarioPrompt.textContent = "Personalize o manequim antes de testar como o sistema pode reconhecer diferentes perfis.";
+      stationScenarioPrompt.textContent = "Personalize o manequim antes de observar como uma câmera pode tratar seu perfil.";
+      bahiaCharacterContext.textContent = "O manequim não representa um perfil racial ou visual específico.";
+      bahiaCharacterLimit.textContent = "Os resultados coletivos não cruzam características individuais e não permitem prever o que acontecerá com alguém.";
+      impactCopy.textContent = "Escolha um tom e outros atributos para relacionar o personagem aos cenários da atividade.";
+      return;
+    }
+    var presentation = gender ? "apresentação " + genderNames[gender] : "apresentação não definida";
+    var hairDescription = hair
+      ? hairColorNames[hairColor || "castanho"] + ", " + hairNames[hair] + " e " + lengthNames[length || "curto"]
+      : "cabelo não definido";
+    var eyeDescription = eyeColor ? eyeColorNames[eyeColor] : "não definidos";
+    var expressionDescription = expression ? expressionNames[expression] : "não definida";
+    var profile = "pele " + toneNames[toneIndex] + "; " + presentation + "; cabelo " + hairDescription + "; olhos " + eyeDescription + "; expressão " + expressionDescription;
+    var description = "pele " + toneNames[toneIndex] + ", " + presentation + ", cabelo " + hairDescription + ", olhos " + eyeDescription + " e expressão " + expressionDescription;
     characterInsight.textContent = "Pra esse perfil (" + profile + "), os testes cobrem variações de luz, cabelo, enquadramento, olhos e expressões? Gender Shades (2018) achou diferenças por pele e gênero, mas não testou esse conjunto. Serve pra cobrar uma auditoria, não pra prever alguém.";
     avatar.querySelector("title").textContent = "Personagem ilustrativo, " + description;
     characterSummary.textContent = "Personagem: " + description + ".";
-    filterScenarioPrompt.textContent = "Pele " + toneNames[toneIndex] + ", cabelo " + hairColorNames[hairColor] + " " + hairNames[hair] + ": o filtro clareia e alisa. É só brincadeira?";
-    unlockScenarioPrompt.textContent = "O celular falha com pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". Que perfis entraram nos testes?";
-    stationScenarioPrompt.textContent = "No metrô de Salvador, a câmera dá alerta contra alguém de pele " + toneNames[toneIndex] + " e apresentação " + genderNames[gender] + ". O alerta basta pra abordar?";
+    var hairPrompt = hair ? (hairColorNames[hairColor || "castanho"] + " " + hairNames[hair]) : "cabelo não definido";
+    var genderPrompt = gender ? genderNames[gender] : "apresentação não definida";
+    filterScenarioPrompt.textContent = "Pele " + toneNames[toneIndex] + ", cabelo " + hairPrompt + ": o filtro clareia e alisa. É só brincadeira?";
+    unlockScenarioPrompt.textContent = "O celular falha com pele " + toneNames[toneIndex] + " e " + genderPrompt + ". Que perfis entraram nos testes?";
+    stationScenarioPrompt.textContent = "No metrô de Salvador, a câmera dá alerta contra alguém de pele " + toneNames[toneIndex] + " e " + genderPrompt + ". O alerta basta pra abordar?";
     document.querySelectorAll("[data-scn]").forEach(function(scenario){
       scenario.querySelectorAll(".choice").forEach(function(button){ button.setAttribute("aria-pressed", "false"); });
       scenario.querySelector(".reveal").hidden = true;
     });
     var genderStudyNote = gender === "androgina" ? "A pesquisa comparou mulheres e homens; não avaliou esse visual." : "As categorias do estudo não descrevem necessariamente esse visual.";
     impactCopy.textContent = "Gender Shades (2018) testou classificação de gênero: erro de até 34,7% para mulheres de pele escura e 0,8% para homens de pele clara. " + genderStudyNote + " Não testou este perfil nem mediu cabelo, olhos ou expressão; não prevê resultado individual. Na Bahia, 90,5% das prisões monitoradas com raça informada foram de pessoas negras; o estado concentrou 52% das prisões monitoradas. Dados coletivos, não destino.";
-    var photo = hairReferences[hair];
-    hairReferenceImage.src = photo.image;
-    hairReferenceImage.alt = "Referência fotográfica de cabelo " + hairNames[hair];
-    hairReferenceTitle.textContent = photo.title;
-    hairReferenceCreator.textContent = photo.creator;
-    hairReferenceSource.href = photo.source;
-    hairReferenceLicense.href = photo.license;
+    var photo = hair ? hairReferences[hair] : null;
+    hairReference.hidden = !photo;
+    if(photo){
+      hairReferenceImage.src = photo.image;
+      hairReferenceImage.alt = "Referência fotográfica de cabelo " + hairNames[hair];
+      hairReferenceTitle.textContent = photo.title;
+      hairReferenceCreator.textContent = photo.creator;
+      hairReferenceSource.href = photo.source;
+      hairReferenceLicense.href = photo.license;
+    }
     if(toneIndex < 2){
       bahiaCharacterContext.textContent = "Esse tom não equivale às categorias raciais dos estudos. Nos casos monitorados, 90,5% das pessoas presas eram negras; a Bahia concentrou 52% das prisões. Dados coletivos, não previsão individual.";
     }else if(toneIndex > 3){

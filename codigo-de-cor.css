@@ -176,6 +176,7 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .tone-option:has(input:checked){border-color:var(--machine); box-shadow:0 0 0 2px var(--machine-soft); background:var(--machine-soft)}
 .tone-option input{accent-color:var(--machine); margin:0}
 .tone-swatch{display:block; width:2rem; height:2rem; border:1px solid var(--line); border-radius:50%}
+.tone-0{background:#fff}
 .tone-1{background:var(--t1)} .tone-2{background:var(--t2)} .tone-3{background:var(--t3)}
 .tone-4{background:var(--t4)} .tone-5{background:var(--t5)} .tone-6{background:var(--t6)}
 .character-fieldset .small{margin:.65rem 0 0}
@@ -183,7 +184,7 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .character-selects label{font-weight:700; font-size:.9rem}
 .character-selects select{display:block; width:100%; margin-top:.3rem; padding:.55rem; border:1px solid var(--line); border-radius:6px; background:var(--paper-2); color:var(--ink); font:inherit}
 .character-preview{text-align:center}
-.avatar-frame{position:relative; width:min(100%,11rem); margin:0 auto .65rem; padding:.45rem; overflow:hidden; border:2px solid var(--machine); border-radius:48% 48% 14px 14px; background:var(--machine-soft); box-shadow:inset 0 0 0 3px var(--paper), 0 5px 16px var(--card-shadow)}
+.avatar-frame{position:relative; width:min(100%,11rem); margin:0 auto .65rem; padding:.45rem; overflow:hidden; border:2px solid var(--machine); border-radius:48% 48% 14px 14px; background:#CFE8D3; box-shadow:inset 0 0 0 3px var(--paper), 0 5px 16px var(--card-shadow)}
 .avatar-frame::before{content:""; position:absolute; inset:.25rem; border:1px solid color-mix(in srgb, var(--spark) 70%, transparent); border-radius:inherit; pointer-events:none}
 .character-avatar{display:block; width:100%; height:auto; --hair-color:#4A2D25; --hair-detail-color:#A87A61; --shirt-color:#A44870; --shirt-line:#6E2948; --iris-color:#553322}
 .character-avatar[data-eye="azuis"]{--iris-color:#3979B8}
@@ -197,6 +198,16 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .character-avatar[data-tone="4"]{--hair-color:#33251F; --hair-detail-color:#654835}
 .character-avatar[data-tone="5"]{--hair-color:#29201B; --hair-detail-color:#533A2B}
 .character-avatar[data-tone="6"]{--hair-color:#201A17; --hair-detail-color:#463326}
+.character-avatar[data-tone="0"]{
+  --character-tone:#FFFFFF;
+  --feature-color:#D8D8D8;
+  --feature-soft:#E5E5E5;
+  --hair-color:transparent;
+  --hair-detail-color:transparent;
+  --shirt-color:#FFFFFF;
+  --shirt-line:#FFFFFF;
+  --iris-color:#FFFFFF;
+}
 .character-avatar[data-hair-color="castanho"]{--hair-color:#4A2D25; --hair-detail-color:#A87A61}
 .character-avatar[data-hair-color="preto"]{--hair-color:#211B1B; --hair-detail-color:#71605E}
 .character-avatar[data-hair-color="loiro"]{--hair-color:#D6AE52; --hair-detail-color:#F5DA8A}
@@ -241,6 +252,16 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .character-avatar[data-gender="feminina"] .avatar-outfit-feminina,
 .character-avatar[data-gender="masculina"] .avatar-outfit-masculina,
 .character-avatar[data-gender="androgina"] .avatar-outfit-androgina{display:block}
+.character-avatar[data-gender=""] .avatar-face-androgina{display:block}
+.character-avatar[data-clean="true"] .avatar-hair-style,
+.character-avatar[data-clean="true"] .avatar-hair-gender,
+.character-avatar[data-clean="true"] .avatar-male-hair,
+.character-avatar[data-clean="true"] .avatar-features,
+.character-avatar[data-clean="true"] .avatar-outfit,
+.character-avatar[data-clean="true"] .avatar-face-shade,
+.character-avatar[data-clean="true"] .avatar-cheek,
+.character-avatar[data-clean="true"] .avatar-ear,
+.character-avatar[data-clean="true"] .avatar-neck{display:none}
 .character-avatar[data-gender="masculina"] .avatar-hair-style{display:none}
 .character-avatar[data-gender="masculina"][data-hair="liso"] .male-straight,
 .character-avatar[data-gender="masculina"][data-hair="ondulado"] .male-wavy,
