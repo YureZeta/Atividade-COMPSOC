@@ -493,6 +493,32 @@
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
+  var verticalHintMedia = window.matchMedia("(max-width:680px)");
+  var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section"));
+  function addVerticalHint(container){
+    var hint = document.createElement("p"), arrow = document.createElement("span");
+    hint.className = "navigation-hint navigation-hint--vertical";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "↓";
+    hint.appendChild(arrow);
+    hint.appendChild(document.createTextNode(" Role para baixo para ver mais conteúdo."));
+    container.insertBefore(hint, container.firstChild);
+    return hint;
+  }
+  verticalHintPages.forEach(function(section){
+    var content = section.querySelector(".wrap, .wide");
+    if(content) section._verticalScrollHint = addVerticalHint(content);
+  });
+  var gamesHint = addVerticalHint(gamesEl.querySelector(".wrap"));
+  function updateVerticalScrollHints(){
+    var smallScreen = verticalHintMedia.matches;
+    verticalHintPages.forEach(function(section){
+      var hint = section._verticalScrollHint;
+      if(hint) hint.classList.toggle("is-visible", smallScreen && section.scrollHeight > section.clientHeight + 1);
+    });
+    gamesHint.classList.toggle("is-visible", smallScreen && !gamesEl.hidden && document.documentElement.scrollHeight > window.innerHeight + 1);
+  }
+  window.addEventListener("resize", updateVerticalScrollHints, {passive:true});
   // O iframe só pode ajustar a própria altura quando a mensagem vem da janela incorporada esperada.
   window.addEventListener("message", function(event){
     var mazeFrame = document.querySelector(".maze-frame");
@@ -508,8 +534,17 @@
     if(g){ window.scrollTo(0, 0); }
     else if(h){ var t = document.getElementById(h); if(t) setTimeout(function(){ t.scrollIntoView(); }, 40); }
     onScroll();
+    updateVerticalScrollHints();
   }
   window.addEventListener("hashchange", route); route();
+  if("ResizeObserver" in window){
+    var verticalHintObserver = new ResizeObserver(updateVerticalScrollHints);
+    verticalHintPages.forEach(function(section){
+      var content = section.querySelector(".wrap, .wide");
+      if(content) verticalHintObserver.observe(content);
+    });
+    verticalHintObserver.observe(gamesEl.querySelector(".wrap"));
+  }
 
   (function(){
     function norm(x){ return x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase(); }
