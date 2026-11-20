@@ -11,7 +11,7 @@
 - [Recursos interativos](#recursos-interativos)
 - [Como executar](#como-executar)
 - [Arquivos do projeto](#arquivos-do-projeto)
-- [Manutenção do código](#manutenção-do-código)
+- [Contrato para alterações](#contratos-para-alteracoes)
 
 ## Objetivo
 
