@@ -167,7 +167,8 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .reveal[hidden]{display:none}
 .reveal .react{font-weight:700}
 /* Personagem: JS atualiza os data-* do SVG; estes seletores escolhem variantes e cores. */
-.character-builder{display:grid; gap:1.5rem; grid-template-columns:minmax(0,1.5fr) minmax(10rem,1fr); align-items:center; border:1px solid var(--line); border-radius:10px; padding:1.25rem; background:var(--paper)}
+.character-builder{display:grid; gap:clamp(.75rem,3vw,1.5rem); grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); align-items:center; border:1px solid var(--line); border-radius:10px; padding:clamp(.75rem,3vw,1.25rem); background:var(--paper)}
+.character-controls,.character-preview{min-width:0}
 .character-controls h3{margin-bottom:.4rem}
 .character-fieldset{border:0; margin:1.2rem 0 0; padding:0}
 .character-fieldset legend{font-weight:700; margin-bottom:.5rem}
@@ -184,9 +185,9 @@ blockquote.thesis footer{font-size:.9rem; color:var(--muted); margin-top:.8rem}
 .character-selects label{font-weight:700; font-size:.9rem}
 .character-selects select{display:block; width:100%; margin-top:.3rem; padding:.55rem; border:1px solid var(--line); border-radius:6px; background:var(--paper-2); color:var(--ink); font:inherit}
 .character-preview{text-align:center}
-.avatar-frame{position:relative; width:min(100%,11rem); margin:0 auto .65rem; padding:.45rem; overflow:hidden; border:2px solid var(--machine); border-radius:48% 48% 14px 14px; background:#CFE8D3; box-shadow:inset 0 0 0 3px var(--paper), 0 5px 16px var(--card-shadow)}
+.avatar-frame{position:relative; width:min(100%,11rem); aspect-ratio:5 / 6; margin:0 auto .65rem; padding:.45rem; overflow:hidden; border:2px solid var(--machine); border-radius:48% 48% 14px 14px; background:#CFE8D3; box-shadow:inset 0 0 0 3px var(--paper), 0 5px 16px var(--card-shadow)}
 .avatar-frame::before{content:""; position:absolute; inset:.25rem; border:1px solid color-mix(in srgb, var(--spark) 70%, transparent); border-radius:inherit; pointer-events:none}
-.character-avatar{display:block; width:100%; height:auto; --hair-color:#4A2D25; --hair-detail-color:#A87A61; --shirt-color:#A44870; --shirt-line:#6E2948; --iris-color:#553322}
+.character-avatar{display:block; width:100%; height:100%; object-fit:contain; --hair-color:#4A2D25; --hair-detail-color:#A87A61; --shirt-color:#A44870; --shirt-line:#6E2948; --iris-color:#553322}
 .character-avatar[data-eye="azuis"]{--iris-color:#3979B8}
 .character-avatar[data-eye="verdes"]{--iris-color:#3F8158}
 .character-avatar[data-eye="cinzas"]{--iris-color:#707780}
@@ -536,10 +537,11 @@ footer.site h3{font-size:1.05rem; color:var(--ink); margin-top:1.6rem}
 .f-game svg{width:100%; max-height:200px}
 @media (max-width:560px){
   .character-builder{grid-template-columns:1fr}
-  .character-preview{display:grid; grid-template-columns:5.5rem 1fr; align-items:center; gap:.25rem .8rem; text-align:left}
-  .avatar-frame{width:5.5rem; grid-column:1; grid-row:1 / span 2; margin:0}
+  .character-preview{display:grid; grid-template-columns:clamp(4rem,18vw,5.5rem) minmax(0,1fr); align-items:center; gap:.25rem clamp(.5rem,3vw,.8rem); text-align:left}
+  .avatar-frame{width:100%; grid-column:1; grid-row:1 / span 2; margin:0}
   .character-summary,.character-note{grid-column:2}
-  .hair-reference{grid-column:1 / -1; display:grid; grid-template-columns:5.5rem 1fr; gap:.5rem; max-width:none; align-items:center; margin:.6rem 0 0}
+  .hair-reference{grid-column:1 / -1; display:grid; grid-template-columns:clamp(4rem,18vw,5.5rem) minmax(0,1fr); gap:.5rem; max-width:none; align-items:center; margin:.6rem 0 0}
+  .hair-reference[hidden]{display:none}
   .hair-reference img{grid-row:1; aspect-ratio:1}
   .hair-reference figcaption{margin:0}
   .character-selects{grid-template-columns:1fr}
