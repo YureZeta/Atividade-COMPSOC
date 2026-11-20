@@ -502,7 +502,9 @@
     arrow.textContent = "↓";
     hint.appendChild(arrow);
     hint.appendChild(document.createTextNode(" Role para baixo para ver mais conteúdo."));
-    container.insertBefore(hint, container.firstChild);
+    var title = container.querySelector("h1, h2");
+    if(title) title.insertAdjacentElement("afterend", hint);
+    else container.insertBefore(hint, container.firstChild);
     return hint;
   }
   verticalHintPages.forEach(function(section){
