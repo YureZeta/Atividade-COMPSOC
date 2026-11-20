@@ -493,8 +493,8 @@
 
   // abas do site (percurso x minijogos)
   var percEl = document.getElementById("percurso"), gamesEl = document.getElementById("minijogos"), vlinks = document.querySelectorAll(".views a");
-  var verticalHintMedia = window.matchMedia("(max-width:680px)");
-  var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section:not(#inicio)"));
+  var refsButton = document.getElementById("refsBtn");
+  var verticalHintPages = Array.prototype.slice.call(document.querySelectorAll("#percurso > section"));
   function addVerticalHint(container){
     var hint = document.createElement("p"), arrow = document.createElement("span");
     hint.className = "navigation-hint navigation-hint--vertical";
@@ -513,12 +513,12 @@
   });
   var gamesHint = addVerticalHint(gamesEl.querySelector(".wrap"));
   function updateVerticalScrollHints(){
-    var smallScreen = verticalHintMedia.matches;
+    var showHints = window.getComputedStyle(refsButton).display !== "none";
     verticalHintPages.forEach(function(section){
       var hint = section._verticalScrollHint;
-      if(hint) hint.classList.toggle("is-visible", smallScreen && section.scrollHeight > section.clientHeight + 1);
+      if(hint) hint.classList.toggle("is-visible", showHints);
     });
-    gamesHint.classList.toggle("is-visible", smallScreen && !gamesEl.hidden && document.documentElement.scrollHeight > window.innerHeight + 1);
+    gamesHint.classList.toggle("is-visible", showHints && !gamesEl.hidden);
   }
   window.addEventListener("resize", updateVerticalScrollHints, {passive:true});
   // O iframe só pode ajustar a própria altura quando a mensagem vem da janela incorporada esperada.
@@ -539,14 +539,6 @@
     updateVerticalScrollHints();
   }
   window.addEventListener("hashchange", route); route();
-  if("ResizeObserver" in window){
-    var verticalHintObserver = new ResizeObserver(updateVerticalScrollHints);
-    verticalHintPages.forEach(function(section){
-      var content = section.querySelector(".wrap, .wide");
-      if(content) verticalHintObserver.observe(content);
-    });
-    verticalHintObserver.observe(gamesEl.querySelector(".wrap"));
-  }
 
   (function(){
     function norm(x){ return x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase(); }
